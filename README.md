@@ -110,4 +110,5 @@ L1 の学習はすべて固定 L0 相手であり、L2 はそのうち construct
 現在のチェックポイントは推論・評価用に転送できますが、環境/RNG/履歴を含む厳密な学習再開は未実装です。
 旧 NestRL 実装や著者のチェックポイントとの互換性はありません。
 
-このリポジトリには remote を設定していません。旧 NestRL の共有リポジトリへは push していません。
+専用の共有先は [kei-student/re-NestRL](https://github.com/kei-student/re-NestRL) です。
+旧 NestRL の共有リポジトリは使用しません。

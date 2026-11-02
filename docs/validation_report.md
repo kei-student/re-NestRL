@@ -65,7 +65,8 @@ SHA-256が一致**しました。環境・実装hashを後から追加したた�
 | 環境・peer・上流ソースmanifest | `315e2fd71de5ffbc39ed90a73d8a5c589c7245aae35fe77a5d0774c193de2628` |
 | 実装ソース一式 | `18ce5843ee2c780094bc753809c3d8be2a2b284636fcefab2a90154d227dc627` |
 
-ブランチは `codex/from-paper`。旧NestRLのremoteは引き継いでおらず、push先は未設定です。
+初回検証のブランチは `codex/from-paper`。旧NestRLのremoteは引き継いでいません。
+その後、ユーザー指定の専用共有先 `https://github.com/kei-student/re-NestRL.git` を設定しました。
 環境ソースまたは設定のhashが異なるcheckpointは読み込みを拒否します。
 旧実装・著者モデルとのcheckpoint互換性はありません。
 
