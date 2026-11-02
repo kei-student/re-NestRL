@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "re-nestrl"
+version = "0.1.0"
+description = "Independent, evidence-tracked reconstruction of NestRL (arXiv:2602.17737v2)"
+requires-python = ">=3.12,<3.13"
+dependencies = ["numpy>=2.0,<3", "torch>=2.5,<3"]
+
+[project.scripts]
+nestrl = "nestrl_research.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]

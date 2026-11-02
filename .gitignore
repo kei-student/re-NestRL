@@ -1,0 +1,10 @@
+.venv/
+external/
+outputs/
+tmp/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.DS_Store
+nestRL.pdf
+.coverage

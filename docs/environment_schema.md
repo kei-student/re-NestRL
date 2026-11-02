@@ -1,0 +1,114 @@
+# Cooking environment reconstruction
+
+The immutable PACE implementation at commit
+`f008c19aa743ec209550375c9ee9c25379ac8b24` supplies `CookingWorld`, object
+classes, collision/interact/chop/merge dynamics and recipe graphs. A private
+module loader executes those unchanged sources without importing their legacy
+gym/PettingZoo package initializer or adding aliases to `sys.modules`.
+NestRL-specific layout, observations and orchestration live under
+`src/nestrl_research`; no upstream file is modified.
+
+## Layout and termination
+
+The fixed layout is reconstructed from Figure 1 of the supplied paper. Coordinates
+are zero-based `(x, y)`, with x increasing to the right and y increasing downward.
+It is 7 columns by 8 rows. Floors occupy x in `{1,2,4,5}`, y in `{1,...,6}`;
+all other cells are counters, with the following replacements and objects:
+
+| Object | Position |
+|---|---|
+| Left chopping board | (0,4) |
+| Right chopping board | (5,7) |
+| Delivery | (6,3) |
+| Shared plate | (3,3) |
+| Lettuce / Tomato / Potato | (0,3) / (0,1) / (0,2) |
+| Onion / Carrot / Broccoli | (6,4) / (6,5) / (6,6) |
+| Chef 0 / Chef 1 | (2,5) / (5,5) |
+
+The PACE agent constructor initializes both chefs facing left. The divider at
+x=3 is impassable. Only the paper's main-text recipes are enabled:
+`LettuceOnionSalad`, `TomatoCarrotSalad`, and `PotatoBroccoliSalad`. Other
+ingredient pairings from Appendix B.2 are intentionally excluded, as requested.
+The environment terminates when one permitted recipe is delivered and truncates
+at 40 simultaneous steps otherwise. A completion at step 40 is a termination.
+
+Actions retain PACE semantics: `0=wait`, `1=left`, `2=right`, `3=down`, `4=up`,
+`5=interact`. A directional action changes orientation even when the destination
+is a counter. Interacting with raw food on a board chops it once; interacting
+again picks it up. Food must be chopped before merging into a plate. The two
+actions are submitted together and resolved by the upstream world.
+
+## Shared reward
+
+The PACE reward procedure is retained with all ingredient desires set to one:
+0.5 for a previously unrewarded `(chef, held object, held state)` interaction,
+1.0 for each newly completed recipe-graph node, and 10.0 for delivery completion.
+The largest per-recipe reward is shared by the two chefs. Chopping, plating and
+plate contents use the upstream recipe graphs, including their nested Plate
+nodes; changing an earlier achieved state can produce negative progress reward.
+Picking up an unchanged object repeatedly by the same chef cannot repeat its
+0.5 bonus. A different chef or a newly chopped/filled state is a distinct
+interaction, matching PACE. The paper specifies no step penalty, so `step_cost`
+defaults to **0.0**; the separate upstream experiment YAML's 0.2 is not inherited.
+
+## Observation schema
+
+Schema identifier: `pace_dense_partial_93_plus_reserved12_v1`.
+`reset(seed)` returns a float32 `(2,105)` array. No recipe identifier is appended.
+`step((a0,a1))` returns `(obs, shared_reward, terminated, truncated, info)`;
+`info` includes `success`, completed `recipe` (otherwise null), `events`, and `t`.
+
+Appendix B.1 states a 105-dimensional partial observation but does not publish
+indices, visibility geometry, masking, or the initialization details. PACE's
+checked-in 105-dimensional partial configuration describes a **different**
+7-by-13 layout with nine food objects and one chopping board. Applying PACE's
+same dense partial feature formula to Figure 1's six foods and two chopping
+boards yields **93** dimensions. Consequently this reconstruction keeps those
+93 meaningful features and reserves the final 12 values as zero. It does not
+invent undocumented features to fill the discrepancy. Exact observation-level
+equivalence to the paper is **unverified**.
+
+Visibility is reconstructed as the chef's own side of the vertical divider plus
+the divider itself: x<=3 for chef 0, x>=3 for chef 1. This differs from the
+upstream large-map YAML's horizontal y-based visibility split and is an explicit
+Figure 1 adaptation. Hidden positions, directions and food states are zeroed,
+and their visibility flags are zero. Local held/front/adjacency features retain
+the PACE definitions.
+
+The following half-open ranges are zero-based:
+
+| Indices | Feature |
+|---|---|
+| [0,36) | 12 position triples `(x/7,y/8,visible)` |
+| [36,46) | Own then peer orientation: four one-hot values + visibility |
+| [46,58) | Six food pairs `(chopped,visible)` |
+| [58,62) | Adjacent non-floor static objects: east,south,west,north |
+| [62,69) | Held types: Tomato,Lettuce,Onion,Plate,Carrot,Potato,Broccoli |
+| [69,75) | Held food done flags: Tomato,Lettuce,Onion,Carrot,Potato,Broccoli |
+| [75,87) | Front types: Counter,CutBoard,DeliverSquare,Tomato,Lettuce,Onion,Plate,Agent,Blender,Carrot,Potato,Broccoli |
+| [87,93) | Front food done flags in the same food order |
+| [93,105) | Reserved zeros |
+
+Position triples are ordered: own chef, other chef, left board, right board,
+delivery, plate, Lettuce, Tomato, Potato, Onion, Carrot, Broccoli. Own position is
+absolute; all others are relative to the observing chef. Food-state pairs follow
+Lettuce,Tomato,Potato,Onion,Carrot,Broccoli. Orientation order is left,right,down,up.
+Plate contents additionally activate their ingredient held-type/done features.
+
+## Recipe peers and validation
+
+`ScriptedPeer(recipe, agent_id, seed, random_action_probability)` is a new level-0
+recipe-expert reconstruction. It uses breadth-first search over floor positions
+and orientations. Each chef prepares its own side's ingredient and puts it in
+the shared plate; the right chef delivers only after both correct ingredients
+are present. It has no training or access to previous NestRL implementations.
+An optional seeded random action probability supplies an explicit diversity
+parameter; the deterministic expert uses zero. Against one another, the experts
+complete LO/TC/PB in 16/19/17 steps, with shared returns of 16.5 respectively.
+The paper does not publish these exact peer controllers, so peer-policy
+equivalence is also unverified.
+
+Tests check all three recipes with both side controllers, partial visibility,
+reserved slots, shared chopping rewards, repeated pickup bonuses, invalid recipe
+delivery, unprepared food, no-op truncation, seed reproducibility, and isolation
+from legacy package imports.

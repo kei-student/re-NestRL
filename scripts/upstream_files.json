@@ -1,0 +1,8 @@
+{
+  "environment/overcooked/gym_cooking/cooking_book/recipe.py": "a9b9f768734963741fa09981e14cabb6f9f5928b2534499ea73f09dede77ea86",
+  "environment/overcooked/gym_cooking/cooking_book/recipe_drawer.py": "7073cb599b0ccf2d170a29a5e407eab1c5161290dd870027f391bc66ee62fe7d",
+  "environment/overcooked/gym_cooking/cooking_world/abstract_classes.py": "fcbd674aabfa7d620c190567859f6e1d7d80e5a82b4faa02d32a5a3394f47459",
+  "environment/overcooked/gym_cooking/cooking_world/constants.py": "2369ff84e10fd74431e26f6419823d043a2722ba13381c5f285987b58bed328a",
+  "environment/overcooked/gym_cooking/cooking_world/cooking_world.py": "acbd3aaad23f30c27663981f682139d232b23d0abf9928df6025cfce2c64d14c",
+  "environment/overcooked/gym_cooking/cooking_world/world_objects.py": "0c3325988dbec39cf9f23cf668b2037b9f5bd313112a07a95c19b606f7bdc0a9"
+}
