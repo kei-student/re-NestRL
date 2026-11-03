@@ -76,6 +76,9 @@ class RolloutCollector:
         self.episode_return = np.zeros(config.num_envs)
         self.episode_steps = np.zeros(config.num_envs, dtype=np.int64)
         self.episodes = []
+        # Replay at most one episode to rebuild PACE's dynamically loaded objects.
+        # Pickling those objects would depend on process-local module identities.
+        self.action_history = [[] for _ in self.envs]
 
     @torch.no_grad()
     def collect(self):
@@ -99,6 +102,7 @@ class RolloutCollector:
                 joint[self.ego_side] = int(actions[index])
                 joint[1 - self.ego_side] = int(partner_actions[index])
                 observation_next, reward, terminated, truncated, info = env.step(joint)
+                self.action_history[index].append(joint)
                 done = bool(terminated or truncated)
                 self.episode_return[index] += reward
                 self.episode_steps[index] += 1
@@ -113,6 +117,7 @@ class RolloutCollector:
                         self.in_round[index] = 0
                     self.episode_return[index] = self.episode_steps[index] = 0
                     observation_next = env.reset(seed=int(self.rng.integers(2**31)))
+                    self.action_history[index] = []
                 self.observations[index] = observation_next
                 rewards.append(reward)
                 dones.append(done)
@@ -129,3 +134,50 @@ class RolloutCollector:
                             self.previous.unsqueeze(0), self.starts.unsqueeze(0), self.hidden, self.resets.unsqueeze(0))
         self.episodes.extend(completed)
         return {key: torch.stack(value) for key, value in data.items()}, output["values"][0], completed
+
+    def state_dict(self):
+        """Portable state at a completed rollout/update boundary (no pickle code)."""
+        arrays = ("observations", "in_round", "episode_return", "episode_steps")
+        tensors = ("hidden", "previous", "starts", "resets")
+        return {
+            "arrays": {name: torch.from_numpy(getattr(self, name).copy()) for name in arrays},
+            "tensors": {name: getattr(self, name).detach().cpu().clone() for name in tensors},
+            "rng": self.rng.bit_generator.state,
+            "episodes": self.episodes,
+            "environments": [{"seed": env.seed, "actions": actions} for env, actions in
+                             zip(self.envs, self.action_history)],
+            "partners": {
+                "indices": torch.from_numpy(self.partners.indices.copy()),
+                "tensors": {name: getattr(self.partners, name).detach().cpu().clone() for name in tensors},
+                "scripts": [{"recipe": peer.recipe, "agent_id": peer.agent_id, "seed": peer.seed,
+                             "random_action_probability": peer.random_action_probability,
+                             "rng": peer.rng.bit_generator.state} for peer in self.partners.scripts],
+            },
+        }
+
+    def load_state_dict(self, state):
+        if len(state["environments"]) != len(self.envs):
+            raise ValueError("Checkpoint environment count differs")
+        for index, (env, saved) in enumerate(zip(self.envs, state["environments"])):
+            observation = env.reset(seed=saved["seed"])
+            for actions in saved["actions"]:
+                observation, _, _, _, _ = env.step(actions)
+            if not np.array_equal(observation, state["arrays"]["observations"][index].numpy()):
+                raise ValueError("Checkpoint environment replay differs")
+        self.action_history = [[list(actions) for actions in saved["actions"]]
+                               for saved in state["environments"]]
+        for name, value in state["arrays"].items():
+            setattr(self, name, value.numpy().copy())
+        for name, value in state["tensors"].items():
+            setattr(self, name, value.to(self.device).clone())
+        self.rng.bit_generator.state = state["rng"]
+        self.episodes = state["episodes"]
+        self.partners.indices = state["partners"]["indices"].numpy().copy()
+        for name, value in state["partners"]["tensors"].items():
+            setattr(self.partners, name, value.to(self.device).clone())
+        self.partners.scripts = []
+        for saved in state["partners"]["scripts"]:
+            peer = ScriptedPeer(saved["recipe"], saved["agent_id"], saved["seed"],
+                                saved["random_action_probability"])
+            peer.rng.bit_generator.state = saved["rng"]
+            self.partners.scripts.append(peer)

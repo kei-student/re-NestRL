@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import argparse
 import json
+import signal
+import threading
 from pathlib import Path
 
 import torch
@@ -28,6 +30,11 @@ def main(argv=None):
             command_parser.add_argument("--split", default="construction", choices=("construction", "validation", "test"))
             command_parser.add_argument("--seed", type=int)
             command_parser.add_argument("--run-id")
+            command_parser.add_argument("--resume", action="store_true", help="Resume the latest CPU training snapshot")
+            command_parser.add_argument("--checkpoint-every", type=int, default=None,
+                                        help="Save every N PPO updates (CPU default: 1; 0 disables recovery)")
+            command_parser.add_argument("--max-updates", type=int,
+                                        help="Pause this invocation after N updates, keeping the full experiment budget")
         if command == "evaluate":
             command_parser.add_argument("--checkpoint", type=Path, required=True)
             command_parser.add_argument("--partner-level", default="l1", choices=("l0", "l1"))
@@ -44,7 +51,17 @@ def main(argv=None):
     if args.command == "registry":
         print(json.dumps({"registry_sha256": ensure_registry(config, output_root), "config_sha256": config.sha256}))
     elif args.command == "train":
-        print(train(config, output_root, args.stage, device, split=args.split, seed=args.seed, run_id=args.run_id))
+        stop = threading.Event()
+        recovery_enabled = device.type == "cpu" and args.checkpoint_every != 0
+        previous = ({sig: signal.signal(sig, lambda *_: stop.set()) for sig in (signal.SIGTERM, signal.SIGINT)}
+                    if recovery_enabled else {})
+        try:
+            print(train(config, output_root, args.stage, device, split=args.split, seed=args.seed, run_id=args.run_id,
+                        resume=args.resume, checkpoint_every=args.checkpoint_every, max_updates=args.max_updates,
+                        stop_requested=stop.is_set))
+        finally:
+            for sig, handler in previous.items():
+                signal.signal(sig, handler)
     elif args.command == "evaluate":
         print(json.dumps(evaluate(config, output_root, args.checkpoint, device, partner_level=args.partner_level,
                                   split=args.split, run_id=args.run_id, deterministic=args.deterministic), indent=2))

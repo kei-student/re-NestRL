@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+import os
 import random
 import time
 from pathlib import Path
@@ -10,12 +11,13 @@ from pathlib import Path
 import numpy as np
 import torch
 
-from .artifacts import atomic_json, file_hash, freeze_manifest, load_checkpoint, new_run, runtime_metadata
+from .artifacts import atomic_json, file_hash, freeze_manifest, load_checkpoint, runtime_metadata
 from .config import ExperimentConfig, RECIPES, SCHEMA
 from .model import RecurrentActorCritic
 from .ppo import compute_gae, ppo_update
 from .provenance import source_metadata
 from .rollout import RolloutCollector
+from .recovery import training_run, save_resume, load_resume, restore_rng, recover_metrics
 
 
 def seed_all(seed: int) -> None:
@@ -78,10 +80,19 @@ def load_l1_pool(config, output_root, split, device):
     return models, provenance
 
 
-def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, split="construction", seed=None, run_id=None):
+def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, split="construction", seed=None, run_id=None,
+          resume=False, checkpoint_every=None, max_updates=None, stop_requested=None):
     if stage not in ("l1", "l2", "generalist"):
         raise ValueError("Supported training stages: l1, l2, generalist")
     config.validate()
+    device = torch.device(device)
+    checkpoint_every = (1 if device.type == "cpu" else 0) if checkpoint_every is None else checkpoint_every
+    if checkpoint_every < 0 or (max_updates is not None and max_updates < 1):
+        raise ValueError("Invalid checkpoint/update interval")
+    if (resume or max_updates is not None) and not checkpoint_every:
+        raise ValueError("Resume/limited training requires periodic checkpoints")
+    if checkpoint_every and device.type != "cpu":
+        raise ValueError("Exact training recovery currently supports CPU only; use --checkpoint-every 0")
     source = source_metadata()
     output_root = Path(output_root)
     registry_hash = ensure_registry(config, output_root)
@@ -103,16 +114,39 @@ def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, sp
     partner_models, provenance = (load_l1_pool(config, output_root, "construction", device) if stage == "l2" else (None, []))
     from .artifacts import save_checkpoint
     start_time = time.monotonic()
-    with new_run(output_root, run_id) as directory:
+    with training_run(output_root, run_id, resume=resume) as directory:
         metadata = {**source, "run_id": run_id, "stage": stage, "split": split, "seed": seed, "ego_side": ego_side,
                     "config_sha256": config.sha256, "registry_sha256": registry_hash,
                     "training_partners": provenance or [{"id": f"l0-{1-ego_side}-{recipe}", "frozen": True} for recipe in RECIPES],
-                    "runtime": runtime_metadata(str(device)), "resumable": False}
-        atomic_json(directory / "config.json", config.to_dict())
-        atomic_json(directory / "run.json", metadata)
+                    "runtime": runtime_metadata(str(device)), "resumable": bool(checkpoint_every)}
+        metadata["runtime"]["torch"] = str(metadata["runtime"]["torch"])
+        if not resume:
+            atomic_json(directory / "config.json", config.to_dict())
+            atomic_json(directory / "run.json", metadata)
         collector = RolloutCollector(config, model, ego_side, seed + 100_000, device, partner_models)
-        with (directory / "metrics.jsonl").open("x", encoding="utf-8") as stream:
-            for update in range(config.total_steps // config.batch_size):
+        first_update, previous_elapsed = 0, 0.0
+        if resume:
+            state = load_resume(directory, metadata)
+            first_update, previous_elapsed = state["update"], state["elapsed_seconds"]
+            if not 0 <= first_update <= config.total_steps // config.batch_size:
+                raise ValueError("Invalid checkpoint update budget")
+            model.load_state_dict(state["model"])
+            optimizer.load_state_dict(state["optimizer"])
+            collector.load_state_dict(state["collector"])
+            recover_metrics(directory, first_update)
+            restore_rng(state["rng"])
+            # Preserve the original run identity; append a separate recovery event.
+            with (directory / "resumes.jsonl").open("a", encoding="utf-8") as events:
+                events.write(json.dumps({"from_update": first_update, "time_unix": time.time()}) + "\n")
+        start_time = time.monotonic()
+        for marker in ("failure.json", "paused.json"):
+            (directory / marker).unlink(missing_ok=True)
+        with (directory / "metrics.jsonl").open("a" if resume else "x", encoding="utf-8") as stream:
+            if checkpoint_every and not resume:
+                stream.flush()
+                os.fsync(stream.fileno())
+                save_resume(directory, model, optimizer, collector, metadata, 0, 0.0)
+            for update in range(first_update, config.total_steps // config.batch_size):
                 model.eval()
                 batch, bootstrap, episodes = collector.collect()
                 batch["advantages"], batch["returns"] = compute_gae(batch["rewards"], batch["old_values"], batch["dones"],
@@ -121,12 +155,23 @@ def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, sp
                 metrics = ppo_update(model, optimizer, batch, config.ppo)
                 metrics.update({"update": update + 1, "steps": (update + 1) * config.batch_size, "episodes": len(episodes),
                                 "success_rate": sum(e["success"] for e in episodes) / len(episodes) if episodes else None,
-                                "elapsed_seconds": time.monotonic() - start_time})
+                                "elapsed_seconds": previous_elapsed + time.monotonic() - start_time})
                 stream.write(json.dumps(metrics, allow_nan=False) + "\n")
                 stream.flush()
                 print(json.dumps({"run_id": run_id, **metrics}, allow_nan=False), flush=True)
+                stopping = ((max_updates is not None and update + 1 - first_update >= max_updates)
+                            or (stop_requested is not None and stop_requested()))
+                if checkpoint_every and ((update + 1) % checkpoint_every == 0 or stopping
+                                         or update + 1 == config.total_steps // config.batch_size):
+                    os.fsync(stream.fileno())
+                    pointer = save_resume(directory, model, optimizer, collector, metadata, update + 1,
+                                          previous_elapsed + time.monotonic() - start_time)
+                    if stopping and update + 1 < config.total_steps // config.batch_size:
+                        atomic_json(directory / "paused.json", {"update": update + 1, "steps": metrics["steps"]})
+                        return pointer
         atomic_json(directory / "episodes.json", collector.episodes)
         checkpoint = save_checkpoint(directory, model, optimizer, {**metadata, "steps": config.total_steps})
         atomic_json(directory / "complete.json", {"checkpoint": "checkpoints/final.pt", "sha256": file_hash(checkpoint),
-                                                 "steps": config.total_steps, "elapsed_seconds": time.monotonic() - start_time})
+                                                 "steps": config.total_steps,
+                                                 "elapsed_seconds": previous_elapsed + time.monotonic() - start_time})
     return checkpoint
