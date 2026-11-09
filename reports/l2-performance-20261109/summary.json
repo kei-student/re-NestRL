@@ -1,0 +1,213 @@
+{
+  "date": "2026-11-09",
+  "executor": "環境C",
+  "model_seeds": [
+    401,
+    402,
+    403,
+    404,
+    405,
+    406,
+    407,
+    408
+  ],
+  "evaluation": {
+    "rounds_per_partner": 10,
+    "episodes_per_round": 5,
+    "horizon": 40,
+    "seed": 1501,
+    "action_selection": "stochastic",
+    "recurrent_state": "retained between episodes; both models reset per round",
+    "weight_updates": false,
+    "expected_episodes": 4400,
+    "completed_episodes": 4400,
+    "completed_rounds": 880,
+    "trace_steps": 154845,
+    "elapsed_seconds_approx": 210,
+    "checkpoint_files_verified_unchanged": 16
+  },
+  "model_results": [
+    {
+      "seed": 401,
+      "fixed_L0": {
+        "successes": 1,
+        "episodes": 150,
+        "rate": 0.006666666666666667
+      },
+      "construction_L1": {
+        "successes": 375,
+        "episodes": 400,
+        "rate": 0.9375
+      }
+    },
+    {
+      "seed": 402,
+      "fixed_L0": {
+        "successes": 1,
+        "episodes": 150,
+        "rate": 0.006666666666666667
+      },
+      "construction_L1": {
+        "successes": 369,
+        "episodes": 400,
+        "rate": 0.9225
+      }
+    },
+    {
+      "seed": 403,
+      "fixed_L0": {
+        "successes": 3,
+        "episodes": 150,
+        "rate": 0.02
+      },
+      "construction_L1": {
+        "successes": 313,
+        "episodes": 400,
+        "rate": 0.7825
+      }
+    },
+    {
+      "seed": 404,
+      "fixed_L0": {
+        "successes": 2,
+        "episodes": 150,
+        "rate": 0.013333333333333334
+      },
+      "construction_L1": {
+        "successes": 167,
+        "episodes": 400,
+        "rate": 0.4175
+      }
+    },
+    {
+      "seed": 405,
+      "fixed_L0": {
+        "successes": 32,
+        "episodes": 150,
+        "rate": 0.21333333333333335
+      },
+      "construction_L1": {
+        "successes": 166,
+        "episodes": 400,
+        "rate": 0.415
+      }
+    },
+    {
+      "seed": 406,
+      "fixed_L0": {
+        "successes": 7,
+        "episodes": 150,
+        "rate": 0.04666666666666667
+      },
+      "construction_L1": {
+        "successes": 375,
+        "episodes": 400,
+        "rate": 0.9375
+      }
+    },
+    {
+      "seed": 407,
+      "fixed_L0": {
+        "successes": 8,
+        "episodes": 150,
+        "rate": 0.05333333333333334
+      },
+      "construction_L1": {
+        "successes": 171,
+        "episodes": 400,
+        "rate": 0.4275
+      }
+    },
+    {
+      "seed": 408,
+      "fixed_L0": {
+        "successes": 24,
+        "episodes": 150,
+        "rate": 0.16
+      },
+      "construction_L1": {
+        "successes": 167,
+        "episodes": 400,
+        "rate": 0.4175
+      }
+    }
+  ],
+  "aggregate": {
+    "fixed_L0": {
+      "successes": 78,
+      "episodes": 1200,
+      "rate": 0.065,
+      "complete_round_successes": 1,
+      "rounds": 240,
+      "episode_position_successes": [
+        23,
+        13,
+        12,
+        13,
+        17
+      ],
+      "episode_position_denominator": 240,
+      "recipe_counts": {
+        "LettuceOnionSalad": 67,
+        "TomatoCarrotSalad": 0,
+        "PotatoBroccoliSalad": 11
+      }
+    },
+    "construction_L1": {
+      "successes": 2103,
+      "episodes": 3200,
+      "rate": 0.6571875,
+      "complete_round_successes": 334,
+      "rounds": 640,
+      "episode_position_successes": [
+        367,
+        424,
+        430,
+        440,
+        442
+      ],
+      "episode_position_denominator": 640,
+      "recipe_counts": {
+        "LettuceOnionSalad": 909,
+        "TomatoCarrotSalad": 0,
+        "PotatoBroccoliSalad": 1194
+      }
+    }
+  },
+  "scope": {
+    "L2_training_release_id": 438779737,
+    "L1_release_id": 433508587,
+    "L1_partner_seeds": [
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111
+    ],
+    "L1_partners_were_seen_in_training": true,
+    "held_out_generalization_evaluated": false,
+    "paper_observation_equivalence_verified": false
+  },
+  "artifacts": {
+    "release_id": 438811508,
+    "release_url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-5edae42b2712b1421f89",
+    "release_draft": true,
+    "zip_asset_id": 726504924,
+    "zip_bytes": 1283278,
+    "zip_sha256": "ac3e23f30967d5488ed932a21f1d42f5b5cd59654c29a0701a284ecf1497eb0c",
+    "csv_asset_id": 726505047,
+    "protocol_asset_id": 726505180
+  },
+  "controller_github_access": {
+    "read": true,
+    "branch_creation": true,
+    "file_creation": true,
+    "read_back_verified": true,
+    "branch": "codex/l2-evaluation-20261109-07f696",
+    "protocol_commit": "0a5eeea0553d317c0191e486d1f4d2925e4d7033"
+  },
+  "validation_note": "Counts transcribed mechanically from environment C's final table and aggregate counts recomputed by controller. C independently reconciled completion events with every episode and compressed action trace; controller verified release asset names/sizes/digests via GitHub API. Per-position success counts reconstructed from C's reported percentages and known denominators."
+}
