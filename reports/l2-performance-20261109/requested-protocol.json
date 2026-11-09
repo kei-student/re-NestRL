@@ -1,0 +1,61 @@
+{
+  "record_kind": "requested evaluation protocol; actual execution protocol will be reported separately",
+  "date": "2026-11-09",
+  "repository": "kei-student/re-NestRL",
+  "controller": "re-NestRL local chat",
+  "executor": "環境C",
+  "L2_release_id": 438779737,
+  "L2_seeds": [
+    401,
+    402,
+    403,
+    404,
+    405,
+    406,
+    407,
+    408
+  ],
+  "L1_release_id": 433508587,
+  "L1_seeds": [
+    104,
+    105,
+    106,
+    107,
+    108,
+    109,
+    110,
+    111
+  ],
+  "conditions": [
+    {
+      "name": "fixed_L0",
+      "partners": [
+        "LettuceOnionSalad",
+        "TomatoCarrotSalad",
+        "PotatoBroccoliSalad"
+      ],
+      "rounds_per_partner": 10,
+      "episodes_per_round": 5,
+      "episodes_per_L2": 150
+    },
+    {
+      "name": "construction_L1",
+      "partner_count": 8,
+      "rounds_per_partner": 10,
+      "episodes_per_round": 5,
+      "episodes_per_L2": 400,
+      "training_partner_overlap": true
+    }
+  ],
+  "expected_primary_episodes": 4400,
+  "episode_horizon": 40,
+  "evaluation_seed": 1501,
+  "action_selection": "stochastic",
+  "partner_fixed_within_round": true,
+  "policy_memory": "retain across physical episodes; reset both policies at round boundary",
+  "weight_updates": false,
+  "checkpoint_sha_before_after_required": true,
+  "primary_success": "valid recipe delivered within horizon",
+  "held_out_L1_generalization": "not established by evaluation on construction partners",
+  "extra_training_authorized": false
+}
