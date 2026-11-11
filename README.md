@@ -72,7 +72,8 @@ python -m nestrl_research pipeline --config configs/smoke.json --output-root out
 
 5個の L1（construction 2 / validation 1 / test 2）、L2、Generalist を順に学習し、
 validation / test L1 と固定 L0 で評価します。各方策160環境ステップ、各相手2ラウンド×5エピソードです。
-**性能評価用の学習量ではありません。** 同じ出力先の実行済み run ID は上書き・再開できません。
+**性能評価用の学習量ではありません。** 完了済み run ID は上書き・再開できません。
+CPUの未完了runは、途中保存があれば `train --resume` で再開できます。
 
 ## 長期学習用の設定
 
@@ -107,8 +108,14 @@ L1 の学習はすべて固定 L0 相手であり、L2 はそのうち construct
 評価の `protocol.json` / `summary.json` / `episodes.json` / `traces.jsonl` は、評価条件と全行動を残します。
 
 異なるバックエンドで同じrunを継続せず、新しい出力先とrun IDを使用してください。
-現在のチェックポイントは推論・評価用に転送できますが、環境/RNG/履歴を含む厳密な学習再開は未実装です。
+CPU学習では既定で各PPO更新後に環境/RNG/履歴を含む再開用状態を保存します。
+クラウドでチャットから独立して起動する方法と途中再開の条件は
+[クラウドCPU学習と復旧](docs/cloud_training.md) を参照してください。
+最終 `checkpoints/final.pt` 単体は推論・評価用です。学習再開には `resume/` を含むrun全体が必要です。
 旧 NestRL 実装や著者のチェックポイントとの互換性はありません。
+
+今回学習した8体のL1を凍結して相手に使う準備と、L2の短い動作確認は
+[L2試作の準備](docs/l2_prototype.md) にまとめています。
 
 専用の共有先は [kei-student/re-NestRL](https://github.com/kei-student/re-NestRL) です。
 旧 NestRL の共有リポジトリは使用しません。
