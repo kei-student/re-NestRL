@@ -18,6 +18,8 @@
 各タスクの指示からconfig/CLI引数へ落とし込んで保存する。A/Cは仮の名称で、恒久的な実験フローを定めない。
 `paper.json`、`paper-eight-l1.json`や過去の140更新は既存条件であり、将来の実験の既定値ではない。
 条件が変わる実験は新しいconfig/run IDで始め、既存のモデル・manifest・実行記録を書き換えない。
+CLIで条件を上書きする場合はbase configと上書き値を含む実効条件JSONを作り、記録用の
+`--config`へ渡す。学習器の内部config hashと実効条件hashを区別し、元configも保持する。
 
 実行記録は、明示的なコマンドを渡して作成できる。
 
@@ -63,3 +65,25 @@ Aで検証した実行ソースはcommit `e8433ffb2332e2b964e0d026d3d139b4ccbdf4
 現行のrecovery実装の検査を通し、同じ条件/backendでだけresumeする。
 この基盤整備では`src/nestrl_research`、科学的config、既存checkpoint形式を変更しない。
 稼働中のC1〜C4とその監視・割当は変更しない。
+
+## 新しいタスクへの引き継ぎ
+
+基盤を選んだ後、source branch/commit、一意な実験ID、config/CLI条件、手法・相手・split・seed、
+予算と停止条件、backend/並列数、評価条件、保存先Draftを今回の指示として指定する。
+prepared filesystemのGit状態を実行元と決めつけず、指定sourceをclean checkoutへ取得してstart検査する。
+不足する科学的条件を基盤の過去設定から補って本学習を開始しない。
+完了時は実行記録とmodel/manifest/latest/recoveryを保存し、再取得hashとモデル読み込みを確認する。
+L1の内部run IDはregistryで `l1-<split>-<seed>` に固定されるため、任意の`--run-id`を指定しない。
+実験全体の一意性は`--output-root`と記録用wrapperのIDで確保し、内部IDとnamespaceを両方保存する。
+詳細な[依頼テンプレート](https://github.com/kei-student/NestRL/blob/codex/cloud-workflow-20261111/docs/cloud_workflow.md#新しい実験を依頼するとき)は研究用repoの共通運用文書を参照する。
+
+## 2026-11-11の構築確認
+
+`53d82cda076d6aec59a503111db69be2a6210c3c` をLinuxで空の専用.venvから構築できた。
+Python3.12.14、NumPy2.5.4、PyTorch2.15.0+cpu、start・pip check・clean preflight成功。
+67 unit tests中65件成功・2件skip。PACE6ソースと歴史src14ファイルのhash一致を確認した。
+新環境名は `re-NestRL-repro-base`。GitHubへの実pushとremote SHA照合、Draftへの保存・再取得・
+hash照合・同じassetの再利用まで成功し、基盤を公開した。
+新しいC `6af47527-2218-8191-9453-e1469d5290ac` でパイプライン・保存復元・旧モデル推論ロードと、
+CPUでの80→160stepsの復元resume確認も完了した。[受け入れ記録](cloud_acceptance_20261111.md)を参照。
+既存のre-NestRL環境・C1〜C4は変更していない。

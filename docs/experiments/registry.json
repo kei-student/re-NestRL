@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "updated_on": "2026-11-11",
-  "purpose": "Historical experiment register; not defaults for future experiments.",
+  "purpose": "Historical and engineering experiment register; not defaults for future experiments.",
   "source_mapping_note": "Release target_commit is not proof of the executed dirty source. Keep historical source snapshots and separate recovered-source commits.",
   "environment_note": "A/C names are temporary. Current C1-C4 operations remain owned by their existing controller.",
   "experiments": [
@@ -206,6 +206,82 @@
         "A completed asset name alone is not an independent verification of training or transfer"
       ],
       "historical_config_file": "configs/history/paper-l1-112-127.json"
+    },
+    {
+      "experiment_id": "RE-CLOUD-ACCEPTANCE-20261111",
+      "repository": "kei-student/re-NestRL",
+      "kind": "engineering_acceptance",
+      "status": "archive_download_model_load_and_exact_cpu_resume_verified",
+      "cloud_thread_id": "6af47527-2218-8191-9453-e1469d5290ac",
+      "environment_profile": "re-NestRL-repro-base",
+      "environment_config_id": "30ff4574-de30-42ef-822b-d0dffe75bec2~asenvcfg_7c9c2cab795481919b5f95e2ceb3be52",
+      "source_commit": "53d82cda076d6aec59a503111db69be2a6210c3c",
+      "source_manifest_sha256": "106fcf4a96b484dfb661b4717d1cc68c6ae54cb665bc94521d1833b8f0809d66",
+      "source_snapshot_files": 31,
+      "config_sha256": "451e0b0fc1e5485188ab36dc2050089e735cabd084c42a473226ba2cbae16f28",
+      "config_file_sha256": "425d3728469028e57a16e65927f4a4563c385fa44782f3c28a71c20bb112696a",
+      "pipeline_wrapper_conditions_sha256": "f5ca104137569d692e8f93323fd3142cec60ace80a11201baf56880422c9ed79",
+      "backend": "cpu",
+      "threads": 1,
+      "pipeline_training_runs": 7,
+      "updates_per_model": 2,
+      "steps_per_model": 160,
+      "release_ids": [
+        441776236
+      ],
+      "transfer_manifest_asset_id": 735740420,
+      "transfer_manifest_sha256": "695b6752a5d48d3bbe2ca5584bed04ad727be4fe9817a36042c456537e998c0b",
+      "archive_sha256": "21f7411e2082e5f3f816677abb46cc26455cd5d9a4572ad27db117767b0a75c3",
+      "archive_download_verified": true,
+      "all_seven_final_models_strict_load_verified": true,
+      "restored_frozen_pools_verified": true,
+      "exact_resume_verified": true,
+      "historical_model_inference_load": {
+        "model": "L2-seed401",
+        "asset_id": 726376755,
+        "archive_sha256": "7e38895e9d11e19adb65b32c257a75ce78422462e8c87133c65e8c1b6819fc39",
+        "strict_load_verified": true,
+        "training_resume_tested": false
+      },
+      "limitations": [
+        "Engineering smoke only; no scientific performance claim or future budget default",
+        "Exact recovery verified only for this new CPU smoke run and matching runtime; old L2 seed401 was inference-only",
+        "Invalid custom L1 ID attempt was rejected before updates; successful retry retained the canonical registry ID in independent output-root namespaces"
+      ],
+      "resume_verification": {
+        "internal_run_id": "l1-construction-11",
+        "namespace": "outputs/cloud-acceptance-retry-20261111-140826",
+        "pause_updates": 1,
+        "pause_steps": 80,
+        "completed_updates": 2,
+        "completed_steps": 160,
+        "paused_manifest_asset_id": 735752265,
+        "paused_manifest_sha256": "f3419ecc82f319b4f0878bbfdcfdf9c3ed888e4bcac937d9a0780f9a5b5904e2",
+        "paused_archive_sha256": "5d0962fa0005ab01c5ba26548b17bb152524fd7787ffcf1ca220248c10528888",
+        "final_manifest_asset_id": 735753319,
+        "final_manifest_sha256": "d5004cf4296da3249ab1b62c50863f144126aedc4de4fe09ed59d28968de2b96",
+        "final_archive_sha256": "2dc0b300f86f569cfd95994d4779f09118620a8072f465f2f03a16d70f80289b",
+        "wrapper_conditions_sha256": "2433ca7a7667633b14985a81595670e2ec86f664a917650263da61b71df20934",
+        "restored_files_verified": 191,
+        "uninterrupted_comparison": {
+          "model": true,
+          "optimizer": true,
+          "rng": true,
+          "collector": true,
+          "numeric_metrics": true,
+          "episodes": true,
+          "excluded": [
+            "elapsed time",
+            "resume events"
+          ]
+        },
+        "download_and_strict_load_verified": true,
+        "report_asset_id": 735754673,
+        "report_sha256": "3d6fcb5de4412968078e189f556f755a88a06165622032fa441f4e8c5a3032e9",
+        "report_transfer_manifest_asset_id": 735754761,
+        "report_transfer_manifest_sha256": "fb93b9e15844569354b9fdf65c00caa319c6feca57575b23687ab7a451eaa1bb"
+      },
+      "verification_report": "../cloud_acceptance_20261111.md"
     }
   ],
   "release_snapshots": [
@@ -1174,6 +1250,168 @@
         }
       ],
       "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 441776236,
+      "name": "Cloud engineering acceptance cloud-acceptance-20261111-140241",
+      "tag": "cloud-acceptance-20261111-140241",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-49b993c26f4f17403789",
+      "draft": true,
+      "release_target_commit": "main",
+      "metadata_observed_on_utc": "2026-11-11",
+      "assets": [
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.part001",
+          "asset_id": 735752827,
+          "bytes": 2500000,
+          "sha256": "1d2fbdef632bc268fb4e2095a3a472e65cdbbb0479ef96179d2165a0f7655311"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.part002",
+          "asset_id": 735752940,
+          "bytes": 2500000,
+          "sha256": "306a49bd8e160c59a755f4ab6e30c403d8c7fe70049c6389ecf74d92d22cd927"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.part003",
+          "asset_id": 735753038,
+          "bytes": 2500000,
+          "sha256": "df7a1ab948554e51780feab6915a39bd4b70d63dd3ae97db0fd312066104cc0b"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.part004",
+          "asset_id": 735753128,
+          "bytes": 2500000,
+          "sha256": "fc28abd039524d17acdfa015f0afedccfa880646fec41483e9affb79999c41ac"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.part005",
+          "asset_id": 735753232,
+          "bytes": 249796,
+          "sha256": "c0dac5d6dcbd2df86013128ee89f8c5ba426cbf95d6cde2e94814ad1ba6e7232"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-final.zip.parts.json",
+          "asset_id": 735753319,
+          "bytes": 1482,
+          "sha256": "d5004cf4296da3249ab1b62c50863f144126aedc4de4fe09ed59d28968de2b96"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-paused.zip",
+          "asset_id": 735752160,
+          "bytes": 1915217,
+          "sha256": "5d0962fa0005ab01c5ba26548b17bb152524fd7787ffcf1ca220248c10528888"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-paused.zip.parts.json",
+          "asset_id": 735752265,
+          "bytes": 512,
+          "sha256": "f3419ecc82f319b4f0878bbfdcfdf9c3ed888e4bcac937d9a0780f9a5b5904e2"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-report.json",
+          "asset_id": 735754673,
+          "bytes": 4728,
+          "sha256": "3d6fcb5de4412968078e189f556f755a88a06165622032fa441f4e8c5a3032e9"
+        },
+        {
+          "name": "cloud-acceptance-retry-20261111-140826-report.json.parts.json",
+          "asset_id": 735754761,
+          "bytes": 508,
+          "sha256": "fb93b9e15844569354b9fdf65c00caa319c6feca57575b23687ab7a451eaa1bb"
+        },
+        {
+          "name": "final-bundle.zip.part001",
+          "asset_id": 735738217,
+          "bytes": 2500000,
+          "sha256": "d47f4a36f5bfab2f605a65b21ad442965415e14feb3f896a6c00b8156ee756c1"
+        },
+        {
+          "name": "final-bundle.zip.part002",
+          "asset_id": 735738430,
+          "bytes": 2500000,
+          "sha256": "23a2cbfc951ce251d816536fc21f2e505d2b0dd6d2687196b4d2c132fec25e38"
+        },
+        {
+          "name": "final-bundle.zip.part003",
+          "asset_id": 735738562,
+          "bytes": 2500000,
+          "sha256": "a32cababa18531de35a14c7780257a8963957e4a9c9280e0fe344d140d20bde9"
+        },
+        {
+          "name": "final-bundle.zip.part004",
+          "asset_id": 735738717,
+          "bytes": 2500000,
+          "sha256": "3c59480da60b12d1e6b778880bbde34765e2e5879407f44b31165450b1fdce5e"
+        },
+        {
+          "name": "final-bundle.zip.part005",
+          "asset_id": 735739116,
+          "bytes": 2500000,
+          "sha256": "0f61c5c452d30b7d704e57ff6e83691099937ea6d6d9ef3dff23b82c1072b997"
+        },
+        {
+          "name": "final-bundle.zip.part006",
+          "asset_id": 735739293,
+          "bytes": 2500000,
+          "sha256": "5906736891790ed194b8a018efe4021d25d95a53ab1448e4887c6cec76e6d70b"
+        },
+        {
+          "name": "final-bundle.zip.part007",
+          "asset_id": 735739473,
+          "bytes": 2500000,
+          "sha256": "6ae2073d583c7fcd89e56ba02edbd3ee310d08ecfc74c7197eae27ea460db550"
+        },
+        {
+          "name": "final-bundle.zip.part008",
+          "asset_id": 735739599,
+          "bytes": 2500000,
+          "sha256": "e53362bed939c03eb73b204811a852f940141478e7a4dee34e65a083c707aa4d"
+        },
+        {
+          "name": "final-bundle.zip.part009",
+          "asset_id": 735739791,
+          "bytes": 2500000,
+          "sha256": "5848d79f7a6ef96c48c22031e5fcc1ac22a42f7857b6d1ccf7410eb22ace47dc"
+        },
+        {
+          "name": "final-bundle.zip.part010",
+          "asset_id": 735739957,
+          "bytes": 2500000,
+          "sha256": "a639219f98daca6917e0497c277e50d2d89be230c0f8ef551ea17b53e7e8a32a"
+        },
+        {
+          "name": "final-bundle.zip.part011",
+          "asset_id": 735740108,
+          "bytes": 2500000,
+          "sha256": "105cfd6a1028f688b564e80f1c807810fd56f4f86870ccd5bd9097e59b70679c"
+        },
+        {
+          "name": "final-bundle.zip.part012",
+          "asset_id": 735740256,
+          "bytes": 1157382,
+          "sha256": "72a0a4a30a3c516cf9aeafdab8edff22dfc1d0e801518495b63f52604f49159f"
+        },
+        {
+          "name": "final-bundle.zip.parts.json",
+          "asset_id": 735740420,
+          "bytes": 2757,
+          "sha256": "695b6752a5d48d3bbe2ca5584bed04ad727be4fe9817a36042c456537e998c0b"
+        },
+        {
+          "name": "final-report.zip",
+          "asset_id": 735742902,
+          "bytes": 7449,
+          "sha256": "0b380d31dd1771fd82809d167897a53a44448be7e2f29d0f3bee1c4b2043c23f"
+        },
+        {
+          "name": "final-report.zip.parts.json",
+          "asset_id": 735743023,
+          "bytes": 440,
+          "sha256": "0cc977b947205280aafceae071e7438d893c62d9e95cdc12b0fc3d1594c40c37"
+        }
+      ]
     }
   ],
   "related_research_registry": "https://github.com/kei-student/NestRL/blob/codex/cloud-workflow-20261111/docs/experiments/registry.json"

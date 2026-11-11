@@ -54,3 +54,15 @@ then the exact `+cpu` wheel. Artifact reconstruction atomically refuses a destin
 created during download. Learning and checkpoint compatibility are unchanged.
 Upload requests accept the JSON asset response while sending binary data;
 octet-stream Accept is reserved for downloads.
+
+Published re-NestRL-repro-base and verified a fresh Cloud task at 53d82cd.
+The smoke pipeline completed seven models (two updates/160 steps each), their
+evaluations, Draft upload/download, all model/manifest/latest checks and frozen
+pool restoration. Historical L2 seed401 also passed inference-only strict load.
+Using the canonical L1 registry ID in distinct output-root namespaces, a paused
+80-step state was downloaded and resumed to 160 steps. Model, optimizer, RNG,
+collector state, numeric metrics and episodes matched uninterrupted execution
+(excluding time and resume events). Re-downloaded the final bundle and verified
+all 191 files plus strict model loading. An earlier invalid-ID instruction was
+rejected before updates; its failure record was preserved. No learning source,
+scientific config, checkpoint format or compatibility was changed.

@@ -2,6 +2,8 @@
 
 正本は[registry.json](registry.json)。既存L1 104〜111、L2 401〜408、11月9日のL2評価、
 別チャット管理下のL1 112〜127を登録した。これは過去の条件の記録であり、将来の実験の既定値ではない。
+新Cでの短いpipeline・保存復元・CPU resume検証も `RE-CLOUD-ACCEPTANCE-20261111` として別枠で登録した。
+[受け入れ記録](../cloud_acceptance_20261111.md)に実施範囲と保存manifest/hashを記載している。
 
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。

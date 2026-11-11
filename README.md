@@ -4,6 +4,7 @@
 A/Cは仮の名称です。install/startは環境検査だけで、手法・seed・更新回数・評価はその都度指定します。
 元Aの実行ソースはcommit `e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad`へ保全済みです。
 既存の学習・性能評価は[実験台帳](docs/experiments/README.md)で確認できます。
+[新Cの受け入れ記録](docs/cloud_acceptance_20261111.md)には保存・復元・CPU再開の実検証をまとめています。
 
 
 [NestRL: A Nested Training Regime for Mutual Adaptation in Human-AI Teaming](https://arxiv.org/html/2602.17737v2)
@@ -11,8 +12,8 @@ A/Cは仮の名称です。install/startは環境検査だけで、手法・seed
 を根拠にしています。以前のローカル NestRL 実装・設定・チェックポイントは使用していません。
 このフォルダ自体が独立した Git リポジトリです。
 
-現時点では **学習・評価パイプラインの動作確認まで完了**しています。論文の性能値の
-再現は未達です。長期学習、人実験、PACE / LIAM / LIAMX / LILI の比較実装は未実施です。
+L1/L2の長期学習・評価の記録は実験台帳に登録済みです。論文の性能値の
+再現は未達です。人実験、PACE / LIAM / LIAMX / LILI の比較実装は未実施です。
 
 ## 実装内容
 
