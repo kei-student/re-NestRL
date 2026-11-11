@@ -1,0 +1,20 @@
+{
+  "schema_version": 1,
+  "profile": "re-NestRL-repro-base",
+  "repository": "kei-student/re-NestRL",
+  "python": "3.12",
+  "virtual_environment": ".venv",
+  "dependency_constraints": "constraints/cloud-cpu-py312.txt",
+  "install_command": "sh scripts/setup_cloud.sh",
+  "start_command": "sh scripts/start_cloud.sh",
+  "pace_commit": "f008c19aa743ec209550375c9ee9c25379ac8b24",
+  "storage": {
+    "provider": "github-releases",
+    "repository": "kei-student/re-NestRL",
+    "release_state": "draft",
+    "credential_environment_variable": "RELEASE_GITHUB_TOKEN",
+    "verify_after_download": true,
+    "replace_existing_assets": false
+  },
+  "experiment_parameters": "Supplied for each task; no training command or budget is part of this profile."
+}

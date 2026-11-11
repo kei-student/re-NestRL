@@ -1,5 +1,10 @@
 # re-NestRL
 
+共通の環境・GitHub保存方法と、実験ごとに変える条件は[Cloud基盤の手順](docs/cloud_base.md)を参照してください。
+A/Cは仮の名称です。install/startは環境検査だけで、手法・seed・更新回数・評価はその都度指定します。
+元Aの実行ソースはcommit `e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad`へ保全済みです。
+
+
 [NestRL: A Nested Training Regime for Mutual Adaptation in Human-AI Teaming](https://arxiv.org/html/2602.17737v2)
 の **新規・独立した再構成実装**です。ユーザー提供の `nestRL.pdf` と arXiv v2
 を根拠にしています。以前のローカル NestRL 実装・設定・チェックポイントは使用していません。

@@ -34,3 +34,14 @@
 The smoke profile exercises the complete execution path and does not establish
 successful task learning or the paper's performance claims. See `validation_report.md`
 for executed checks and local artifacts.
+
+## 2026-11-11 — reproducible base and per-experiment configuration
+
+Preserved the original A/C dirty source bytes in commit e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad.
+Its 33-file manifest matches 7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e.
+Added Python3.12 runtime constraints, install/start validation, per-command source/config/runtime recording,
+and immutable multipart GitHub Draft Release upload/download with read-back verification.
+Pinned declared NumPy2.5.4 and PyTorch2.15.0 to the already verified runtime; experiments supply their own
+method/partners/seeds/budget/evaluation. Install/start does not launch or resume training.
+No learning/environment source, historical scientific config, checkpoint format, or compatibility changed.
+Existing C1-C4 runs and controller were not modified. Historical source/model manifests remain unchanged.
