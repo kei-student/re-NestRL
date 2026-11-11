@@ -1,0 +1,81 @@
+{
+  "schema": "cloud-foundation-validation-v1",
+  "snapshot_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+  "snapshot_full_file_comparison": {
+    "count": 43,
+    "passed": true
+  },
+  "historical_runtime_files": {
+    "count": 22,
+    "passed": true
+  },
+  "comparison_to_20261109": {
+    "expected_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+    "matches": true,
+    "added": [],
+    "removed": [],
+    "changed": []
+  },
+  "setup": "Fresh dedicated .venv installed successfully; same setup script rerun successfully; no training/resume in setup/start.",
+  "dependency_constraints": "requirements/constraints-cpu-py312.txt",
+  "python": "3.12.14",
+  "packages": {
+    "torch": "2.15.0+cpu",
+    "numpy": "2.5.4",
+    "setuptools": "78.1.0",
+    "filelock": "4.2.4",
+    "fsspec": "2026.9.0",
+    "sympy": "1.14.0",
+    "networkx": "3.7",
+    "Jinja2": "3.1.6",
+    "MarkupSafe": "3.0.3",
+    "mpmath": "1.3.0",
+    "typing_extensions": "4.16.0"
+  },
+  "workspace_auto_allow_dirty": {
+    "status": "ok",
+    "python": "3.12.14",
+    "torch": "2.15.0+cpu",
+    "device": "cpu",
+    "upstream_source_files_verified": 6,
+    "scripted_recipe_steps": {
+      "LettuceOnionSalad": 16,
+      "TomatoCarrotSalad": 19,
+      "PotatoBroccoliSalad": 17
+    },
+    "config_sha256": {
+      "paper": "adb7e5ce6b32308185a2f1595e9c84a0557a4aba0331d3cdd99fe50087ca91a2",
+      "smoke": "451e0b0fc1e5485188ab36dc2050089e735cabd084c42a473226ba2cbae16f28"
+    }
+  },
+  "unittest": {
+    "tests": 66,
+    "skipped": 2,
+    "passed": 64,
+    "failed": 0,
+    "docker_integration": "not enabled; existing opt-in tests skipped"
+  },
+  "compatibility": {
+    "legacy_final_models_strict_cpu_loaded": 16,
+    "synthetic_actions": "passed",
+    "checkpoint_bytes_unchanged": true,
+    "existing_resume_read_only_validation": {
+      "run": "l2-499",
+      "update": 1,
+      "sha256": "8721f53f2e76f716a930049327f1156a8e9ab96dd416bba34f8396fdaeb4f480",
+      "runtime_source_gates": "passed",
+      "training_resumed": false
+    },
+    "strict_cpu_trajectory_resume": "L1 and L2 unit tests compare uninterrupted/resumed model/optimizer and collector/RNG states without tolerance; same tested CPU runtime only."
+  },
+  "config_sha256": {
+    "paper.json": "adb7e5ce6b32308185a2f1595e9c84a0557a4aba0331d3cdd99fe50087ca91a2",
+    "smoke.json": "451e0b0fc1e5485188ab36dc2050089e735cabd084c42a473226ba2cbae16f28",
+    "paper-eight-l1.json": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939"
+  },
+  "paper_eight_l1_registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e",
+  "real_github_transfer_test": "Performed separately after commit on a new source-only Draft; see external verification report.",
+  "scientific_core_changed": false,
+  "C1_C4_accessed": false,
+  "long_training_started": false
+}

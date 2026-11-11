@@ -5,8 +5,23 @@
 を根拠にしています。以前のローカル NestRL 実装・設定・チェックポイントは使用していません。
 このフォルダ自体が独立した Git リポジトリです。
 
-現時点では **学習・評価パイプラインの動作確認まで完了**しています。論文の性能値の
-再現は未達です。長期学習、人実験、PACE / LIAM / LIAMX / LILI の比較実装は未実施です。
+L1/L2の学習・評価成果物はGitHub Draft Releasesへ保存済みです。これは独立した
+再構成実験であり、論文の性能値の再現、人実験、PACE / LIAM / LIAMX / LILIの
+比較実装が完了したことを意味しません。過去成果物とソースの対応は
+[provenance/legacy-artifact-map.json](provenance/legacy-artifact-map.json)を参照してください。
+
+## 環境基盤と実験条件
+
+固定基盤はPython・依存関係、GitHub接続、実行記録、成果物の保存・復元です。
+手法・相手・seed・更新数・予算・評価方法は各実験のconfigとCLI引数で指定します。
+同じrunの条件を書き換えて再開せず、新しい条件は新runとして記録します。
+現在の再構成coreで対応する科学的条件の範囲と、将来の研究用実装は区別します。
+
+Cloudの準備は `bash scripts/setup_cpu.sh`、新しいセッションの検査は
+`bash scripts/start_checks.sh` です。どちらも学習の開始・resumeを行いません。
+GitHubの指定SHAからの再構成、実効設定・コードhashの記録、stdlibのみの保存utilityは
+[復元と保存の手順](docs/cloud_reconstruction.md)にまとめています。
+以下のpaper/smoke設定とseed・予算は既存profileの説明であり、環境テンプレートの固定条件ではありません。
 
 ## 実装内容
 
@@ -85,7 +100,7 @@ Table 3 の batch=72,000、4 epochs、18 minibatches と他のPPO条件を使用
 L1 は construction 3 / validation 1 / test 5 の9個です。
 L1・L2・Generalist の **各方策10,080,000ステップ、合計110,880,000ステップ**を要します。
 この予算・construction数・seed値は論文未記載のため、この実装で固定した条件です。
-CPUでこの長期学習は起動していません。
+この段落の予算は既存paper profileの値であり、過去の全実験や将来の実験へ一律に適用しません。
 
 段階ごとの実行も可能です。
 

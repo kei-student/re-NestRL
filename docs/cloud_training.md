@@ -1,5 +1,15 @@
 # クラウドCPU学習と復旧
 
+## 基盤と実験指示の境界
+
+新規環境の再構成・記録・GitHub保存の基盤は
+[cloud_reconstruction.md](cloud_reconstruction.md)を参照してください。
+本書のseed・ジョブ数・更新上限・予算は既存profileを使う例であり、Cloudの固定条件ではありません。
+実際の手法・相手・seed・予算・評価方法は、その実験のconfig/manifest/CLIで指定します。
+install/startは検査だけを行い、学習やresumeは自動実行しません。
+マシンA/CやMac/Windowsの分担は暫定的で、環境基盤が強制する恒久的役割ではありません。
+新しい条件には新しいrunを用意し、過去のrun/registry/model manifestは変更しません。
+
 クラウド内のDockerデーモンが学習コンテナを管理します。起動コマンドや
 チャットの実行セッションから独立し、Macのスリープやクライアントの切断に
 依存しません。ただし、クラウドのマシン自体が停止すれば学習も停止します。

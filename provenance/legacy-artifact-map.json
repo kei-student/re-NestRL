@@ -1,0 +1,502 @@
+{
+  "schema": "legacy-artifact-source-map-v1",
+  "original_A_git_head": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+  "original_A_dirty_source_manifest_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+  "restoration_snapshot_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+  "artifacts": [
+    {
+      "release_id": 433508587,
+      "stage": "l1",
+      "model_manifest_source": "Release438811508 checksummed evaluation archive / references, cross-checked with each model release index",
+      "source_index_asset": {
+        "release_id": 433508587,
+        "name": "model-index.json",
+        "sha256": "37da5461c99df5a4e3c43af4747ec902a9a78c916486ac96ac123d51d30e9609"
+      },
+      "recorded_index_source_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "restoration_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+      "restoration_scope": "All recorded core implementation sources and config; L2 archived launch/preparation scripts also match. Not a claim that this commit was HEAD when training ran.",
+      "implementation_source_sha256": "09b147743155a1c8f80c1df5b61f31142bc80a2f776e5d2dac00facce12eddee",
+      "runtime_git_head": "Not recorded in checkpoint manifest; original checkout context must not be substituted for execution HEAD.",
+      "source_archives": [],
+      "models": [
+        {
+          "seed": 104,
+          "checkpoint_sha256": "1365888be58977d3a5750f6a42c2fa6cf9bfc3230f72e4afc84e8e21caaed029",
+          "checkpoint_manifest_sha256": "dafe196c280c19d591af63568094a9f1f723bb88f3a65b260a7f0010206f7d2a",
+          "run_id": "l1-construction-104",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "47663796c18e",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 105,
+          "checkpoint_sha256": "2288c9f9f066b74e434884214f3ed81c3cb0af7fb9540848bbb29e1a161d49b9",
+          "checkpoint_manifest_sha256": "a69756979d2a57fc4f0f7b8f4bd4225305b9f86f835e0b0140201224fbcd1f09",
+          "run_id": "l1-construction-105",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "cd1265d7c9cb",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 106,
+          "checkpoint_sha256": "ef6ed0a622ca480a5cdf3a0ad6b42d7559c4d320cc000ee5694f4b50ce64e979",
+          "checkpoint_manifest_sha256": "01a2af25765aa4cd9ae394c2bf9144d02ec6c1dc2baabb4541da83b69547a0ff",
+          "run_id": "l1-construction-106",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "e11198607be7",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 107,
+          "checkpoint_sha256": "7b118e14687c05cdf11d58df591956c3b908b760551b3d645cbfe38f13540770",
+          "checkpoint_manifest_sha256": "f85bce972cea77ae395c0a6acc0774f1dc7be1fa0eab63e6626478454eb93f32",
+          "run_id": "l1-construction-107",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "0feb0fba4331",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 108,
+          "checkpoint_sha256": "8b62657c89707dc8fd0a355cf6ae99701d033f4cdfd502e711db92e59f3352b2",
+          "checkpoint_manifest_sha256": "9a2512e7a0192a3dd69ceefab0285f6b2471bc115911397584d75ee2cf4a0065",
+          "run_id": "l1-construction-108",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "b8451b50f62e",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 109,
+          "checkpoint_sha256": "9d2e1a257bc6a3865d6c297c33d460c715687529107281d97e93850bf2def01f",
+          "checkpoint_manifest_sha256": "4cad1cda2e9fd30486cab21db3769b8c6717bf096c2e1eccc5d6be570aeb1ed9",
+          "run_id": "l1-construction-109",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "a56a2c770a3b",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 110,
+          "checkpoint_sha256": "b26f07a240d3feadb7a047cddd47dff8348de7f68354abffa902e0ed7ecfcd68",
+          "checkpoint_manifest_sha256": "1efe4b7e002e2a98adddf0150dfe5e74a114b6b6797fcb1223a1fbb86279da6b",
+          "run_id": "l1-construction-110",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "f352ede1f8ee",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 111,
+          "checkpoint_sha256": "1b1b8c3b2064273d4ba52f626522d2c5ad06249fa78247082e2ba76d461ea21f",
+          "checkpoint_manifest_sha256": "1ca189ff6b7a6dc895fcd65faf153f9b0b6986be4142780ae604c9b0738bbd93",
+          "run_id": "l1-construction-111",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "05e3df6ff18f",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        }
+      ]
+    },
+    {
+      "release_id": 438779737,
+      "stage": "l2",
+      "model_manifest_source": "Release438811508 checksummed evaluation archive / references, cross-checked with each model release index",
+      "source_index_asset": {
+        "release_id": 438779737,
+        "name": "model-index.json",
+        "sha256": "55debe0cc1a6ced5b33656cdfd813879f10737b2ba998ef8b17a7a8b8e166560"
+      },
+      "recorded_index_source_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "restoration_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+      "restoration_scope": "All recorded core implementation sources and config; L2 archived launch/preparation scripts also match. Not a claim that this commit was HEAD when training ran.",
+      "implementation_source_sha256": "09b147743155a1c8f80c1df5b61f31142bc80a2f776e5d2dac00facce12eddee",
+      "runtime_git_head": "Not recorded in checkpoint manifest; original checkout context must not be substituted for execution HEAD.",
+      "source_archives": [
+        {
+          "name": "l2-eight-cpu-20261109-001-B1-source.zip",
+          "sha256": "97951b00020ee7075ec79de1be763bcab090fc85eae7ce926ba8606b4f121e40",
+          "snapshot_paths_verified": [
+            "src/nestrl_research/__init__.py",
+            "src/nestrl_research/__main__.py",
+            "src/nestrl_research/artifacts.py",
+            "src/nestrl_research/cli.py",
+            "src/nestrl_research/config.py",
+            "src/nestrl_research/environment.py",
+            "src/nestrl_research/evaluation.py",
+            "src/nestrl_research/model.py",
+            "src/nestrl_research/peers.py",
+            "src/nestrl_research/pipeline.py",
+            "src/nestrl_research/ppo.py",
+            "src/nestrl_research/provenance.py",
+            "src/nestrl_research/recovery.py",
+            "src/nestrl_research/rollout.py",
+            "scripts/cloud_train.py",
+            "scripts/prepare_l2.py",
+            "configs/paper-eight-l1.json"
+          ]
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B2-training-source.zip",
+          "sha256": "268cc4e837016e44f8f955f66bff091efe5f518e554424aaab62176bb9ffc43e",
+          "snapshot_paths_verified": [
+            "src/nestrl_research/__init__.py",
+            "src/nestrl_research/__main__.py",
+            "src/nestrl_research/artifacts.py",
+            "src/nestrl_research/cli.py",
+            "src/nestrl_research/config.py",
+            "src/nestrl_research/environment.py",
+            "src/nestrl_research/evaluation.py",
+            "src/nestrl_research/model.py",
+            "src/nestrl_research/peers.py",
+            "src/nestrl_research/pipeline.py",
+            "src/nestrl_research/ppo.py",
+            "src/nestrl_research/provenance.py",
+            "src/nestrl_research/recovery.py",
+            "src/nestrl_research/rollout.py",
+            "scripts/cloud_train.py",
+            "scripts/prepare_l2.py",
+            "configs/paper-eight-l1.json"
+          ]
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B3-verified-sources.zip",
+          "sha256": "00cdca13cc8bea5afe621a4a92da53fea898e7f2dc72399954fd57a579374523",
+          "snapshot_paths_verified": [
+            "src/nestrl_research/__init__.py",
+            "src/nestrl_research/__main__.py",
+            "src/nestrl_research/artifacts.py",
+            "src/nestrl_research/cli.py",
+            "src/nestrl_research/config.py",
+            "src/nestrl_research/environment.py",
+            "src/nestrl_research/evaluation.py",
+            "src/nestrl_research/model.py",
+            "src/nestrl_research/peers.py",
+            "src/nestrl_research/pipeline.py",
+            "src/nestrl_research/ppo.py",
+            "src/nestrl_research/provenance.py",
+            "src/nestrl_research/recovery.py",
+            "src/nestrl_research/rollout.py",
+            "scripts/cloud_train.py",
+            "scripts/prepare_l2.py",
+            "configs/paper-eight-l1.json"
+          ]
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-verified-source.zip",
+          "sha256": "9ede501f4070f3f733b86ce5c2f25e39036bcc9c5600b4db1091955a3f0d5d11",
+          "snapshot_paths_verified": [
+            "src/nestrl_research/__init__.py",
+            "src/nestrl_research/__main__.py",
+            "src/nestrl_research/artifacts.py",
+            "src/nestrl_research/cli.py",
+            "src/nestrl_research/config.py",
+            "src/nestrl_research/environment.py",
+            "src/nestrl_research/evaluation.py",
+            "src/nestrl_research/model.py",
+            "src/nestrl_research/peers.py",
+            "src/nestrl_research/pipeline.py",
+            "src/nestrl_research/ppo.py",
+            "src/nestrl_research/provenance.py",
+            "src/nestrl_research/recovery.py",
+            "src/nestrl_research/rollout.py",
+            "scripts/cloud_train.py",
+            "scripts/prepare_l2.py",
+            "configs/paper-eight-l1.json"
+          ]
+        }
+      ],
+      "models": [
+        {
+          "seed": 401,
+          "checkpoint_sha256": "d685a24d62bc7231d6da945fa51cb11ce771479011ff36beb5b6bcc98f6c53fe",
+          "checkpoint_manifest_sha256": "2051fb7f7e076bdf67af613c2cd01067b40c10f3c75fe148b1048eb6de9866d0",
+          "run_id": "l2-401",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "754cd8e96a6b",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 402,
+          "checkpoint_sha256": "09bd27b8dbbd4e65992f9aa5273fa1d0451449cb76edb97b1c485db56dc5aacc",
+          "checkpoint_manifest_sha256": "08c016617ab0a9531e246301f95f57994e93d22366804c7fee5fbb522d7d5759",
+          "run_id": "l2-402",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "cc7e9923f4d5",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 403,
+          "checkpoint_sha256": "eb0b2edc6d060593e10aadc10ca98be70d7bfec52384cdbc40b979033ad577d8",
+          "checkpoint_manifest_sha256": "adb01930f8bfba7904fb2d47ac3c88fc19a3760f9fa5c10af546c075d9957f08",
+          "run_id": "l2-403",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "011df6e8e6ba",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 404,
+          "checkpoint_sha256": "b49023261adfdc4b05d47ad7c0d11cdc2699f458d53ea987d35029ed548eb583",
+          "checkpoint_manifest_sha256": "7f28e6d438629edec8a9a51d1be53804078d4b2f6107e4877ee1252ca9ef229e",
+          "run_id": "l2-404",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "7481ae16b5fe",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 405,
+          "checkpoint_sha256": "714a1c860136912fad0284793fbf9f9b47d15e7bced9d8f29cbfd9474cb58ee1",
+          "checkpoint_manifest_sha256": "12f1a262c8fe77fd969bbcf39677a0a57635afc4f6892f0754c94887422ac686",
+          "run_id": "l2-405",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "50d885627509",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 406,
+          "checkpoint_sha256": "58cba05fd92ac2abc7ff2156ffd9db047d7f88416032d06461dd6da988738e36",
+          "checkpoint_manifest_sha256": "63db037712ce430e5345d4e739d2eb8579e03bc462420f08eeb24b78b12d279c",
+          "run_id": "l2-406",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "c7823b276b41",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 407,
+          "checkpoint_sha256": "9a0a8d249c8d04136016143c1c5d665174e40059dfb70e99699107726d738732",
+          "checkpoint_manifest_sha256": "de08042ac4131aaad33f2cb8d20787aeb305e961b5cda11ee31d887263df2216",
+          "run_id": "l2-407",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "6105a7c2cd63",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        },
+        {
+          "seed": 408,
+          "checkpoint_sha256": "6fd5cca3b563a588412cf82e6f15e746c1cb514d4045ad0ce86849ac1ca68e6e",
+          "checkpoint_manifest_sha256": "fb933693e575677dd7cfb77ba7d6fefaa43aa08f06e8959a8fb5a217c1244d99",
+          "run_id": "l2-408",
+          "runtime_git_head": null,
+          "runtime": {
+            "cuda_runtime": null,
+            "deterministic_algorithms": false,
+            "device": "cpu",
+            "host": "89144b2acd8d",
+            "numpy": "2.5.4",
+            "platform": "Linux-6.18.57-x86_64-with-glibc2.41",
+            "python": "3.12.14",
+            "threads": 1,
+            "torch": "2.15.0+cpu"
+          },
+          "config_sha256": "28f99a2c918668c78722ee4abe65476b0410b029bc3fd119128808e72c2e8939",
+          "registry_sha256": "e0f938aab49ab70c5cef5877eb31fe3c43c2b022e4f2a37aea319f629323398e"
+        }
+      ]
+    },
+    {
+      "release_id": 438811508,
+      "stage": "evaluation",
+      "restoration_core_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+      "implementation_source_sha256": "09b147743155a1c8f80c1df5b61f31142bc80a2f776e5d2dac00facce12eddee",
+      "core_sources_verified": {
+        "src/nestrl_research/__init__.py": "6e884517f0fc9ab7f0d5489aee1bdc5907aeb930a7a5f15dfae9857fbe099f6e",
+        "src/nestrl_research/__main__.py": "6d8b7d7846a845059d7a3107143f11131f63c5511d669b44085b15ec5e3d2279",
+        "src/nestrl_research/artifacts.py": "1438f236acb50c5befb4702ef18d459a71c93253388fe1bf561f9e766df8608e",
+        "src/nestrl_research/cli.py": "6cb2e9932b063ea2f77c56ac20f80f07d500926445ba41f19ed0d81ac57aeab2",
+        "src/nestrl_research/config.py": "bc8b5bf783c367142a3abece95f7ba36bb132af6d7d8175bce519f4aa7332709",
+        "src/nestrl_research/environment.py": "5a03514b358b35a7c7a2b96cdaf1c397fe8ad70d30ab6847993148d08ed1fee8",
+        "src/nestrl_research/evaluation.py": "afc389482bd8e941c7866723badb698f5c9ad2ca4e9f8380b378db3d40668d3c",
+        "src/nestrl_research/model.py": "340cff382db5d25c8f88cffd424c50ea592c38612a1a9db8e14628abd1d64be7",
+        "src/nestrl_research/peers.py": "ee81439be978dfd8a62bf62c9e043c68c4a157ba1549768ca9e12dfa32ccacf3",
+        "src/nestrl_research/pipeline.py": "dcb677c14de5090c332bd40cfc7e5c58444f1c8498fd3d70120c8b565468ccbe",
+        "src/nestrl_research/ppo.py": "d18804472ad8bc151b465a9e969ff9d7f61a74715a81def0693b6a28108d08f5",
+        "src/nestrl_research/provenance.py": "8f984f5728aabb84a28c5f8c95cf4d950a144d2b44b30c82d5902b97a212dfbf",
+        "src/nestrl_research/recovery.py": "97484e1f77783cfae2c042aff53ec0b0095e9f9d9b19f404deb6121e3220bff5",
+        "src/nestrl_research/rollout.py": "ae516446b6ece48bc83a3637fa377bf0c9fab80e610f1d6b8995ab25ecbf965b"
+      },
+      "source_archive": {
+        "name": "l2-performance-evaluation-results.zip",
+        "sha256": "ac3e23f30967d5488ed932a21f1d42f5b5cd59654c29a0701a284ecf1497eb0c"
+      },
+      "harness": {
+        "path_in_archive": "evaluate_all.py",
+        "sha256": "0b91ab66b16aacff94276970f200872200b83c09a46c1a12724704a051367858",
+        "restoration_commit": null,
+        "restore": "Extract unchanged harness from the checksummed existing Release archive; not added to or silently rewritten as the new operations code."
+      },
+      "protocol_asset": {
+        "release_id": 438811508,
+        "name": "protocol.json",
+        "sha256": "22e6fc68e2736f7c93cf42759e5f1ffe1374224bf4d968809897c2d03dab91a0"
+      },
+      "model_hashes_verified_against_L1_L2_indexes": true,
+      "runtime_git_head": null
+    }
+  ],
+  "unverified": [
+    "C1-C4 current worktrees/runs were not accessed; mapping covers only the specified historical releases.",
+    "Checkpoint manifests do not record actual runtime Git HEAD; restored commits identify byte-equivalent recorded implementation sources, not historical execution ancestry.",
+    "Final L2 transfer ZIPs do not include exact trajectory resume state; full run archives are needed for resume.",
+    "No new evaluation or long training was performed."
+  ]
+}
