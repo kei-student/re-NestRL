@@ -1,0 +1,1180 @@
+{
+  "schema_version": 1,
+  "updated_on": "2026-11-11",
+  "purpose": "Historical experiment register; not defaults for future experiments.",
+  "source_mapping_note": "Release target_commit is not proof of the executed dirty source. Keep historical source snapshots and separate recovered-source commits.",
+  "environment_note": "A/C names are temporary. Current C1-C4 operations remain owned by their existing controller.",
+  "experiments": [
+    {
+      "experiment_id": "RE-L1-104-111",
+      "repository": "kei-student/re-NestRL",
+      "kind": "reconstruction_training",
+      "status": "historical_models_archived",
+      "seeds": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "steps_per_model": 10080000,
+      "updates_per_model": 140,
+      "release_ids": [
+        433508587
+      ],
+      "historical_source_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "recovered_source_mapping": {
+        "source_snapshot_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+        "source_manifest_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+        "historical_git_reference": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+        "matched_learning_environment_source_files": 14,
+        "mapping_scope": "Git source files and A/C source manifest verified; original artifact manifests remain authoritative"
+      },
+      "config_sha256": null,
+      "limitations": [
+        "Author implementation equivalence unverified",
+        "Detailed configuration is in model/source manifests; not inferred from current defaults"
+      ]
+    },
+    {
+      "experiment_id": "RE-L2-401-408",
+      "repository": "kei-student/re-NestRL",
+      "kind": "reconstruction_training",
+      "status": "historical_models_archived",
+      "seeds": [
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408
+      ],
+      "training_partner_seeds": [
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111
+      ],
+      "steps_per_model": 10080000,
+      "updates_per_model": 140,
+      "release_ids": [
+        438779737
+      ],
+      "historical_source_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "recovered_source_mapping": {
+        "source_snapshot_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+        "source_manifest_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+        "historical_git_reference": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+        "matched_learning_environment_source_files": 14,
+        "mapping_scope": "Git source files and A/C source manifest verified; original artifact manifests remain authoritative"
+      },
+      "config_sha256": null
+    },
+    {
+      "experiment_id": "RE-EVAL-L2-20261109",
+      "repository": "kei-student/re-NestRL",
+      "kind": "diagnostic_evaluation",
+      "status": "results_archived",
+      "release_ids": [
+        438811508
+      ],
+      "model_seeds": [
+        401,
+        402,
+        403,
+        404,
+        405,
+        406,
+        407,
+        408
+      ],
+      "evaluation": {
+        "seed": 1501,
+        "action_selection": "stochastic",
+        "rounds_per_partner": 10,
+        "episodes_per_round": 5,
+        "horizon": 40,
+        "weights_updated": false,
+        "total_episodes": 4400,
+        "conditions": [
+          {
+            "partner": "fixed_L0",
+            "successes": 78,
+            "episodes": 1200
+          },
+          {
+            "partner": "construction_L1_seen_in_training",
+            "successes": 2103,
+            "episodes": 3200
+          }
+        ]
+      },
+      "limitations": [
+        "Held-out partner generalization not evaluated",
+        "Paper observation equivalence unverified"
+      ],
+      "source_snapshot": "See protocol and source in results archive",
+      "recovered_source_mapping": {
+        "source_snapshot_commit": "e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad",
+        "source_manifest_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+        "historical_git_reference": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+        "matched_learning_environment_source_files": 14,
+        "mapping_scope": "Git source files and A/C source manifest verified; original artifact manifests remain authoritative"
+      }
+    },
+    {
+      "experiment_id": "RE-L1-112-127-20261111",
+      "repository": "kei-student/re-NestRL",
+      "kind": "additional_construction_training",
+      "status": "existing_campaign_not_modified",
+      "seeds": [
+        112,
+        113,
+        114,
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127
+      ],
+      "config_sha256": "6c08ac312a9befe8b92399ce61dd4dd8f632686b5854fdb4c7485ce1f1df51b3",
+      "config_file_sha256": "9d8892e792d7341a512b2f6ae977513ebb5d63838d2e62c327ad285430a0480d",
+      "base_source_manifest_sha256": "7822542cbcaf68eafbac1bf72fbcc16ad2ad0b9dfcb6235f27568865b59c5c2e",
+      "updates_per_model": 140,
+      "steps_per_model": 10080000,
+      "assignments": [
+        {
+          "environment": "C1",
+          "seeds": [
+            112,
+            116,
+            120,
+            124
+          ],
+          "release_id": 441545066
+        },
+        {
+          "environment": "C2",
+          "seeds": [
+            113,
+            117,
+            121,
+            125
+          ],
+          "release_id": 441544624
+        },
+        {
+          "environment": "C3",
+          "seeds": [
+            114,
+            118,
+            122,
+            126
+          ],
+          "release_id": 441544830
+        },
+        {
+          "environment": "C4",
+          "seeds": [
+            115,
+            119,
+            123,
+            127
+          ],
+          "release_id": 441545883
+        }
+      ],
+      "limitations": [
+        "This register is a historical observation, not live progress",
+        "A completed asset name alone is not an independent verification of training or transfer"
+      ],
+      "historical_config_file": "configs/history/paper-l1-112-127.json"
+    }
+  ],
+  "release_snapshots": [
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 433508587,
+      "name": "L1 construction agents — seeds 104–111",
+      "tag": "l1-eight-cpu-20261103T050914Z",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-62d75b9c62ac6d60d72a",
+      "draft": true,
+      "release_target_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "assets": [
+        {
+          "name": "archive-inventory.json",
+          "asset_id": 708284910,
+          "bytes": 16129,
+          "sha256": "2c94a5ef7523ee05ba406d9e584e56d0127ab8a366074e5c97499e45aa24e716"
+        },
+        {
+          "name": "DISTRIBUTION-SHA256SUMS.txt",
+          "asset_id": 708291771,
+          "bytes": 3843,
+          "sha256": "bc333ebccee7842388397a9a6d4dae265638e54e29e19492f01aea549d3597ab"
+        },
+        {
+          "name": "DOWNLOAD-AND-VERIFY.md",
+          "asset_id": 708291767,
+          "bytes": 1843,
+          "sha256": "83667285ecc6d844f4d3675e0ad9ec2d2d0e4da037f2259f5ad9b0fda50be03c"
+        },
+        {
+          "name": "download-manifest.json",
+          "asset_id": 708291764,
+          "bytes": 5597,
+          "sha256": "f8b722e1affc1b494ac925006e1632685a1fc894fceef7699952c84fe41b1769"
+        },
+        {
+          "name": "evaluations-fixed-l0.zip",
+          "asset_id": 708284965,
+          "bytes": 295566,
+          "sha256": "524db3747692774f791534662cba0841e7d098d8d535c25f93948a1cd7b42a85"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part001",
+          "asset_id": 708291811,
+          "bytes": 2500000,
+          "sha256": "20098bb36d0face75cfc8e03baef9313f2a7fb07f564f8618328805f89bd7cfb"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part002",
+          "asset_id": 708291812,
+          "bytes": 2500000,
+          "sha256": "fdeb4601b8dabdaf12d9366db2e68523fd0c8f9834fe0f948e3368c27301a139"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part003",
+          "asset_id": 708291815,
+          "bytes": 2500000,
+          "sha256": "14a703d85af637a00bb74980a58dbb3f4234a377fb268d52baad83d27225ff4c"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part004",
+          "asset_id": 708291859,
+          "bytes": 2500000,
+          "sha256": "bb2de3861ab6d00c358fe57c142843d56c014553f219d3e1f1655a576820650b"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part005",
+          "asset_id": 708291863,
+          "bytes": 2500000,
+          "sha256": "3d19c5a619bfa744e706cbdaec2c9f6d3f93b64bb5834d88d3a6352d6de8f0dc"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part006",
+          "asset_id": 708291866,
+          "bytes": 2500000,
+          "sha256": "16ca3d500ec2d849da7f9949e5097891a81c8a401a44849ec1036cf974b6bc98"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.part007",
+          "asset_id": 708291890,
+          "bytes": 730822,
+          "sha256": "2e1a1f2f0df5d86cae225e709089f3ba02930a25fb102d609707603a3ae14ade"
+        },
+        {
+          "name": "l1-eight-B-2-seeds-106-107-complete.zip.sha256",
+          "asset_id": 708284674,
+          "bytes": 106,
+          "sha256": "e6ca4b5c2d07354071f73eea4aa5cfd0f6eaad0a8e91a144dd97b9764f6af83e"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B1-seeds-104-105.zip",
+          "asset_id": 708286024,
+          "bytes": 2988752,
+          "sha256": "f41f9ea66bab8c732f87bd064e83f8361c0338e66d29dd8ef15325befc29d109"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B1-seeds-104-105.zip.sha256",
+          "asset_id": 708284726,
+          "bytes": 117,
+          "sha256": "947d18a72c9bbedd78224b82538dc7d5851d6cf481f2e692b5bd9a218f3b20ed"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part001",
+          "asset_id": 708291904,
+          "bytes": 2500000,
+          "sha256": "5536ea7038e709e02593dcb584ecc8d216e4c8ea855b2f806098169d88913513"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part002",
+          "asset_id": 708291906,
+          "bytes": 2500000,
+          "sha256": "7588e487659bac2241ab8400ae8750114986275d05d2e10f9b71ab014aa2f4cf"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part003",
+          "asset_id": 708291934,
+          "bytes": 2500000,
+          "sha256": "9e742422748fe5e117a0fd54546280a73e53717be32ccbc99b9aa754a907ea32"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part004",
+          "asset_id": 708291948,
+          "bytes": 2500000,
+          "sha256": "b37a0fe7836a802ed38f4d0e80381b85f8ef7a64665bdb33d862e6c86145d853"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part005",
+          "asset_id": 708291957,
+          "bytes": 2500000,
+          "sha256": "1b00b083d98b13ef0a7419065efa90b7e0dc5ccbeb93aeb83d2052f61cc1f6d5"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part006",
+          "asset_id": 708291994,
+          "bytes": 2500000,
+          "sha256": "84fd883b164ce7a74a27c0b3bffbc314388e1c4cc1ac77abc5f2f91da67cf3e6"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.part007",
+          "asset_id": 708291998,
+          "bytes": 489706,
+          "sha256": "1dff6a1ba5338d6116926381256379569fd1909c27523a8c687f7a9004c95f99"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B3-seeds-108-109.zip.sha256",
+          "asset_id": 708284773,
+          "bytes": 117,
+          "sha256": "af21015144ea66b875f36ed2961e06da38bf98213b68ed3b7302e35eab614999"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part001",
+          "asset_id": 708292001,
+          "bytes": 2500000,
+          "sha256": "f176aa7ab7f0a1c973edccc66c957c020da123a018e746a1cd8c59cdb62f51dc"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part002",
+          "asset_id": 708292026,
+          "bytes": 2500000,
+          "sha256": "8065cab23b466ef3b19bf9f1b3a19a3e16c0959bfd08d91649a81825adb91072"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part003",
+          "asset_id": 708292038,
+          "bytes": 2500000,
+          "sha256": "e3c0143d81bb06089a734c2f5496029774cd4dd5fb5789a863fc3e907280d74e"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part004",
+          "asset_id": 708292047,
+          "bytes": 2500000,
+          "sha256": "6dd572341d7da20d941f0fcb2d1065988a9ce7fffbf9bfdae231c9657791cbf6"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part005",
+          "asset_id": 708292062,
+          "bytes": 2500000,
+          "sha256": "eef5de8fece9e93a52294565576a4753218d8c24c8c5c7d90ec8133d4e4f61ac"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part006",
+          "asset_id": 708292066,
+          "bytes": 2500000,
+          "sha256": "662920e8a8c52d3efdc796de8755a0f7d28dbe90687f539f8a21ddb0161ed133"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.part007",
+          "asset_id": 708292071,
+          "bytes": 964592,
+          "sha256": "ecb614ffa43244944c2709c1941a92b3d10bc2305c62223ecc0d6f789fb17c11"
+        },
+        {
+          "name": "l1-eight-cpu-20261103T050914Z-B4-seeds-110-111.zip.sha256",
+          "asset_id": 708284810,
+          "bytes": 117,
+          "sha256": "0db37ab261dd93c62295391e08af3f91885b6dc57161e01fcc03ee3cdafa840e"
+        },
+        {
+          "name": "model-index.json",
+          "asset_id": 708292106,
+          "bytes": 14490,
+          "sha256": "37da5461c99df5a4e3c43af4747ec902a9a78c916486ac96ac123d51d30e9609"
+        },
+        {
+          "name": "performance-evaluation-20261104T050611Z.zip",
+          "asset_id": 708308187,
+          "bytes": 196835,
+          "sha256": "b3dda891adedf39c2f5e2a19ed22681ee5f1e86092b18ef3b3e1e46fbb630da5"
+        },
+        {
+          "name": "performance-evaluation-20261104T050611Z.zip.sha256",
+          "asset_id": 708308233,
+          "bytes": 110,
+          "sha256": "c0dca4d37b1c6a163f3d029628a1fab76730283da57c956096273f8b9d0093e4"
+        },
+        {
+          "name": "reassemble_models.py",
+          "asset_id": 708292116,
+          "bytes": 1005,
+          "sha256": "d52f27ca04be8ca71cddb2fa505762a634182b232aa89245fdc1d78a1325ec4c"
+        },
+        {
+          "name": "RELEASE-README.md",
+          "asset_id": 708284843,
+          "bytes": 3603,
+          "sha256": "f4f1658e871a83444052cf324f6b84bcb7810856b46d4b5c98ae61b3deff0d58"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "asset_id": 708284878,
+          "bytes": 1289,
+          "sha256": "64da2ca83dd580899294a8fac81f8e7e6f9ec161a550afc549fdd5f98c79d167"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 438779737,
+      "name": "L2 construction agents — seeds 401–408",
+      "tag": "l2-eight-cpu-20261109-001",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-04c3a19c715bd4856c91",
+      "draft": true,
+      "release_target_commit": "be94a05a2f2397d6f571493dbc1c2ba5e6d587a8",
+      "assets": [
+        {
+          "name": "B1-manifest.json",
+          "asset_id": 726376673,
+          "bytes": 1006,
+          "sha256": "e5c2ce3e5444c30a0e2c183c14e1ab8d05aee3d4b68d0a224c84d83294d28897"
+        },
+        {
+          "name": "B1-README.txt",
+          "asset_id": 726376674,
+          "bytes": 286,
+          "sha256": "cd028080a83a0c730324f50de14c7286d8c0eb859ecdad166e787b08ba53beb8"
+        },
+        {
+          "name": "B1-verification-report.json",
+          "asset_id": 726376675,
+          "bytes": 14537,
+          "sha256": "5cf7038fb60ee2a9c342fe6c4c8a22ac980b7319e2669493d45730133df9bac9"
+        },
+        {
+          "name": "B2-manifest.json",
+          "asset_id": 726376689,
+          "bytes": 1322,
+          "sha256": "bccf256736a9d3464a545bbb45951e4bc577c9f9ab4b580c8e46098e24af7cf7"
+        },
+        {
+          "name": "B2-README.txt",
+          "asset_id": 726376685,
+          "bytes": 280,
+          "sha256": "d2a492a4cd38057be40651242ad5b234467f386790071b9c5c6493f28d6a470d"
+        },
+        {
+          "name": "B2-verification-results.json",
+          "asset_id": 726376690,
+          "bytes": 13422,
+          "sha256": "fc342ef3a154b3f6cb23151a976f402543e2d45d2a5807680a98dcf6343fb2b1"
+        },
+        {
+          "name": "B3-task-verification.json",
+          "asset_id": 726376701,
+          "bytes": 22907,
+          "sha256": "4ccfede7b15943ed39b40a5c21a589b0f562c1523c68f50e372e2c39952a17ed"
+        },
+        {
+          "name": "B4-task-verification.json",
+          "asset_id": 726376702,
+          "bytes": 13579,
+          "sha256": "f0a77bb01b98cabf7b6fa91ea09f04915688fc626e2d4961810af6cc3b9368f4"
+        },
+        {
+          "name": "DOWNLOAD-AND-LOAD.md",
+          "asset_id": 726376703,
+          "bytes": 3959,
+          "sha256": "ee978f0d2df4df7db6f4e39d5972bbce65a685702740480c87a025387c370620"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B1-source.zip",
+          "asset_id": 726376723,
+          "bytes": 48043,
+          "sha256": "97951b00020ee7075ec79de1be763bcab090fc85eae7ce926ba8606b4f121e40"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B1-source.zip.sha256",
+          "asset_id": 726376722,
+          "bytes": 106,
+          "sha256": "307fe0d1a25f5680d48cb010d7ef425738b1d8322cc4b1bdfa93842d09093ad0"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B2-training-source.zip",
+          "asset_id": 726376743,
+          "bytes": 77940,
+          "sha256": "268cc4e837016e44f8f955f66bff091efe5f518e554424aaab62176bb9ffc43e"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B2-training-source.zip.sha256",
+          "asset_id": 726376744,
+          "bytes": 115,
+          "sha256": "5fdb53caf560128cf50ebda3562272ea05262198df9c981a2646c4d9ebc2c3aa"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B3-verified-sources.zip",
+          "asset_id": 726376746,
+          "bytes": 51432,
+          "sha256": "00cdca13cc8bea5afe621a4a92da53fea898e7f2dc72399954fd57a579374523"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-B3-verified-sources.zip.sha256",
+          "asset_id": 726376753,
+          "bytes": 116,
+          "sha256": "9fe88f644f5fcfdd86b3b5b02c1fccb8031dffd3f9f092689ac0eb018209f807"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-401.zip",
+          "asset_id": 726376755,
+          "bytes": 1461866,
+          "sha256": "7e38895e9d11e19adb65b32c257a75ce78422462e8c87133c65e8c1b6819fc39"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-401.zip.sha256",
+          "asset_id": 726376759,
+          "bytes": 105,
+          "sha256": "29889c9712ec44429bf13c36b20bc40baba26809e807170eb287ab92b308c3b4"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-402.zip",
+          "asset_id": 726376785,
+          "bytes": 1464411,
+          "sha256": "b9c6fe21ec4270bd0e477ea99c862d021346c5fccda9646f7332910319437543"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-402.zip.sha256",
+          "asset_id": 726376788,
+          "bytes": 105,
+          "sha256": "4c4c606d76381903ca45138f2e96f43fbf7e8b8eba12b4a4254c915c155f7527"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-403.zip",
+          "asset_id": 726376789,
+          "bytes": 1461705,
+          "sha256": "c5e9affe4e621e8ff2b7c3d4beb4119dd4e885749cfc0a3e8715c3a2c3cdc7dd"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-403.zip.sha256",
+          "asset_id": 726376800,
+          "bytes": 105,
+          "sha256": "bcd7e27b63f54cf4e854e1e8e089e6709c444866efc010b4dbc8a29886ef5be1"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-404.zip",
+          "asset_id": 726376799,
+          "bytes": 1460733,
+          "sha256": "0b1b0d28a5be3744896c5b8194751fd679acd204e04e4f4245a6e6c595856aa9"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-404.zip.sha256",
+          "asset_id": 726376802,
+          "bytes": 105,
+          "sha256": "75741b62e814c9cf3aaf51308883808d59b25ba02ddb5ecdca90f9d4627ab808"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-405.zip",
+          "asset_id": 726376812,
+          "bytes": 1458101,
+          "sha256": "68a60bc533fae701c7a2629aefc95f11d75d128ded510366ba1ebbedfec381a9"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-405.zip.sha256",
+          "asset_id": 726376814,
+          "bytes": 105,
+          "sha256": "64428987255d7e1f4ceb41389ea2ab7385b05926268ebd959921fef544d61c8b"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-406.zip",
+          "asset_id": 726376819,
+          "bytes": 1464570,
+          "sha256": "f5385be7918c44292e99d4f0156e14f762b6c31f1bca07ade87e0766975a193c"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-406.zip.sha256",
+          "asset_id": 726376836,
+          "bytes": 105,
+          "sha256": "a01a1355e57fc8ed4977e7e9fa1157e4afaf9a5d8dd6b60a27303aaa8030b646"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-407.zip",
+          "asset_id": 726376840,
+          "bytes": 1455878,
+          "sha256": "9a890425368b5b3896076f84c46c109a1a8e59e42295b90d0180b3b053e331fc"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-407.zip.sha256",
+          "asset_id": 726376846,
+          "bytes": 105,
+          "sha256": "b512946e226bf88774e730bca06fb3eb5ada9d6e31bc02117ac1f4c5e0577c6f"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-408.zip",
+          "asset_id": 726376854,
+          "bytes": 1457324,
+          "sha256": "d25cf6cf8cad5d9c4be343674a8d80ddd40c1298a8bc0dd5d943b4741efdff52"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-seed-408.zip.sha256",
+          "asset_id": 726376857,
+          "bytes": 105,
+          "sha256": "ddd6ef87b0dc4d8ccc196108d431cd0474d59c16a2d25aa18d5038331d152d2a"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-verified-source.zip",
+          "asset_id": 726376862,
+          "bytes": 43228,
+          "sha256": "9ede501f4070f3f733b86ce5c2f25e39036bcc9c5600b4db1091955a3f0d5d11"
+        },
+        {
+          "name": "l2-eight-cpu-20261109-001-verified-source.zip.sha256",
+          "asset_id": 726376875,
+          "bytes": 112,
+          "sha256": "6280aae2590d64cd20aa1ff114e8115d57d15a4c56df9eff9cb6bf7587335465"
+        },
+        {
+          "name": "model-index.json",
+          "asset_id": 726376883,
+          "bytes": 36673,
+          "sha256": "55debe0cc1a6ced5b33656cdfd813879f10737b2ba998ef8b17a7a8b8e166560"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "asset_id": 726376721,
+          "bytes": 3622,
+          "sha256": "c6cd7c7d346e3d73862d7dc326f96d965ad7405ebff040de2c1d4201739ae4e0"
+        },
+        {
+          "name": "verification-report.json",
+          "asset_id": 726376898,
+          "bytes": 9868,
+          "sha256": "31dc179976ec5de3f231175fbf59b5e5e87108d4ebab8e64bf0f7aea0e6c88bb"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 438811508,
+      "name": "L2 performance evaluation — 8 models, CPU, seed1501",
+      "tag": "l2-performance-evaluation-20261109T064512Z",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-5edae42b2712b1421f89",
+      "draft": true,
+      "release_target_commit": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+      "assets": [
+        {
+          "name": "l2-performance-evaluation-results.zip",
+          "asset_id": 726504924,
+          "bytes": 1283278,
+          "sha256": "ac3e23f30967d5488ed932a21f1d42f5b5cd59654c29a0701a284ecf1497eb0c"
+        },
+        {
+          "name": "l2-performance-evaluation-results.zip.sha256",
+          "asset_id": 726504989,
+          "bytes": 104,
+          "sha256": "097ab431244aac0476220585a4de5d9656fc1935b3b0a22b5b055127ffb567a4"
+        },
+        {
+          "name": "model-condition-table.csv",
+          "asset_id": 726505047,
+          "bytes": 878,
+          "sha256": "bfbad3befedfa8129a371126251616555c34a08b44414a0b775f5acb46774f25"
+        },
+        {
+          "name": "protocol.json",
+          "asset_id": 726505180,
+          "bytes": 39399,
+          "sha256": "22e6fc68e2736f7c93cf42759e5f1ffe1374224bf4d968809897c2d03dab91a0"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 441545066,
+      "name": "l1-c1-c4-20261111-c1",
+      "tag": "l1-c1-c4-20261111-c1",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-d9e25ac5c4cff32f3a00",
+      "draft": true,
+      "release_target_commit": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+      "assets": [
+        {
+          "name": "C1-preparation-manifest.json",
+          "asset_id": 735108751,
+          "bytes": 5518,
+          "sha256": "27d57b2559ddd873d47fc2f380e9b5efcb60cdc30290477b0476236d3cc946c5"
+        },
+        {
+          "name": "C1-preparation-parallel2-manifest.json",
+          "asset_id": 735111911,
+          "bytes": 5518,
+          "sha256": "c3416de144e47369fc2e40ed288566f41e1b92beebbdb58004c45a1b1edb554d"
+        },
+        {
+          "name": "C1-preparation-parallel2.zip",
+          "asset_id": 735111848,
+          "bytes": 83582,
+          "sha256": "24f952d4fab3bc8003dd8d3d731c19e7b45e58183ade319d5f3eae91f72188c6"
+        },
+        {
+          "name": "C1-preparation-parallel2.zip.sha256",
+          "asset_id": 735111982,
+          "bytes": 95,
+          "sha256": "2bd3b2443ad5302faebba1a7125651fb015f4a5a0de5e62d572bed26937dbf87"
+        },
+        {
+          "name": "C1-preparation.zip",
+          "asset_id": 735108671,
+          "bytes": 83375,
+          "sha256": "9dbbea56c1ddb57d754857a33795c12f92a9a2c0cd1a77b955d0f8ebd30f79a8"
+        },
+        {
+          "name": "C1-preparation.zip.sha256",
+          "asset_id": 735108828,
+          "bytes": 85,
+          "sha256": "2b965462c71ffd3bc35f8433546c2cf8fc1610fc541ee7a9e8e26130096bef09"
+        },
+        {
+          "name": "C1-seed-112-complete.zip.part001",
+          "asset_id": 735489102,
+          "bytes": 2500000,
+          "sha256": "4da7a5dcdb381a1536c7fe0d07d134f5cb134b0c333fe1f6312cbd22e5c53399"
+        },
+        {
+          "name": "C1-seed-112-complete.zip.part002",
+          "asset_id": 735489188,
+          "bytes": 2500000,
+          "sha256": "31c90271907a24c2ed130554d46a42e63f25b2de463a0731954e1e6ffd001b13"
+        },
+        {
+          "name": "C1-seed-112-complete.zip.part003",
+          "asset_id": 735489233,
+          "bytes": 2500000,
+          "sha256": "3d35f4f7813a2d72d2485688ed4cc3394ba2a4cf258e4e8f6bec5264a332f6a4"
+        },
+        {
+          "name": "C1-seed-112-complete.zip.part004",
+          "asset_id": 735489299,
+          "bytes": 518461,
+          "sha256": "3040be13ca418735d77be13f6d8ad6274e88a31a2b0d7f7ae1a7382f457077b7"
+        },
+        {
+          "name": "C1-seed-112-complete.zip.sha256",
+          "asset_id": 735489419,
+          "bytes": 91,
+          "sha256": "130ebf50b82e723480bd9a692d63ce4a89d08a3f4e60cb4ac9f3ba71461670e2"
+        },
+        {
+          "name": "C1-seed-112-download.json",
+          "asset_id": 735489475,
+          "bytes": 856,
+          "sha256": "5166c3886e2d0fa3f0ec2bdb4ca3023cc15a4a3ec615a5409b1a8a4b284a98cc"
+        },
+        {
+          "name": "C1-seed-112-manifest.json",
+          "asset_id": 735489363,
+          "bytes": 6752,
+          "sha256": "cbe93c3c506e04be810aa6602ada6b85c1151108c0da8d04fd97c7d816316b4a"
+        },
+        {
+          "name": "C1-seed-116-complete.zip.part001",
+          "asset_id": 735489851,
+          "bytes": 2500000,
+          "sha256": "1d46b1882b7a95bbfeea0f6443f8fde8b6cdbfccda46945c88ba47a434456cb2"
+        },
+        {
+          "name": "C1-seed-116-complete.zip.part002",
+          "asset_id": 735489909,
+          "bytes": 2500000,
+          "sha256": "ec63a9f6447151af989e6b4d0f70894a1246adb2754ff521ed0e042fd6b38e26"
+        },
+        {
+          "name": "C1-seed-116-complete.zip.part003",
+          "asset_id": 735489971,
+          "bytes": 2452303,
+          "sha256": "4d4a90596593e15526cc68d88a4e1789829f558194fb909ac54c8cb16148a473"
+        },
+        {
+          "name": "C1-seed-116-complete.zip.sha256",
+          "asset_id": 735490087,
+          "bytes": 91,
+          "sha256": "2ca43e984b6b1a8f3342a101c87929525d95bb1a0937e1b9968d12d0ed0e5bcd"
+        },
+        {
+          "name": "C1-seed-116-download.json",
+          "asset_id": 735490119,
+          "bytes": 687,
+          "sha256": "ec94c2b9b864f00f675e5fedc389c8a743e7b82af0d8a1d4872fcabf7fa995a4"
+        },
+        {
+          "name": "C1-seed-116-manifest.json",
+          "asset_id": 735490032,
+          "bytes": 6752,
+          "sha256": "ed973aa54d4f13d229233373e252be40aa818029771a42d42f97465672f0d572"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 441544624,
+      "name": "C2 construction L1: 113, 117, 121, 125",
+      "tag": "l1-c1-c4-20261111-c2",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-be0ad70b2f793897b8a2",
+      "draft": true,
+      "release_target_commit": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+      "assets": [
+        {
+          "name": "c2-plan-config-source-confirmed2.zip",
+          "asset_id": 735114919,
+          "bytes": 79921,
+          "sha256": "ed0ac7f0397675a83a6ee85285c7e2705e9b8e9ab00df0e5d7fa39da204b658e"
+        },
+        {
+          "name": "c2-plan-config-source-parallel2.zip",
+          "asset_id": 735112170,
+          "bytes": 78205,
+          "sha256": "112a610c82c99ef087fb5e8633f846743b764080f4575248ef99da181399bee7"
+        },
+        {
+          "name": "c2-plan-config-source.zip",
+          "asset_id": 735107280,
+          "bytes": 77957,
+          "sha256": "eab593352a31de0a014c82b8241794ee9b16a017213bc0f85d991523ccfcd1fc"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c2-seed-113.zip",
+          "asset_id": 735488976,
+          "bytes": 8291023,
+          "sha256": "e9bd4195cf46e948157ced6b6009397625cc090d1b5d956ad7202f68424e11ac"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c2-seed-113.zip.sha256",
+          "asset_id": 735489028,
+          "bytes": 100,
+          "sha256": "0aadcabf48777a593a9df2df52dccf265ea807b231c09001b185781b9cd4eeb0"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c2-seed-117.zip",
+          "asset_id": 735489481,
+          "bytes": 8207604,
+          "sha256": "c059e661480417eefd252a58f0761e74edb681e2a01e588e4f52763de064e2b6"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c2-seed-117.zip.sha256",
+          "asset_id": 735489533,
+          "bytes": 100,
+          "sha256": "1b86a1d16cb44f4b2919e3c647cc2d13ddab3851cb836630edb1c5a52ffdb0d6"
+        },
+        {
+          "name": "manifest-confirmed2.json",
+          "asset_id": 735115002,
+          "bytes": 369,
+          "sha256": "9e8ec6351ed0445a0055284ac4fae84f6a22622842d8f665985564126d820468"
+        },
+        {
+          "name": "manifest-parallel2.json",
+          "asset_id": 735112227,
+          "bytes": 368,
+          "sha256": "0ecd1c9788d242cedc53ae959031d9ef44d4d8b647de59eceff4ff5eeeef5bf2"
+        },
+        {
+          "name": "manifest.json",
+          "asset_id": 735107340,
+          "bytes": 358,
+          "sha256": "32338833ea79d220cf3b7fe5efab954ac1db94ad6187d32c83563a8e1a0eb1ae"
+        },
+        {
+          "name": "SHA256SUMS-confirmed2.txt",
+          "asset_id": 735115102,
+          "bytes": 194,
+          "sha256": "d097d4d1edb236484762a6c8238c33fd8fe75db9bebe927f22582447c4c68cb2"
+        },
+        {
+          "name": "SHA256SUMS-parallel2.txt",
+          "asset_id": 735112303,
+          "bytes": 192,
+          "sha256": "25b20c63d9877306cc5e027e47da18d400dc15c3abfc9facdf657ed726a8813d"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "asset_id": 735107410,
+          "bytes": 172,
+          "sha256": "568b48b8bf8ccc48899c9e17603ffb91d237024326fbfc684a7a51153e23d2fc"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 441544830,
+      "name": "l1-c1-c4-20261111-c3",
+      "tag": "l1-c1-c4-20261111-c3",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-3d8c675652a9d7fc34bc",
+      "draft": true,
+      "release_target_commit": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+      "assets": [
+        {
+          "name": "initial-source-config.zip",
+          "asset_id": 735108287,
+          "bytes": 83129,
+          "sha256": "8a60884cd102ba042d315230f441ddcab8fd1d1a23b4c7d4a59b0e51dd796514"
+        },
+        {
+          "name": "launch-verification.json",
+          "asset_id": 735116782,
+          "bytes": 3285,
+          "sha256": "67e41403b389b1d75d7db9c511b0c7a5180ae12d87de44f9c082e57bccc033ea"
+        },
+        {
+          "name": "launched2-paper-l1-112-127.json",
+          "asset_id": 735116572,
+          "bytes": 1320,
+          "sha256": "9d8892e792d7341a512b2f6ae977513ebb5d63838d2e62c327ad285430a0480d"
+        },
+        {
+          "name": "launched2-plan.json",
+          "asset_id": 735116339,
+          "bytes": 9764,
+          "sha256": "4ddeaf82006d43f2260711ee1f98780cd7da7f809b4fec3103e77e179221a127"
+        },
+        {
+          "name": "launched2-README.md",
+          "asset_id": 735116466,
+          "bytes": 9792,
+          "sha256": "5994c9f7ca1d7f38b4d64ae7ff4725adc3c7a8bba22dc23c2996027479180074"
+        },
+        {
+          "name": "launched2-SHA256SUMS.txt",
+          "asset_id": 735116993,
+          "bytes": 550,
+          "sha256": "fb23f2ced537fac8ba0e72b0c19e3da1dee9883beea7863314881bac4c23f3b9"
+        },
+        {
+          "name": "launched2-source-config.zip",
+          "asset_id": 735116881,
+          "bytes": 83572,
+          "sha256": "8f9ce8a9435b792de470c37fd790c3e129086e482280c486b1b809b372bc7b2c"
+        },
+        {
+          "name": "launched2-source-hashes.json",
+          "asset_id": 735116698,
+          "bytes": 6685,
+          "sha256": "4e074677dcd9c93742fab7e802c0be0d63c340109f5558151a301616e5fbc00d"
+        },
+        {
+          "name": "paper-l1-112-127.json",
+          "asset_id": 735108097,
+          "bytes": 1320,
+          "sha256": "9d8892e792d7341a512b2f6ae977513ebb5d63838d2e62c327ad285430a0480d"
+        },
+        {
+          "name": "parallel2-paper-l1-112-127.json",
+          "asset_id": 735111763,
+          "bytes": 1320,
+          "sha256": "9d8892e792d7341a512b2f6ae977513ebb5d63838d2e62c327ad285430a0480d"
+        },
+        {
+          "name": "parallel2-plan.json",
+          "asset_id": 735111538,
+          "bytes": 9301,
+          "sha256": "f0f8fb02a8b405a8fd787a3765be576d0f36e8cdbc5bbb60b094045fe3ba260c"
+        },
+        {
+          "name": "parallel2-README.md",
+          "asset_id": 735111648,
+          "bytes": 9329,
+          "sha256": "711f3a01309b52ee4fb98ea462228c83494a29e2a5f0b5789d1058ddc3f61b42"
+        },
+        {
+          "name": "parallel2-SHA256SUMS.txt",
+          "asset_id": 735112056,
+          "bytes": 459,
+          "sha256": "071fa626cd55a0f3454624a997b96ede12ab7ff096bec69f990a62fbf318dcbe"
+        },
+        {
+          "name": "parallel2-source-config.zip",
+          "asset_id": 735111965,
+          "bytes": 83393,
+          "sha256": "34295a5667b1dd68aff47427463169de991b9179683133f1dff3a1ac9bc6f48a"
+        },
+        {
+          "name": "parallel2-source-hashes.json",
+          "asset_id": 735111875,
+          "bytes": 6685,
+          "sha256": "4e074677dcd9c93742fab7e802c0be0d63c340109f5558151a301616e5fbc00d"
+        },
+        {
+          "name": "plan.json",
+          "asset_id": 735107898,
+          "bytes": 9139,
+          "sha256": "4252e3699ba2c5a9309a6c1d16e13aef80516acaf4aa57272cfde89cb505a6dd"
+        },
+        {
+          "name": "README.md",
+          "asset_id": 735108012,
+          "bytes": 9167,
+          "sha256": "b7d1bc0edf372efae10a7d0a450d940d87c16d92c4583f17cb40a507b499cb64"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "asset_id": 735108390,
+          "bytes": 417,
+          "sha256": "a579c26f17c034b52fdece6347469c813481945a02e962304c18bd6d45973c90"
+        },
+        {
+          "name": "source-hashes.json",
+          "asset_id": 735108188,
+          "bytes": 6685,
+          "sha256": "4e074677dcd9c93742fab7e802c0be0d63c340109f5558151a301616e5fbc00d"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    },
+    {
+      "repository": "kei-student/re-NestRL",
+      "release_id": 441545883,
+      "name": "l1-c1-c4-20261111-c4",
+      "tag": "l1-c1-c4-20261111-c4",
+      "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-8818a3fa89c6ebc35eca",
+      "draft": true,
+      "release_target_commit": "50bd1b2a82345a469cdd336b8f8b3d409e431036",
+      "assets": [
+        {
+          "name": "l1-c1-c4-20261111-c4-initial-source-plan.zip",
+          "asset_id": 735112153,
+          "bytes": 81815,
+          "sha256": "a2bd8d42f1a74d4cd697de043aab9d26d421f85fdc70764ccbeaae862864edad"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.part001",
+          "asset_id": 735490186,
+          "bytes": 2500000,
+          "sha256": "7943aa4f5cd42871acc292a16361048187c8b4ebe2b925ac5baebb256d0b098a"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.part002",
+          "asset_id": 735490265,
+          "bytes": 2500000,
+          "sha256": "e31100d68128bb7d7138e5bb7ac8ead4cb78b4ed4a63d4c7bdf94656de8d21bb"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.part003",
+          "asset_id": 735490343,
+          "bytes": 2500000,
+          "sha256": "40f8e25d2b12ce966cfe305764e6936a5ac055795bf61bf413be07906a0f02f3"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.part004",
+          "asset_id": 735490446,
+          "bytes": 486237,
+          "sha256": "2610977a50022591757260843dbd5325cbf3fc52ed41e3d99693e4dc7bdfcc3f"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.parts.json",
+          "asset_id": 735490514,
+          "bytes": 988,
+          "sha256": "000858eafd2ec2dbfee488bb8271cbe3333d388b4cd2066e8d95325b782bc992"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-115-complete.zip.sha256",
+          "asset_id": 735490574,
+          "bytes": 109,
+          "sha256": "3bcd1d0166aed5aa5d8f206b32718007a891cad2d346ecee14a1f0e583d8bb51"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.part001",
+          "asset_id": 735491142,
+          "bytes": 2500000,
+          "sha256": "64e917416e241a68d2573d916871be914607b991da9b496c39c5a26fb51f9d00"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.part002",
+          "asset_id": 735491251,
+          "bytes": 2500000,
+          "sha256": "c657c246960689fdfb913235fbd51648fd1cf2ac3cf8c4c02ef371c370309f65"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.part003",
+          "asset_id": 735491340,
+          "bytes": 2500000,
+          "sha256": "28db6ceb92dd6e2db2973075d29ed8904c5da34245901019767e59093b1e9731"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.part004",
+          "asset_id": 735491415,
+          "bytes": 389986,
+          "sha256": "50035ddea7f6c0638e1d7dc4e297b281f76a2e3075a2e21224def9c785ddb59e"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.parts.json",
+          "asset_id": 735491469,
+          "bytes": 988,
+          "sha256": "e1b0795ab69b20bda47aab40b06ffdc92b2fa91f2c2eae8b739595570bc56da4"
+        },
+        {
+          "name": "l1-c1-c4-20261111-c4-seed-119-complete.zip.sha256",
+          "asset_id": 735491530,
+          "bytes": 109,
+          "sha256": "e69d4b595b45765511b91e0759ee75183c03ce23152c77d31a760932ccc8aef4"
+        },
+        {
+          "name": "manifest.json",
+          "asset_id": 735112224,
+          "bytes": 5061,
+          "sha256": "72aad8f51982b8055d2205428a63ccde07abf1778ba747fdfcf55017b1e81b13"
+        },
+        {
+          "name": "paper-l1-112-127.json",
+          "asset_id": 735112321,
+          "bytes": 1320,
+          "sha256": "9d8892e792d7341a512b2f6ae977513ebb5d63838d2e62c327ad285430a0480d"
+        },
+        {
+          "name": "plan.json",
+          "asset_id": 735112432,
+          "bytes": 6562,
+          "sha256": "8e3f088091cb5b6bfeb5a1718040cb9ee554b7002b368b36240b9e45d4bb7b67"
+        },
+        {
+          "name": "README.md",
+          "asset_id": 735112053,
+          "bytes": 1601,
+          "sha256": "b45c41b18806eb35e3d3a9c864afccd65450085f4f9e9144705c5a0f01b2960c"
+        },
+        {
+          "name": "SHA256SUMS.txt",
+          "asset_id": 735112599,
+          "bytes": 516,
+          "sha256": "92bb2d928ed0749b85f7a6e5267b29b4faa5bde06f4f9885a167e159f1c901ae"
+        },
+        {
+          "name": "source-hashes.json",
+          "asset_id": 735112500,
+          "bytes": 6596,
+          "sha256": "4dd6c0c5712f0ab1c2950840a53ae3274a20bdb42fddbb7ac8248cae32e7a62a"
+        }
+      ],
+      "metadata_observed_on_utc": "2026-11-11"
+    }
+  ],
+  "related_research_registry": "https://github.com/kei-student/NestRL/blob/codex/cloud-workflow-20261111/docs/experiments/registry.json"
+}

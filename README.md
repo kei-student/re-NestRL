@@ -3,6 +3,7 @@
 共通の環境・GitHub保存方法と、実験ごとに変える条件は[Cloud基盤の手順](docs/cloud_base.md)を参照してください。
 A/Cは仮の名称です。install/startは環境検査だけで、手法・seed・更新回数・評価はその都度指定します。
 元Aの実行ソースはcommit `e8433ffb2332e2b964e0d026d3d139b4ccbdf4ad`へ保全済みです。
+既存の学習・性能評価は[実験台帳](docs/experiments/README.md)で確認できます。
 
 
 [NestRL: A Nested Training Regime for Mutual Adaptation in Human-AI Teaming](https://arxiv.org/html/2602.17737v2)

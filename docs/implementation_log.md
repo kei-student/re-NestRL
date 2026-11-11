@@ -45,3 +45,5 @@ Pinned declared NumPy2.5.4 and PyTorch2.15.0 to the already verified runtime; ex
 method/partners/seeds/budget/evaluation. Install/start does not launch or resume training.
 No learning/environment source, historical scientific config, checkpoint format, or compatibility changed.
 Existing C1-C4 runs and controller were not modified. Historical source/model manifests remain unchanged.
+
+Archived the exact existing 112–127 configuration under configs/history; its file and canonical hashes match the original campaign. Existing running jobs, registry and monitoring were untouched.
