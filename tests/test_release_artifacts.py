@@ -13,6 +13,18 @@ spec.loader.exec_module(store)
 
 
 class ArtifactTransferTests(unittest.TestCase):
+    def test_upload_accepts_json_response_while_sending_binary(self):
+        class Opener:
+            def open(self, request, timeout):
+                self.request = request
+                return io.BytesIO(b'{"id": 1}')
+
+        opener = Opener()
+        store.request_bytes("https://uploads.github.com/repos/test/repo/releases/1/assets?name=x",
+                            "test-placeholder", data=b"archive", method="POST", binary=True, opener=opener)
+        self.assertEqual(opener.request.get_header("Accept"), "application/vnd.github+json")
+        self.assertEqual(opener.request.get_header("Content-type"), "application/octet-stream")
+
     def test_redirect_never_forwards_authorization_to_asset_cdn(self):
         class Opener:
             requests = []
@@ -58,6 +70,20 @@ class ArtifactTransferTests(unittest.TestCase):
             with self.assertRaises(FileExistsError):
                 store.reconstruct(manifest, lambda _: b"x", output)
             self.assertEqual(partial.read_bytes(), b"owned by another process")
+
+    def test_destination_created_during_download_is_not_replaced(self):
+        manifest = {"schema_version": 1, "bytes": 1, "sha256": store.sha256(b"x"),
+                    "parts": [{"order": 1, "asset_id": 1, "bytes": 1, "sha256": store.sha256(b"x")}]}
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary) / "archive.zip"
+
+            def fetch(_):
+                output.write_bytes(b"another completed download")
+                return b"x"
+
+            with self.assertRaises(FileExistsError):
+                store.reconstruct(manifest, fetch, output)
+            self.assertEqual(output.read_bytes(), b"another completed download")
 
 
 if __name__ == "__main__":

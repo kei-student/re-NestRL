@@ -40,7 +40,7 @@ def request_bytes(url: str, token: str, *, data: bytes | None = None,
         if parsed.scheme != "https":
             raise ValueError("HTTPS is required")
         headers = {"User-Agent": "NestRL-artifact-store", "Accept":
-                   "application/octet-stream" if binary else "application/vnd.github+json"}
+                   "application/octet-stream" if binary and method == "GET" else "application/vnd.github+json"}
         if parsed.hostname in {"api.github.com", "uploads.github.com"}:
             headers["Authorization"] = "Bearer " + token
         elif not (parsed.hostname or "").endswith(".githubusercontent.com"):
@@ -82,7 +82,8 @@ def reconstruct(manifest: dict, fetch_part, output: Path) -> str:
                 target.write(block)
         if temporary.stat().st_size != manifest["bytes"] or file_sha256(temporary) != manifest["sha256"]:
             raise ValueError("Reconstructed archive hash/size mismatch")
-        temporary.replace(output)
+        os.link(temporary, output)
+        temporary.unlink()
     except BaseException:
         if created:
             temporary.unlink(missing_ok=True)

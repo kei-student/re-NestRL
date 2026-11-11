@@ -47,3 +47,10 @@ No learning/environment source, historical scientific config, checkpoint format,
 Existing C1-C4 runs and controller were not modified. Historical source/model manifests remain unchanged.
 
 Archived the exact existing 112–127 configuration under configs/history; its file and canonical hashes match the original campaign. Existing running jobs, registry and monitoring were untouched.
+
+Cold-install verification found that the CPU wheel index does not contain every
+fixed transitive dependency. Install the pinned non-torch packages from PyPI first,
+then the exact `+cpu` wheel. Artifact reconstruction atomically refuses a destination
+created during download. Learning and checkpoint compatibility are unchanged.
+Upload requests accept the JSON asset response while sending binary data;
+octet-stream Accept is reserved for downloads.
