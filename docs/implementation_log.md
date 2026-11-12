@@ -207,3 +207,25 @@ scientific config, checkpoint format or compatibility was changed.
   across this changed evaluation implementation is not claimed or performed.
 - Training config SHA-256 remains
   `fd5c44797dc80917d390eedb5007997e1a8f2d5495affd07616cb08275818454`.
+- Executed all60,000 episodes on CPU, four independent workers with one thread
+  each, using evaluation commit `a5795fc00f33cfaa8d23297b9908a280e993243e`.
+  All20 execution records confirm unchanged source/config and successful exit.
+  Recounted every episode/partner/seed schedule and verified all output hashes;
+  all20 original checkpoint SHA-256 values remain unchanged.
+- Result:16/20 policies (80%) pass every L0. Passing seeds:
+  1021,1023,1024,1027–1033,1035–1040. Failed seeds1022,1025,1026,1034.
+  Lowest per-L0 success among passing policies is99.5%. Failures:1022 has2.9%
+  onTC;1025 has0% onTC;1026 has0% onLO;1034 has71.7% onTC.
+- Pre-commit workspace check (dirty) and clean pre-execution workspace check
+  passed;80 unit tests completed successfully (two Docker opt-in tests skipped).
+- Evaluation plan canonical SHA-256:
+  `14fe7c50bc7f75845c65f7feaa8d158118b8b83d41c27ad256d3df791d3b8395`.
+- Evaluation plan file SHA-256:
+  `ecc6de4e0540cb976aac510d1f4ff196e72ff53a7578beb728303a31e4818ef4`.
+- Stored evaluation bundle in the original Draft442708737, seven parts,
+  transfer manifest asset741434439, manifest SHA-256
+  `2cf963a4b60d819327e2c361bf0162d5cb95d7a6fba57b082ed2bedca13f1ebe`.
+  Archive SHA-256:
+  `3fce77050e82502c7634dd6a408b22a09a5b9285272fe2f624e43ce86ea7c5d5`.
+  Upload read-back, fresh re-download and all990 member hashes verified.
+  Full twenty-model table and provenance: l1_random_start_l0_evaluation_20261113.md.
