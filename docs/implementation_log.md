@@ -101,3 +101,40 @@ scientific config, checkpoint format or compatibility was changed.
     `01b192fd04dadce581d6bc719427412ae14da731c01b9af7827796b97e8f1c90`
   - `smoke-random-start.json`:
     `27154afcf49c953a7948efac8e774ff3118c031848006181c03ea69885158d2c`
+
+## 2026-11-12 — L1 random-start, 400 updates, twenty fresh seeds
+
+- User authorized ten new Codex Cloud tasks, two L1 models per task, each trained
+  for 400 PPO updates with random episode starts. Added a separate config and
+  task/command/seed/storage plan; no historical scientific config or run changed.
+- Config `configs/l1-random-start-400u-20261112.json`: 360 environments × 200
+  rollout steps = 72,000 steps/update, 28,800,000 steps/model, 576,000,000 total
+  steps for twenty models. Keep paper PPO/reward/recipe/history conditions;
+  learner right, frozen scripted L0 left. Final-budget checkpoint only, no early
+  stopping, performance-based selection, L2 training or post-training evaluation.
+- New construction seeds 1001–1020, paired consecutively across tasks t01–t10.
+  Audited existing configs, historical registry, local run/config records,
+  documented seed499 prototype and Draft Release names/assets; no overlap found.
+  Reserved future validation2001, test3001–3005, learner4001 and evaluation5001
+  without starting those stages. Existing immutable partitions remain unchanged.
+- Each new `re-NestRL-repro-base` VM runs two CPU models with one thread/CPU
+  and a 6GiB memory limit per model. Record actual cgroup quota, affinity and
+  memory limits. Use unique task output roots and canonical L1 internal run IDs.
+  Workers use pinned clean source, record commands/config/source/runtime before
+  launch and never write the coordinator's source branch or another run directory.
+- Storage: a new Draft Release tagged `l1-random-start-400u-20261112` in
+  `kei-student/re-NestRL`, unique task/seed assets, including model manifests,
+  latest pointers, config/source/runtime, logs and supported CPU recovery state.
+  Upload/download hashes, final budget and strict model loads must be verified
+  separately from computation completion.
+- Compatibility: fresh random-start runs only; no historical checkpoint imports
+  or continuation under a changed budget/backend. No environment/model source
+  change was needed for this campaign. Added a contract test for the exact
+  budget, all twenty seeds, two-model assignments and provenance command paths.
+- Canonical config SHA-256:
+  `303dadcb6c6096748b68928019fa44f33733079d71f11c63e4688413245834ca`.
+- Config file SHA-256:
+  `0cc01070431cb31bb893562a9e1f7aa9cccdc0097e16cceceeda6c4859402f60`.
+- Local validation: activated `.venv` workspace check with `--device auto
+  --allow-dirty` passed on CPU; all six pinned PACE files verified; unittest
+  discovery passed (76 tests, two opt-in Docker tests skipped); diff check passed.

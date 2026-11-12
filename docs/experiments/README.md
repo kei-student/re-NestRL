@@ -5,6 +5,11 @@
 新Cでの短いpipeline・保存復元・CPU resume検証も `RE-CLOUD-ACCEPTANCE-20261111` として別枠で登録した。
 [受け入れ記録](../cloud_acceptance_20261111.md)に実施範囲と保存manifest/hashを記載している。
 
+2026-11-12のランダム開始L1・400更新×20体は、過去の台帳を変更せず
+[新しい実行計画](l1-random-start-400u-20261112-plan.json)で管理する。
+construction seed1001〜1020を10個の新規Cloudタスクへ2体ずつ割り当てる。
+この計画は実行指示であり、学習完了や成果物保存完了の記録とは区別する。
+
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。
 - Release target commitと、dirtyな実行時source、再構成用commitを区別する。元manifestを更新しない。
