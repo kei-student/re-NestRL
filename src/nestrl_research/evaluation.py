@@ -123,11 +123,32 @@ def summarize(episodes: list[dict], episodes_per_round: int) -> dict:
             "recipe_entropy_conditioning": "completed recipes in successful episodes only"}
 
 
+def passes_each_partner(summary, partner_ids, episodes_per_partner, minimum_successes):
+    """Apply an inclusive count threshold to every predeclared partner."""
+    if not 0 <= minimum_successes <= episodes_per_partner or episodes_per_partner < 1:
+        raise ValueError("Invalid success threshold or denominator")
+    counts = summary["per_partner_counts"]
+    if set(counts) != set(partner_ids) or summary["episodes"] != len(partner_ids) * episodes_per_partner:
+        raise ValueError("Evaluation partner set or total denominator differs")
+    for count in counts.values():
+        if count["episodes"] != episodes_per_partner or not 0 <= count["successes"] <= episodes_per_partner:
+            raise ValueError("Evaluation per-partner denominator/count differs")
+    return all(counts[identity]["successes"] >= minimum_successes for identity in partner_ids)
+
+
 @torch.no_grad()
-def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_level="l1", split="test", run_id=None, deterministic=False):
+def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_level="l1", split="test", run_id=None,
+             deterministic=False, rounds=None, evaluation_seed=None):
     if split not in ("validation", "test") or partner_level not in ("l0", "l1"):
         raise ValueError("Evaluation uses validation/test L1 or the three fixed L0 conventions")
     config.validate()
+    rounds = config.evaluation_rounds if rounds is None else rounds
+    evaluation_seed = config.evaluation_seed if evaluation_seed is None else evaluation_seed
+    if not isinstance(rounds, int) or isinstance(rounds, bool) or rounds < 1:
+        raise ValueError("Evaluation rounds must be a positive integer")
+    if (not isinstance(evaluation_seed, int) or isinstance(evaluation_seed, bool)
+            or not 0 <= evaluation_seed < 2**32):
+        raise ValueError("Evaluation seed must be an integer in [0, 2**32)")
     output_root = Path(output_root)
     ensure_registry(config, output_root)
     ego, manifest = load_policy(config, checkpoint, device)
@@ -142,8 +163,8 @@ def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_lev
         provenance = [{"id": identity, "frozen": True} for identity, _ in peers]
     protocol = {**source_metadata(), "config_sha256": config.sha256, "learner_checkpoint_sha256": file_hash(checkpoint),
                 "partner_level": partner_level, "partition": split if partner_level == "l1" else "fixed_conventions",
-                "partners": provenance, "rounds": config.evaluation_rounds, "episodes_per_round": config.episodes_per_round,
-                "seed": config.evaluation_seed, "deterministic_actions": deterministic, "weight_updates": False}
+                "partners": provenance, "rounds": rounds, "episodes_per_round": config.episodes_per_round,
+                "seed": evaluation_seed, "deterministic_actions": deterministic, "weight_updates": False}
     run_id = run_id or f"eval-{manifest['run_id']}-{partner_level}-{split}"
     with new_run(output_root, run_id) as directory:
         freeze_manifest(directory / "protocol.json", protocol)
@@ -152,14 +173,14 @@ def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_lev
         trace_file = directory / "traces.jsonl"
         with trace_file.open("x", encoding="utf-8") as trace:
             for partner_index, (identity, peer) in enumerate(peers):
-                for round_index in range(config.evaluation_rounds):
-                    seed_all(config.evaluation_seed + 100_000 * partner_index + 1000 * round_index)
+                for round_index in range(rounds):
+                    seed_all(evaluation_seed + 100_000 * partner_index + 1000 * round_index)
                     ego_context = PolicyContext(ego, device, deterministic)
                     partner = (PolicyContext(peer, device, deterministic) if partner_level == "l1"
-                               else ScriptedPeer(peer, agent_id=1-ego_side, seed=config.evaluation_seed + round_index))
+                               else ScriptedPeer(peer, agent_id=1-ego_side, seed=evaluation_seed + round_index))
                     for episode_index in range(config.episodes_per_round):
                         env = CookingEnv(asdict(config.environment))
-                        episode_seed = config.evaluation_seed + 100_000 * partner_index + 1000 * round_index + episode_index
+                        episode_seed = evaluation_seed + 100_000 * partner_index + 1000 * round_index + episode_index
                         observation = env.reset(seed=episode_seed)
                         total_return = 0.0
                         for step in range(config.environment.horizon):

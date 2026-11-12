@@ -41,6 +41,8 @@ def main(argv=None):
             command_parser.add_argument("--split", default="test", choices=("validation", "test"))
             command_parser.add_argument("--run-id")
             command_parser.add_argument("--deterministic", action="store_true")
+            command_parser.add_argument("--rounds", type=int, help="Evaluation rounds per partner; keeps training config immutable")
+            command_parser.add_argument("--evaluation-seed", type=int, help="Independent evaluation RNG seed")
     args = parser.parse_args(argv)
     if args.threads < 1:
         parser.error("--threads must be positive")
@@ -64,7 +66,8 @@ def main(argv=None):
                 signal.signal(sig, handler)
     elif args.command == "evaluate":
         print(json.dumps(evaluate(config, output_root, args.checkpoint, device, partner_level=args.partner_level,
-                                  split=args.split, run_id=args.run_id, deterministic=args.deterministic), indent=2))
+                                  split=args.split, run_id=args.run_id, deterministic=args.deterministic,
+                                  rounds=args.rounds, evaluation_seed=args.evaluation_seed), indent=2))
     else:
         ensure_registry(config, output_root)
         for split in ("construction", "validation", "test"):

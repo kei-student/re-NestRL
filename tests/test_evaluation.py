@@ -15,7 +15,7 @@ import torch
 
 from nestrl_research.artifacts import file_hash
 from nestrl_research.config import EnvironmentConfig, ExperimentConfig, RECIPES
-from nestrl_research.evaluation import PolicyContext, evaluate, summarize
+from nestrl_research.evaluation import PolicyContext, evaluate, passes_each_partner, summarize
 
 
 def episode_records(partner: str, round_index: int, outcomes: list[bool]) -> list[dict]:
@@ -164,6 +164,56 @@ class FakeEnvironment:
 
 
 class EvaluationArtifactTests(unittest.TestCase):
+    def test_every_partner_must_pass_inclusive_threshold_with_exact_denominators(self):
+        counts = {name: {"successes": successes, "episodes": 1000}
+                  for name, successes in zip(("LO", "TC", "PB"), (950, 1000, 1000))}
+        summary = {"episodes": 3000, "per_partner_counts": counts}
+        self.assertTrue(passes_each_partner(summary, ("LO", "TC", "PB"), 1000, 950))
+        counts["LO"]["successes"] = 949  # Overall average still exceeds 98%.
+        self.assertFalse(passes_each_partner(summary, ("LO", "TC", "PB"), 1000, 950))
+        counts["LO"]["episodes"] = 999
+        with self.assertRaises(ValueError):
+            passes_each_partner(summary, ("LO", "TC", "PB"), 1000, 950)
+        counts["LO"]["episodes"] = 1000
+        with self.assertRaises(ValueError):
+            passes_each_partner(summary, ("LO", "TC"), 1000, 950)
+
+    def test_l0_evaluation_overrides_preserve_training_contract_and_record_actual_seeds(self):
+        config = replace(ExperimentConfig(), environment=EnvironmentConfig(horizon=2))
+        original_hash = config.sha256
+        ego = RecordingPolicy().eval()
+        with tempfile.TemporaryDirectory() as temporary:
+            output = Path(temporary)
+            checkpoint = output / "learner.pt"
+            checkpoint.write_bytes(b"immutable checkpoint fixture")
+            with (patch("nestrl_research.evaluation.load_policy", return_value=(ego, {"ego_side": 1, "run_id": "learner"})) as load,
+                  patch("nestrl_research.evaluation.CookingEnv", FakeEnvironment),
+                  patch("nestrl_research.evaluation.ScriptedPeer") as peer):
+                peer.return_value.act.return_value = 0
+                summary = evaluate(config, output, checkpoint, torch.device("cpu"), partner_level="l0",
+                                   run_id="independent-evaluation", rounds=3, evaluation_seed=6001)
+            load.assert_called_once_with(config, checkpoint, torch.device("cpu"))
+            self.assertEqual(config.sha256, original_hash)
+            self.assertEqual(summary["protocol"]["config_sha256"], original_hash)
+            self.assertEqual(summary["protocol"]["rounds"], 3)
+            self.assertEqual(summary["protocol"]["seed"], 6001)
+            self.assertEqual(summary["episodes"], 45)
+            self.assertEqual(set(summary["per_partner"]), {f"l0-0-{recipe}" for recipe in RECIPES})
+            episodes = json.loads((output / "independent-evaluation/episodes.json").read_text())
+            self.assertEqual([e["seed"] for e in episodes],
+                             [6001 + 100_000 * partner + 1000 * round_index + episode
+                              for partner in range(3) for round_index in range(3) for episode in range(5)])
+            self.assertFalse(summary["protocol"]["deterministic_actions"])
+            self.assertFalse(summary["protocol"]["weight_updates"])
+
+    def test_invalid_evaluation_overrides_fail_before_loading_or_creating_runs(self):
+        for changes in ({"rounds": 0}, {"rounds": True}, {"rounds": 1.5},
+                        {"evaluation_seed": -1}, {"evaluation_seed": True}, {"evaluation_seed": 2**32}):
+            with self.subTest(changes=changes), patch("nestrl_research.evaluation.load_policy") as load:
+                with self.assertRaises(ValueError):
+                    evaluate(ExperimentConfig(), Path("unused"), Path("unused.pt"), torch.device("cpu"), **changes)
+                load.assert_not_called()
+
     def test_test_split_inference_writes_complete_hash_verified_traces_without_updates(self):
         config = replace(ExperimentConfig(), profile="smoke", environment=EnvironmentConfig(horizon=2),
                          evaluation_rounds=2, num_envs=2, rollout_steps=40, total_steps=160,

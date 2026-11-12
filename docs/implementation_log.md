@@ -179,3 +179,31 @@ scientific config, checkpoint format or compatibility was changed.
   `fd5c44797dc80917d390eedb5007997e1a8f2d5495affd07616cb08275818454`.
 - Config file SHA-256:
   `163e4e10b78cfa2e1e82b7366482665e2a800ee5b3f1b7c5381447457975d815`.
+
+## 2026-11-13 — evaluate twenty random-start L1 policies against every L0
+
+- User requested performance evaluation of seeds1021–1040 and the count whose
+  success rate is at least95% against every L0. Fix the final400-update models;
+  no weight updates, tuning, checkpoint selection or additional training.
+- Evaluate all three frozen left-side recipe experts against the right-side L1:
+  LettuceOnionSalad, TomatoCarrotSalad, PotatoBroccoliSalad. Each partner gets
+  200 rounds ×5 episodes =1000 episodes/model, 3000/model, 60,000 in total.
+  Stochastic policy actions; evaluation seed6001; random starts and the original
+  five-episode recurrent-context semantics,40-step horizon and rewards.
+- Pass criterion is all three per-partner counts >=950/1000, rather than an
+  average across partners. Report empirical rates and all twenty seeds; this is
+  fixed training-partner performance, not unseen-partner generalization or a
+  statistical guarantee that the true success probability exceeds95%.
+- Added independent evaluation round/seed arguments to preserve the original
+  training config hash during strict checkpoint loading. Protocols record actual
+  evaluation values; tests verify episode seed schedules, all L0 identities,
+  unchanged training config, no updates and invalid-argument rejection.
+- Download final bundles from Draft442708737 with transfer-manifest and archive
+  SHA checks, retain final.pt/final.json/latest.json/config/run/complete records,
+  verify complete400 updates/28,800,000steps and strict CPU load before inference.
+  Record commands/config/source/runtime and checkpoint hashes before execution.
+- Compatibility: no environment/model/training-config change; historical random-
+  start checkpoints retain strict inference compatibility. Exact training resume
+  across this changed evaluation implementation is not claimed or performed.
+- Training config SHA-256 remains
+  `fd5c44797dc80917d390eedb5007997e1a8f2d5495affd07616cb08275818454`.
