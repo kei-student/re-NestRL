@@ -229,3 +229,50 @@ scientific config, checkpoint format or compatibility was changed.
   `3fce77050e82502c7634dd6a408b22a09a5b9285272fe2f624e43ce86ea7c5d5`.
   Upload read-back, fresh re-download and all990 member hashes verified.
   Full twenty-model table and provenance: l1_random_start_l0_evaluation_20261113.md.
+
+## 2026-11-13: behavior of all sixteen passing random-start L1 policies
+
+- Analyze all48,000 saved evaluation episodes (including failures), without new
+  training, selection or changes to the original evaluation. Replayed all
+  1,328,971 joint actions through the pinned world adapter and matched rewards,
+  events, success, boundaries and episode totals. Verified original artifact
+  hashes, unchanged environment-source hashes and all sixteen checkpoint hashes.
+- Added descriptive behavioral extraction, shortest pickup-distance comparison,
+  visible-cue timing and round-position/partner summaries. Distinguish hidden
+  L0 pickup, first L1-visible cue and first L1 raw pickup. Productive chopping
+  and turning are not stationary inactivity. Tests cover an explicitly waiting
+  peer, proactive peer, chopping, replay corruption and shortest paths from all
+  initial right-room poses/orientations.
+- Core result:42,139/48,000 episodes prepare >=2 right-side ingredients;
+  6618 prepare all3. There are strong policy differences in nearest-first versus
+  preferred-ingredient starts. Correct own-side plate contents occur in47,978
+  episodes, with47,976 successful deliveries. Nearest-first is not universal.
+- Only3 episodes acquire a first ingredient after a visible cue. Two1036 cases
+  meet the conservative inactivity screen and share seed267001. The third is a
+  failed1032 plate-handling trajectory. One1040 failure never acquires food;
+  one1033 failure never receives a visible cue. Do not silently exclude them.
+- Independently configured CPU evaluation-only probe delays the two1036 cases'
+  L0 starts by0/4/8/12 steps. Both delay0 baselines exactly reproduce original
+  actions/rewards/events. Cue indices11/15/19/23 give pickup12/16/20/24 for both
+  partners, supporting rare cue-contingent waiting. PB still first picksCarrot,
+  so this does not establish a wait-then-correct-recipe strategy. The probe is
+  selected-case mechanism evidence, not a population success estimate.
+- Rechecked paper B.1/C.1 and clarified source audit: partial observability is
+  published, but the exact visibility mask is not. Own room plus divider is an
+  explicit reconstruction choice, not a confirmed original-paper condition.
+- New immutable analysis/probe configs underconfigs/analyses; file hashes:
+  `c3499c8f3a8d7d8f5915aab3747b54b6fd0a5e94092dc3e9fd9059c618b3228f`
+  and`934548863142469cf46bb9ab88141a60e7874632f745c7a5aa156285da07369d`.
+  Per-command source/config/runtime snapshots and verification are recorded in
+  outputs/l1-passing16-behavior-20261113. See l1_passing16_behavior_20261113.md.
+- Checkpoint compatibility: environment, observations/actions/rewards, training
+  config and model are unchanged; strict CPU inference remains compatible.
+  No checkpoint writes, training resume or backend migration was performed.
+- Validation: workspace check with --allow-dirty passed;85 unittest tests
+  completed successfully (2 Docker opt-in skips); diff/compile checks passed.
+- Local archive:185 members,1,492,859 bytes, all member hashes verified,
+  SHA-256 `840bb344b2990c3ab600d728378c00d01ebe7556035017222d9f7481ca6e2095`.
+  Automatic approval review rejected external upload to existing Draft442708737
+  for lack of explicit approval of this analysis/source/verification payload.
+  No upload was executed; local computation and validation are complete.
+  External storage and push of the branch containing these results await approval.

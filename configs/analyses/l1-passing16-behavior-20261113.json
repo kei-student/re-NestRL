@@ -1,0 +1,49 @@
+{
+  "schema": "re-nestrl-l1-behavior-v1",
+  "analysis_id": "l1-passing16-behavior-20261113",
+  "evaluation_root": "outputs/l1-random-start-l0-eval-20261113/evaluation",
+  "evaluation_summary_sha256": "f4137574399fcb11a92a2b5679d7c8f3dcbeca4dc97eb87dbadf2e3448b2b492",
+  "model_seeds": [
+    1021,
+    1023,
+    1024,
+    1027,
+    1028,
+    1029,
+    1030,
+    1031,
+    1032,
+    1033,
+    1035,
+    1036,
+    1037,
+    1038,
+    1039,
+    1040
+  ],
+  "episodes_per_model": 3000,
+  "workers": 4,
+  "environment": {
+    "recipes": [
+      "LettuceOnionSalad",
+      "TomatoCarrotSalad",
+      "PotatoBroccoliSalad"
+    ],
+    "horizon": 40,
+    "interact_reward": 0.5,
+    "progress_reward": 1.0,
+    "complete_reward": 10.0,
+    "step_cost": 0.0,
+    "observation_schema": "pace_dense_partial_93_plus_reserved12_v1",
+    "random_start": true
+  },
+  "weight_updates": false,
+  "policy_inference": false,
+  "paper": "https://arxiv.org/html/2602.17737v2#A3.SS1",
+  "commitment_proxy": "First pickup of a raw own-side ingredient, action index starting at zero. Earlier navigation commitment is not identified.",
+  "hidden_reveal_proxy": "First pickup of a raw ingredient by L0; hidden from L1 in this reconstruction.",
+  "visible_cue": "First post-action state with any left-side ingredient visible to L1. The next decision can use this cue. This is not the paper's specified visibility mask; that mask is unpublished.",
+  "waiting_candidate": "First raw pickup after visible cue, plus >=3 consecutive pre-pickup/pre-cue transitions with ego state unchanged, and >=3 excess actions over the closest available raw pickup. Descriptive candidate only, not proof of information-seeking.",
+  "nearest": "Shortest action count from initial position/orientation to a raw-ingredient pickup, including interact; all ties qualify.",
+  "selection": "All 16 previously passing policies, all 3000 saved evaluation episodes each; no filtering for success."
+}

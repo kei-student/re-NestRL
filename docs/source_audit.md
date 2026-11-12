@@ -78,6 +78,12 @@ PDF と HTML の両方でこの不一致があり、HTML の変換だけが原�
 視野は同じ側と中央カウンター、step cost は 0、horizon は 40 として固定する。
 これらも論文記載そのものと区別する。
 
+2026-11-13の原文再確認: Appendix B.1はpartial observabilityとvisibility flagsを述べるが、
+「相手側の厨房全体が不可視」とは記載していない。上記の視野maskを論文の確定条件と呼ばない。
+§3.1のModel Non-Observabilityも相手の内的モデル・信念に関する仮定であり、
+厨房の視野maskを指定するものではない。行動分析では、L0の食材取得時刻と、
+この再構成のL1が共有部分で初めて食材を観測できる時刻を分ける。
+
 ## PPO と encoder 損失の読み分け
 
 Appendix B.3 は NestRL の encoder と policy の end-to-end PPO を述べている。

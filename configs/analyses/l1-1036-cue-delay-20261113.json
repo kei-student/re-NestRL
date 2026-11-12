@@ -1,0 +1,38 @@
+{
+  "schema": "re-nestrl-cue-delay-v1",
+  "analysis_id": "l1-1036-cue-delay-20261113",
+  "model_seed": 1036,
+  "training_config": "configs/l1-random-start-400u-pilot-20261112.json",
+  "training_config_sha256": "fd5c44797dc80917d390eedb5007997e1a8f2d5495affd07616cb08275818454",
+  "checkpoint": "outputs/l1-random-start-l0-eval-20261113/models/l1-construction-1036/checkpoints/final.pt",
+  "checkpoint_sha256": "ba3535f320c5a40bf58e5653f66d94d4d27152f47355fc91ba3b88333ad14410",
+  "evaluation_run": "outputs/l1-random-start-l0-eval-20261113/evaluation/runs/eval-l1-1036-l0-1000-s6001",
+  "device": "cpu",
+  "threads": 1,
+  "deterministic_actions": false,
+  "weight_updates": false,
+  "initial_l0_noop_steps": [
+    0,
+    4,
+    8,
+    12
+  ],
+  "cases": [
+    {
+      "partner_id": "l0-0-TomatoCarrotSalad",
+      "round": 161,
+      "episode_in_round": 0,
+      "seed": 267001
+    },
+    {
+      "partner_id": "l0-0-PotatoBroccoliSalad",
+      "round": 61,
+      "episode_in_round": 0,
+      "seed": 267001
+    }
+  ],
+  "selection": "Two of 48000 episodes passed the conservative inactivity-plus-delayed-pickup waiting screen. Both used RNG/environment seed267001. This targeted probe tests those exceptions; it does not estimate population performance.",
+  "control": "Same environment reset, frozen CPU model, stochastic RNG seed and fresh round context. Only L0 takes no-op for the first d steps, then resumes its unchanged recipe expert controller. Baseline must match every original action, reward and event.",
+  "hypothesis": "Cue-contingent waiting should delay own pickup when the visible cue is delayed. Compare pickup action index with actual cue index.",
+  "horizon": 40
+}
