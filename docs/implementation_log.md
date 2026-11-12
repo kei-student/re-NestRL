@@ -153,3 +153,29 @@ scientific config, checkpoint format or compatibility was changed.
 - Documentation/workflow only. No source, config, seeds, model format or
   checkpoint compatibility change. This does not authorize resuming the twenty
   stopped models; the user's stop remains in effect. No Cloud task was started.
+
+## 2026-11-12 — launch one fresh random-start L1 pilot task
+
+- User explicitly requested one new Cloud task and a status report, following
+  the single-task launch gate. Start only seeds1021/1022, two models in one new
+  re-NestRL-repro-base VM, each for the full400 updates/28,800,000 CPU steps.
+  The previous twenty runs remain stopped; no checkpoint transfer or resume.
+- Config `l1-random-start-400u-pilot-20261112.json` preserves all environment,
+  PPO, roles, history and budget choices. Construction1021–1040 are reserved in
+  a separate immutable registry so expansion can retain a common config hash;
+  seeds1023–1040 are not authorized to start in this request. Existing recorded
+  construction seeds through1020 do not overlap the new range.
+- Use one Torch/BLAS thread per model. Judge effective VM cgroup limits and
+  observed memory/CPU suitability; rootless Docker ignoring individual resource
+  flags alone is not a blocker. Do not modify or bypass platform limits.
+- Gate: preflight, both models progressing through saved updates, pointer/hash
+  consistency and verified startup artifact upload/download. Report actual
+  progress, throughput, resources and issues before any additional task launch.
+- New run namespace and Draft Release tag:
+  `l1-random-start-400u-pilot-20261112`; asset names are task/seed specific.
+  Historical records and checkpoints are immutable; scientific checkpoint
+  compatibility is unchanged, but this pilot uses fresh initialization only.
+- Canonical config SHA-256:
+  `fd5c44797dc80917d390eedb5007997e1a8f2d5495affd07616cb08275818454`.
+- Config file SHA-256:
+  `163e4e10b78cfa2e1e82b7366482665e2a800ee5b3f1b7c5381447457975d815`.

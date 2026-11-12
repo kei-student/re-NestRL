@@ -11,6 +11,17 @@ from nestrl_research.config import ROOT, EnvironmentConfig, ExperimentConfig, PP
 
 
 class ContractTests(unittest.TestCase):
+    def test_single_task_pilot_uses_fresh_seeds_and_full_random_start_budget(self):
+        previous = load_config(ROOT / "configs/l1-random-start-400u-20261112.json")
+        pilot = load_config(ROOT / "configs/l1-random-start-400u-pilot-20261112.json")
+        self.assertTrue(pilot.environment.random_start)
+        self.assertEqual(pilot.total_steps, 400 * pilot.batch_size)
+        self.assertEqual(pilot.construction_seeds[:2], [1021, 1022])
+        self.assertEqual(len(set(pilot.construction_seeds)), 20)
+        self.assertFalse(set(pilot.construction_seeds) & set(previous.construction_seeds))
+        self.assertEqual(pilot.environment, previous.environment)
+        self.assertEqual(pilot.ppo, previous.ppo)
+
     def test_random_start_400_update_campaign_has_twenty_unique_assigned_seeds(self):
         campaign = "l1-random-start-400u-20261112"
         config = load_config(ROOT / "configs" / f"{campaign}.json")
