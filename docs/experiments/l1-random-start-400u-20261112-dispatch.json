@@ -1,0 +1,139 @@
+{
+  "schema_version": 1,
+  "campaign_id": "l1-random-start-400u-20261112",
+  "event": "cloud_tasks_created",
+  "observed_at_utc": "2026-11-12 08:39:31 UTC",
+  "source_commit": "802b6c527b749b18d10812ef3c58388c75f869eb",
+  "source_branch": "codex/l1-random-start-400u-20261112",
+  "config_sha256": "303dadcb6c6096748b68928019fa44f33733079d71f11c63e4688413245834ca",
+  "environment_config_id": "30ff4574-de30-42ef-822b-d0dffe75bec2~asenvcfg_7c9c2cab795481919b5f95e2ceb3be52",
+  "storage": {
+    "repository": "kei-student/re-NestRL",
+    "release_id": 442675518,
+    "draft": true,
+    "url": "https://github.com/kei-student/re-NestRL/releases/tag/untagged-54cf3e34b9545f7d6f90"
+  },
+  "tasks": [
+    {
+      "taskId": "t01",
+      "seeds": [
+        1001,
+        1002
+      ],
+      "threadId": "6af57ab7-b7e4-8191-b394-751d5a3cb0bf",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t01",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t02",
+      "seeds": [
+        1003,
+        1004
+      ],
+      "threadId": "6af57ad4-95ac-8191-ae92-6df9720990bc",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t02",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t03",
+      "seeds": [
+        1005,
+        1006
+      ],
+      "threadId": "6af57ac1-a7c4-8191-b930-beb235c5e098",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t03",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t04",
+      "seeds": [
+        1007,
+        1008
+      ],
+      "threadId": "6af57acb-5a54-8191-94da-e261548940b9",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t04",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t05",
+      "seeds": [
+        1009,
+        1010
+      ],
+      "threadId": "6af57ade-2784-8191-9c36-b3711e77808c",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t05",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t06",
+      "seeds": [
+        1011,
+        1012
+      ],
+      "threadId": "6af57ae8-a130-8191-abf6-7ad5f77b7097",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t06",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t07",
+      "seeds": [
+        1013,
+        1014
+      ],
+      "threadId": "6af57af2-448c-8191-b58e-f40c3063609b",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t07",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t08",
+      "seeds": [
+        1015,
+        1016
+      ],
+      "threadId": "6af57b03-43a0-8191-b274-728e06454096",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t08",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t09",
+      "seeds": [
+        1017,
+        1018
+      ],
+      "threadId": "6af57b0c-c558-8191-a2c4-6b40a9f7408f",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t09",
+      "creation_verified": true,
+      "training_start_verified": false
+    },
+    {
+      "taskId": "t10",
+      "seeds": [
+        1019,
+        1020
+      ],
+      "threadId": "6af57b16-940c-8191-a81a-83e824bcd0a2",
+      "hostId": "durable",
+      "output_root": "outputs/l1-random-start-400u-20261112-t10",
+      "creation_verified": true,
+      "training_start_verified": false
+    }
+  ],
+  "note": "This immutable receipt verifies task creation only. Confirm running models and saved PPO updates separately."
+}
