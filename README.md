@@ -18,6 +18,8 @@ L1/L2の長期学習・評価の記録は実験台帳に登録済みです。論
 ## 実装内容
 
 - 図1の7×8調理環境。公式 PACE の固定版を未変更で使用し、配置・報酬・観測をローカルで構成。
+- 新しいランダム開始条件では、毎エピソード、各エージェントを自分の部屋の床12マスから一様に配置。
+  左右の役割と初期の向きは維持し、エピソードseedから開始位置を再現できます。
 - 本文の3レシピ: Lettuce + Onion、Tomato + Carrot、Potato + Broccoli。
   Appendix B.2 の別の組み合わせは、ユーザー指示に従い採用しません。
 - 両側の L0 方策。最短経路で食材取得・切断・盛付・右側から配膳。
@@ -74,7 +76,7 @@ python -m unittest discover -s tests -q
 ## 小さい動作確認
 
 ```sh
-python -m nestrl_research pipeline --config configs/smoke.json --output-root outputs/smoke-new --device cpu
+python -m nestrl_research pipeline --config configs/smoke-random-start.json --output-root outputs/smoke-random-start-new --device cpu
 ```
 
 5個の L1（construction 2 / validation 1 / test 2）、L2、Generalist を順に学習し、
@@ -85,7 +87,7 @@ CPUの未完了runは、途中保存があれば `train --resume` で再開で�
 ## 長期学習用の設定
 
 ```sh
-python -m nestrl_research pipeline --config configs/paper.json --output-root outputs/paper-cuda-001 --device cuda
+python -m nestrl_research pipeline --config configs/paper-random-start.json --output-root outputs/paper-random-start-cuda-001 --device cuda
 ```
 
 Table 3 の batch=72,000、4 epochs、18 minibatches と他のPPO条件を使用します。
@@ -97,15 +99,22 @@ CPUでこの長期学習は起動していません。
 段階ごとの実行も可能です。
 
 ```sh
-python -m nestrl_research train --config configs/paper.json --output-root outputs/paper-cuda-001 --stage l1 --split construction --seed 101 --device cuda
-python -m nestrl_research train --config configs/paper.json --output-root outputs/paper-cuda-001 --stage l1 --split construction --seed 102 --device cuda
-python -m nestrl_research train --config configs/paper.json --output-root outputs/paper-cuda-001 --stage l1 --split construction --seed 103 --device cuda
-python -m nestrl_research train --config configs/paper.json --output-root outputs/paper-cuda-001 --stage l2 --device cuda
+python -m nestrl_research train --config configs/paper-random-start.json --output-root outputs/paper-random-start-cuda-001 --stage l1 --split construction --seed 101 --device cuda
+python -m nestrl_research train --config configs/paper-random-start.json --output-root outputs/paper-random-start-cuda-001 --stage l1 --split construction --seed 102 --device cuda
+python -m nestrl_research train --config configs/paper-random-start.json --output-root outputs/paper-random-start-cuda-001 --stage l1 --split construction --seed 103 --device cuda
+python -m nestrl_research train --config configs/paper-random-start.json --output-root outputs/paper-random-start-cuda-001 --stage l2 --device cuda
 ```
 
 held-out 評価の前には、その設定で定義された validation / test L1 を各 seed で学習します。
 L1 の学習はすべて固定 L0 相手であり、L2 はそのうち construction 方策にしか触れません。
 最終予算のチェックポイントを固定して評価し、この実装はテスト成績による選択を行いません。
+
+ランダム開始は `environment.random_start: true` で指定します。同じ位置が連続して
+選ばれることもあります。従来の `paper.json` / `smoke.json` / `paper-eight-l1.json`
+など、指定のない過去のJSON設定は固定開始のまま、設定hashも維持しています。
+ランダム開始には新しい出力先・registryを使い、L1から新しい条件で学習してください。
+環境ソースが変わるため、旧チェックポイントの厳密ロード・学習再開はこの版では拒否されます。
+過去の結果を再現する場合は、その実験に記録された旧ソースを使用します。
 
 ## 成果物と実験の扱い
 

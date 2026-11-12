@@ -66,3 +66,38 @@ collector state, numeric metrics and episodes matched uninterrupted execution
 all 191 files plus strict model loading. An earlier invalid-ID instruction was
 rejected before updates; its failure record was preserved. No learning source,
 scientific config, checkpoint format or compatibility was changed.
+
+## 2026-11-12 — random episode starting positions
+
+- User-requested scientific condition: independently sample each chef uniformly
+  from the 12 floors in its own room at every episode reset. Chef 0 stays left,
+  chef 1 stays right; initial facing, layout, recipes, rewards, observations,
+  horizon, seeds, budgets and round-history rules are unchanged. Repeats are
+  allowed (144 joint starts); no upstream PACE source was modified.
+- Added explicit `environment.random_start=true` profiles
+  `paper-random-start.json` and `smoke-random-start.json`, with new profile/output
+  namespaces. Programmatic defaults use random starts. Historical JSON with no
+  flag loads as fixed-start; false is omitted from canonical serialization to
+  preserve historical config hashes. Existing configs/records remain unchanged.
+- Explicit `reset(seed)` restarts the local RNG; `reset()` advances it. Existing
+  training/evaluation episode seeds reproduce starts and checkpoint episode replay.
+- Tests cover legal floor starts, all candidate cells, role separation, observation
+  positions, RNG streams/reseeding, recipe completion, real training-collector
+  resets, legacy config hashes and validation. Existing CPU recovery tests now
+  exercise the random condition, including partial-episode replay.
+- Checkpoint compatibility: tensor shapes and observation/action encoding are
+  unchanged, but this is a different initial-state distribution. Historical
+  checkpoints are rejected by strict source/environment hashes; they cannot be
+  resumed or mixed into the new condition. Use new runs/registries and newly
+  trained frozen construction partners. Historical runs use their recorded source.
+- No scientific training or historical run/controller was started or modified.
+- Validation from the activated repository `.venv` (Python 3.12.14, NumPy 2.5.4,
+  PyTorch 2.15.0): `python scripts/check_workspace.py --device auto --allow-dirty`
+  passed on CPU with all six pinned PACE sources verified;
+  `python -m unittest discover -s tests -q` passed (75 tests, two opt-in Docker
+  integration tests skipped); `git diff --check` passed.
+- Canonical config SHA-256 (the run/checkpoint contract):
+  - `paper-random-start.json`:
+    `01b192fd04dadce581d6bc719427412ae14da731c01b9af7827796b97e8f1c90`
+  - `smoke-random-start.json`:
+    `27154afcf49c953a7948efac8e774ff3118c031848006181c03ea69885158d2c`

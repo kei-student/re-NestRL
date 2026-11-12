@@ -106,6 +106,22 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(all(joint[0] == 5 for env in collector.envs for joint in env.joint_actions))
         self.assertTrue(all(peer.agent_id == 0 for peer in collector.partners.scripts))
 
+    def test_real_collector_randomizes_each_episode_with_reproducible_seeds(self):
+        config = replace(self.config, environment=EnvironmentConfig(horizon=1),
+                         rollout_steps=12, total_steps=24)
+        for side in (0, 1):
+            with self.subTest(side=side):
+                model = pipeline.make_model(config, self.device)
+                collectors = [RolloutCollector(config, model, ego_side=side, seed=42, device=self.device)
+                              for _ in range(2)]
+                batches = [collector.collect()[0] for collector in collectors]
+                torch.testing.assert_close(batches[0]["observations"], batches[1]["observations"], rtol=0, atol=0)
+                self.assertTrue(batches[0]["episode_starts"].all())
+                for index in range(config.num_envs):
+                    self.assertGreater(torch.unique(batches[0]["observations"][:, index, :2], dim=0).shape[0], 1)
+                self.assertTrue(batches[0]["resets"][[0, 5, 10]].all())
+                self.assertEqual(int(batches[0]["resets"].sum()), 6)
+
     def test_learned_pool_larger_than_recipes_is_frozen_and_keeps_separate_states(self):
         models = [pipeline.make_model(self.config, self.device) for _ in range(4)]
         with patch("nestrl_research.rollout.ScriptedPeer", side_effect=AssertionError("Unexpected scripted peer")):

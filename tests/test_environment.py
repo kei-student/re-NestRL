@@ -9,7 +9,7 @@ from nestrl_research.peers import ScriptedPeer
 
 class EnvironmentTests(unittest.TestCase):
     def test_fixed_layout_and_observation_contract(self):
-        env = CookingEnv()
+        env = CookingEnv(EnvironmentConfig(random_start=False))
         obs = env.reset(seed=7)
         self.assertEqual(obs.shape, (2, 105))
         self.assertEqual(obs.dtype, np.float32)
@@ -25,7 +25,7 @@ class EnvironmentTests(unittest.TestCase):
         expected_foods = (("Lettuce", "Onion"), ("Tomato", "Carrot"), ("Potato", "Broccoli"))
         for recipe, expected_steps, ingredients in zip(RECIPES, (16, 19, 17), expected_foods):
             with self.subTest(recipe=recipe):
-                env = CookingEnv()
+                env = CookingEnv(EnvironmentConfig(random_start=False))
                 env.reset(seed=13)
                 peers = [ScriptedPeer(recipe, agent_id=side) for side in (0, 1)]
                 total_reward = 0.0
@@ -42,6 +42,66 @@ class EnvironmentTests(unittest.TestCase):
                 self.assertAlmostEqual(total_reward, 16.5)
                 self.assertEqual({type(food).__name__ for food in env.world.world_objects["Plate"][0].content},
                                  set(ingredients))
+
+    def test_random_starts_cover_only_own_room_floors_and_match_observations(self):
+        env = CookingEnv()
+        seen = [set(), set()]
+        for seed in range(128):
+            obs = env.reset(seed=seed)
+            locations = [agent.location for agent in env.world.agents]
+            self.assertNotEqual(*locations)
+            for side, agent in enumerate(env.world.agents):
+                x, y = agent.location
+                self.assertIn(x, (1, 2) if side == 0 else (4, 5))
+                self.assertIn(y, range(1, 7))
+                self.assertTrue(env.world.get_objects_at(agent.location, env.objects.Floor))
+                self.assertEqual(agent.orientation, 1)
+                np.testing.assert_allclose(obs[side, :3], [x / 7, y / 8, 1])
+                np.testing.assert_array_equal(obs[side, 93:], 0)
+                seen[side].add(agent.location)
+        self.assertEqual(seen[0], {(x, y) for x in (1, 2) for y in range(1, 7)})
+        self.assertEqual(seen[1], {(x, y) for x in (4, 5) for y in range(1, 7)})
+
+    def test_random_reset_stream_advances_and_reseeding_reproduces_it(self):
+        first, second = CookingEnv(), CookingEnv()
+        initial = first.reset(seed=123)
+        np.testing.assert_array_equal(initial, second.reset(seed=123))
+        sequence = [initial]
+        for _ in range(12):
+            first.step((0, 0))
+            sequence.append(first.reset())
+            np.testing.assert_array_equal(sequence[-1], second.reset())
+            self.assertEqual(first.t, 0)
+            self.assertFalse(first.success)
+        for side in (0, 1):
+            self.assertGreater(len({tuple(obs[side, :2]) for obs in sequence}), 1)
+        np.testing.assert_array_equal(first.reset(seed=123), sequence[0])
+        for expected in sequence[1:]:
+            np.testing.assert_array_equal(first.reset(), expected)
+
+    def test_recipe_experts_complete_from_random_starts(self):
+        env = CookingEnv()
+        for recipe in RECIPES:
+            for seed in range(8):
+                with self.subTest(recipe=recipe, seed=seed):
+                    env.reset(seed=seed)
+                    peers = [ScriptedPeer(recipe, agent_id=side) for side in (0, 1)]
+                    total_reward = 0.0
+                    for _ in range(env.horizon):
+                        _, reward, terminated, truncated, info = env.step([peer(env) for peer in peers])
+                        total_reward += reward
+                        if terminated or truncated:
+                            break
+                    self.assertTrue(terminated)
+                    self.assertFalse(truncated)
+                    self.assertEqual(info["recipe"], recipe)
+                    self.assertAlmostEqual(total_reward, 16.5)
+
+    def test_legacy_fixed_starts_remain_fixed_across_resets(self):
+        env = CookingEnv(EnvironmentConfig(random_start=False))
+        for seed in (1, None, 2, None):
+            env.reset(seed=seed)
+            self.assertEqual([agent.location for agent in env.world.agents], [(2, 5), (5, 5)])
 
     def test_partial_visibility_and_reserved_slots(self):
         env = CookingEnv()
@@ -131,6 +191,9 @@ class EnvironmentTests(unittest.TestCase):
             EnvironmentConfig(recipes=("LettuceCarrotSalad",))
         with self.assertRaises(ValueError):
             EnvironmentConfig(horizon=0)
+        for value in (None, "false", 0, 1):
+            with self.subTest(random_start=value), self.assertRaises(ValueError):
+                EnvironmentConfig(random_start=value)
 
     def test_local_loader_does_not_register_legacy_packages(self):
         names = ("gym_cooking", "gym", "pettingzoo", "rebar")

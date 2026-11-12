@@ -23,7 +23,28 @@ all other cells are counters, with the following replacements and objects:
 | Shared plate | (3,3) |
 | Lettuce / Tomato / Potato | (0,3) / (0,1) / (0,2) |
 | Onion / Carrot / Broccoli | (6,4) / (6,5) / (6,6) |
-| Chef 0 / Chef 1 | (2,5) / (5,5) |
+| Chef 0 start (random mode) | Uniform floor in x={1,2}, y={1,...,6} |
+| Chef 1 start (random mode) | Uniform floor in x={4,5}, y={1,...,6} |
+
+With `environment.random_start=true`, each reset independently samples each
+chef's location uniformly from the 12 floor cells in its own room (144 possible
+joint starts). Rooms and chef roles stay fixed, so starts cannot overlap or land
+on counters/objects. Independent samples may repeat a previous location.
+`reset(seed=N)` restarts a local NumPy generator and reproduces the initial
+observation; subsequent `reset()` calls advance that generator rather than
+reseeding it. Training and evaluation already supply an explicit episode seed,
+so their recorded seeds also reproduce the sampled starts and resume replay.
+
+Standalone environments and programmatic configs default to random starts.
+Use `configs/paper-random-start.json` or `configs/smoke-random-start.json` for
+new experiments. Historical JSON configs that omit `random_start` retain fixed
+starts `(2,5)` / `(5,5)` and their original canonical config hashes. Explicit
+`random_start=false` also selects that legacy condition and is serialized in
+the same canonical form with the field omitted. Historical config files and
+experimental records are unchanged. Use a new output root/registry and run
+namespace for the random condition; fixed-start checkpoints cannot be reused
+as construction partners or resumed under the new condition. Strict checkpoint
+loading also rejects historical environment/source hashes in this revision.
 
 The PACE agent constructor initializes both chefs facing left. The divider at
 x=3 is impassable. Only the paper's main-text recipes are enabled:
@@ -104,11 +125,14 @@ the shared plate; the right chef delivers only after both correct ingredients
 are present. It has no training or access to previous NestRL implementations.
 An optional seeded random action probability supplies an explicit diversity
 parameter; the deterministic expert uses zero. Against one another, the experts
-complete LO/TC/PB in 16/19/17 steps, with shared returns of 16.5 respectively.
+complete LO/TC/PB from the legacy fixed starts in 16/19/17 steps, with shared
+returns of 16.5 respectively. With random starts the completion length varies.
 The paper does not publish these exact peer controllers, so peer-policy
 equivalence is also unverified.
 
 Tests check all three recipes with both side controllers, partial visibility,
 reserved slots, shared chopping rewards, repeated pickup bonuses, invalid recipe
-delivery, unprepared food, no-op truncation, seed reproducibility, and isolation
+delivery, unprepared food, no-op truncation, seed/episode-stream reproducibility,
+valid random starts on all 12 floor cells per room, actual collector resets,
+bit-exact CPU resume with random starts, legacy config hashes, and isolation
 from legacy package imports.

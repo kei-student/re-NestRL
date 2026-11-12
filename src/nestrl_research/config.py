@@ -27,6 +27,7 @@ class EnvironmentConfig:
     complete_reward: float = 10.0
     step_cost: float = 0.0
     observation_schema: str = "pace_dense_partial_93_plus_reserved12_v1"
+    random_start: bool = True
 
 
 @dataclass(frozen=True)
@@ -74,7 +75,12 @@ class ExperimentConfig:
         return self.num_envs * self.rollout_steps
 
     def to_dict(self) -> dict:
-        return asdict(self)
+        data = asdict(self)
+        # Historical JSON omitted this field and meant fixed Figure 1 starts.
+        # Keep its canonical representation/hash unchanged for legacy records.
+        if not self.environment.random_start:
+            del data["environment"]["random_start"]
+        return data
 
     @property
     def sha256(self) -> str:
@@ -85,6 +91,8 @@ class ExperimentConfig:
             raise ValueError("Unsupported schema; use a new implementation version for new semantics")
         if tuple(self.environment.recipes) != RECIPES:
             raise ValueError("This reconstruction freezes the main-text recipes and 105-slot observation schema")
+        if not isinstance(self.environment.random_start, bool):
+            raise ValueError("random_start must be a boolean")
         if self.environment.horizon <= 0 or self.episodes_per_round <= 0 or self.evaluation_rounds <= 0:
             raise ValueError("Episode/round counts must be positive")
         if self.num_envs <= 0 or self.rollout_steps <= 0 or self.total_steps <= 0:
@@ -123,6 +131,8 @@ def _strict(cls, value: dict):
 
 def load_config(path: Path | str) -> ExperimentConfig:
     data = json.loads(Path(path).read_text(encoding="utf-8"))
+    # Loading an old experiment must not silently change its scientific condition.
+    data.setdefault("environment", {}).setdefault("random_start", False)
     data["environment"] = _strict(EnvironmentConfig, data.get("environment", {}))
     data["ppo"] = _strict(PPOConfig, data.get("ppo", {}))
     config = _strict(ExperimentConfig, data)

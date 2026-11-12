@@ -39,6 +39,7 @@ class EnvironmentConfig:
     observation_dim: int = 105
     layout: str = "paper_figure1"
     observation_schema: str = OBSERVATION_SCHEMA
+    random_start: bool = True
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "recipes", tuple(self.recipes))
@@ -52,6 +53,8 @@ class EnvironmentConfig:
             raise ValueError("only the 105-slot paper_figure1 reconstruction is supported")
         if self.observation_schema != OBSERVATION_SCHEMA:
             raise ValueError(f"unsupported observation schema: {self.observation_schema}")
+        if not isinstance(self.random_start, bool):
+            raise ValueError("random_start must be a boolean")
         rewards = (self.interact_reward, self.progress_reward, self.complete_reward, self.step_cost)
         if not all(np.isfinite(value) and value >= 0 for value in rewards):
             raise ValueError("reward magnitudes and step_cost must be finite and nonnegative")
@@ -102,7 +105,8 @@ class CookingEnv:
 
     ``reset(seed)`` returns a float32 array of shape (2, 105). ``step`` accepts
     two actions and returns observation, shared reward, terminated, truncated,
-    and info. Seed is retained for reproducibility; the Figure 1 layout is fixed.
+    and info. Each chef starts on a uniformly sampled floor in its own room.
+    An explicit seed restarts the RNG; unseeded resets advance the same stream.
     """
 
     observation_dim = 105
@@ -123,6 +127,7 @@ class CookingEnv:
         self._world_class = modules["gym_cooking.cooking_world.cooking_world"].CookingWorld
         self._recipe_module = modules["gym_cooking.cooking_book.recipe_drawer"]
         self.seed = None
+        self.rng = np.random.default_rng()
         self.reset()
 
     def _make_world(self):
@@ -147,6 +152,10 @@ class CookingEnv:
         ):
             world.add_object(getattr(objects, name)(location))
         for index, location in enumerate(((2, 5), (5, 5))):
+            if self.config.random_start:
+                floors = [floor.location for floor in world.world_objects["Floor"]
+                          if (floor.location[0] < 3) == (index == 0)]
+                location = floors[int(self.rng.integers(len(floors)))]
             world.agents.append(objects.Agent(location, world.COLORS[index], f"agent-{index + 1}"))
         world.index_objects()
         return world
@@ -154,7 +163,7 @@ class CookingEnv:
     def reset(self, seed: int | None = None) -> np.ndarray:
         if seed is not None:
             self.seed = int(seed)
-        self.rng = np.random.default_rng(self.seed)
+            self.rng = np.random.default_rng(self.seed)
         self.world = self._make_world()
         self.recipe_graphs = [self._recipe_module.RECIPES[name]() for name in self.config.recipes]
         for graph in self.recipe_graphs:

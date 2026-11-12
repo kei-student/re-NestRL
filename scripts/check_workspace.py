@@ -36,7 +36,8 @@ def main():
     if dirty and not args.allow_dirty:
         raise RuntimeError("Working tree is dirty; use --allow-dirty only during development")
     verified = verify_upstream()
-    configs = {name: load_config(ROOT / "configs" / f"{name}.json").sha256 for name in ("paper", "smoke")}
+    configs = {name: load_config(ROOT / "configs" / f"{name}.json").sha256
+               for name in ("paper", "smoke", "paper-random-start", "smoke-random-start")}
     results = {}
     for recipe in RECIPES:
         env = CookingEnv()
