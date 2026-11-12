@@ -13,6 +13,13 @@
 - Accept method, partners, seeds, updates, budget, stopping/evaluation rules,
   and concurrency from each task. A/C names and execution-machine roles are
   temporary. Record the actual command/config/code SHA before execution.
+- For a multi-task Cloud launch, start one of the requested tasks first. Verify
+  its actual resource limits, assigned training jobs progressing through a saved
+  update, and startup artifact upload/download hashes. Resolve launch problems
+  and record the working procedure before starting the remaining tasks. The
+  first task counts toward the requested total; keep scientific conditions and
+  budgets unchanged. Proceed after verification without another approval unless
+  the user requests one. See docs/cloud_base.md for the launch gate.
 - Keep historical runs and their source/config/manifest hashes immutable.
   Different scientific conditions/backends require a distinct config/run ID.
   Preserve construction/validation/test splits and frozen partner policies.

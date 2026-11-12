@@ -138,3 +138,18 @@ scientific config, checkpoint format or compatibility was changed.
 - Local validation: activated `.venv` workspace check with `--device auto
   --allow-dirty` passed on CPU; all six pinned PACE files verified; unittest
   discovery passed (76 tests, two opt-in Docker tests skipped); diff check passed.
+
+## 2026-11-12 — verify one Cloud task before launching the rest
+
+- Adopted the user's requested launch sequence in AGENTS.md and cloud_base.md:
+  start one requested task, verify setup/resource suitability, each assigned
+  model's saved training update and startup artifact upload/download hashes,
+  resolve problems, then launch the remaining tasks with the working procedure.
+- The first task counts toward the total (ten tasks means one plus nine), with
+  unchanged scientific conditions and full budgets. Verification does not require
+  completing the first model's full budget or another routine user approval.
+- Distinguish effective VM limits from unenforced Docker flags; judge actual
+  resource suitability without changing or bypassing platform limits.
+- Documentation/workflow only. No source, config, seeds, model format or
+  checkpoint compatibility change. This does not authorize resuming the twenty
+  stopped models; the user's stop remains in effect. No Cloud task was started.
