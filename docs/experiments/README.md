@@ -18,6 +18,10 @@ construction seed1001〜1020を10個の新規Cloudタスクへ2体ずつ割り�
 複数食材の準備が中心で、最寄り優先には個体差がある。稀な1036の待機2例については
 独立した相手開始遅延probeで手掛かりへの反応を検証した。
 
+次の実験用に、ランダム開始・400更新の[3環境条件](../l1_environment_variants_20261113.md)
+（全体観測／各エージェント各エピソード1種類の調理／両方）を追加した。
+環境・設定の作成と検証のみで、これらの条件の学習は起動していない。
+
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。
 - Release target commitと、dirtyな実行時source、再構成用commitを区別する。元manifestを更新しない。

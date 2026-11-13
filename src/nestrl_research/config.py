@@ -8,6 +8,8 @@ import math
 from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
+from .environment import observation_schema_for
+
 ROOT = Path(__file__).resolve().parents[2]
 RECIPES = ("LettuceOnionSalad", "TomatoCarrotSalad", "PotatoBroccoliSalad")
 UPSTREAM_COMMIT = "f008c19aa743ec209550375c9ee9c25379ac8b24"
@@ -28,6 +30,8 @@ class EnvironmentConfig:
     step_cost: float = 0.0
     observation_schema: str = "pace_dense_partial_93_plus_reserved12_v1"
     random_start: bool = True
+    visibility: str = "own_side"
+    max_ingredients_per_agent: int | None = None
 
 
 @dataclass(frozen=True)
@@ -80,6 +84,12 @@ class ExperimentConfig:
         # Keep its canonical representation/hash unchanged for legacy records.
         if not self.environment.random_start:
             del data["environment"]["random_start"]
+        # Omitted fields retain the historical partial/unrestricted contract
+        # and exact canonical hashes for old experiment records.
+        if self.environment.visibility == "own_side":
+            del data["environment"]["visibility"]
+        if self.environment.max_ingredients_per_agent is None:
+            del data["environment"]["max_ingredients_per_agent"]
         return data
 
     @property
@@ -87,7 +97,8 @@ class ExperimentConfig:
         return canonical_hash(self.to_dict())
 
     def validate(self) -> None:
-        if self.schema != SCHEMA or self.environment.observation_schema != "pace_dense_partial_93_plus_reserved12_v1":
+        expected_schema = observation_schema_for(self.environment.visibility, self.environment.max_ingredients_per_agent)
+        if self.schema != SCHEMA or self.environment.observation_schema != expected_schema:
             raise ValueError("Unsupported schema; use a new implementation version for new semantics")
         if tuple(self.environment.recipes) != RECIPES:
             raise ValueError("This reconstruction freezes the main-text recipes and 105-slot observation schema")

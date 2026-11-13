@@ -1,0 +1,83 @@
+{
+  "schema": "re-nestrl-v1",
+  "profile": "l1-random-start-400u-single-ingredient-20261113",
+  "environment": {
+    "recipes": [
+      "LettuceOnionSalad",
+      "TomatoCarrotSalad",
+      "PotatoBroccoliSalad"
+    ],
+    "horizon": 40,
+    "interact_reward": 0.5,
+    "progress_reward": 1.0,
+    "complete_reward": 10.0,
+    "step_cost": 0.0,
+    "observation_schema": "pace_dense_partial_93_plus_ingredient_locks12_v1",
+    "random_start": true,
+    "visibility": "own_side",
+    "max_ingredients_per_agent": 1
+  },
+  "ppo": {
+    "lr": 0.001,
+    "clip": 0.2,
+    "entropy": 0.03,
+    "gamma": 0.99,
+    "gae_lambda": 0.95,
+    "epochs": 4,
+    "minibatches": 18,
+    "max_grad_norm": 15.0,
+    "value_coef": 0.5,
+    "clip_value_loss": true,
+    "bptt_steps": 20
+  },
+  "hidden_dim": 128,
+  "hidden_dims": [
+    128,
+    128
+  ],
+  "num_envs": 360,
+  "rollout_steps": 200,
+  "total_steps": 28800000,
+  "episodes_per_round": 5,
+  "evaluation_rounds": 10,
+  "construction_seeds": [
+    21001,
+    21002,
+    21003,
+    21004,
+    21005,
+    21006,
+    21007,
+    21008,
+    21009,
+    21010,
+    21011,
+    21012,
+    21013,
+    21014,
+    21015,
+    21016,
+    21017,
+    21018,
+    21019,
+    21020
+  ],
+  "validation_seeds": [
+    21101
+  ],
+  "test_seeds": [
+    21201,
+    21202,
+    21203,
+    21204,
+    21205
+  ],
+  "learner_seed": 21301,
+  "evaluation_seed": 21401,
+  "l1_ego_side": 1,
+  "ego_side": 0,
+  "context_reset": "round",
+  "previous_action_input": true,
+  "episode_boundary_input": true,
+  "finite_horizon_returns": true
+}

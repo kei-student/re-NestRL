@@ -74,7 +74,7 @@ defaults to **0.0**; the separate upstream experiment YAML's 0.2 is not inherite
 
 ## Observation schema
 
-Schema identifier: `pace_dense_partial_93_plus_reserved12_v1`.
+Baseline schema identifier: `pace_dense_partial_93_plus_reserved12_v1`.
 `reset(seed)` returns a float32 `(2,105)` array. No recipe identifier is appended.
 `step((a0,a1))` returns `(obs, shared_reward, terminated, truncated, info)`;
 `info` includes `success`, completed `recipe` (otherwise null), `events`, and `t`.
@@ -136,3 +136,55 @@ delivery, unprepared food, no-op truncation, seed/episode-stream reproducibility
 valid random starts on all 12 floor cells per room, actual collector resets,
 bit-exact CPU resume with random starts, legacy config hashes, and isolation
 from legacy package imports.
+
+## Explicit visibility and cooking-limit variants (2026-11-13)
+
+The original partial/unrestricted condition remains the default. New task
+configs opt into three independent conditions; see
+[the three-variant plan](l1_environment_variants_20261113.md).
+Historical files and their canonical config hashes are unchanged.
+
+| visibility | max_ingredients_per_agent | Observation schema |
+|---|---|---|
+| own_side | null | pace_dense_partial_93_plus_reserved12_v1 |
+| full | null | pace_dense_full_93_plus_reserved12_v1 |
+| own_side | 1 | pace_dense_partial_93_plus_ingredient_locks12_v1 |
+| full | 1 | pace_dense_full_93_plus_ingredient_locks12_v1 |
+
+`full` removes the observation masks for both rooms, all object/food positions
+and states, and the other agent's position/orientation. It does not change
+physical access, the divider, start distribution, recipes or rewards. This is
+an explicitly requested experimental condition, not a claim about the paper's
+unpublished visibility geometry.
+
+Limit1 means one ingredient **type per agent per physical episode**. The first
+successful chop selects that agent's type. Raw pickup, transport and replacing
+food do not select it. A subsequent attempted chop of another type is executed
+as no-op, consumes one step, emits `ingredient_limit_blocked`, and introduces
+no additional penalty. Normal world/reward processing still occurs. The other
+agent acts normally on the same step. `ingredient_selected` records first
+selection. Already chopped food can still be picked up and plated. This does
+not restrict an agent to handling only one object or preselect a recipe for it.
+The upstream PACE sources remain unmodified.
+
+In limit1 schemas, the 12 old reserved slots encode the added dynamic state:
+`[93,99)` is the observer's ingredient selection and `[99,105)` the peer's
+selection, each one-hot in Lettuce,Tomato,Potato,Onion,Carrot,Broccoli order.
+All-zero means not yet selected, except that an invisible peer's slots are
+always masked to zero. Thus the partial variant does not leak hidden choices.
+Each physical reset clears both selections, including resets inside a
+five-episode round. The recurrent round context is still maintained normally.
+The existing seed/action-history recovery reconstructs these selections by
+replaying successful chops; they are not reset on a mid-episode recovery.
+
+`info.observation_schema` records the actual configured schema. Limited
+conditions also report `chosen_ingredients` and `executed_actions`; denied
+attempts retain the original requested action in ordinary evaluation traces.
+Observation shape stays105 and action count stays6. Schema/visibility/limit
+mismatches and limits other than null or integer1 are rejected.
+
+Changing these conditions requires a new config, output root and model run.
+Existing400-update models must not be resumed under a new condition. This
+revision changes the environment source hash, so strict loaders also reject
+historical model manifests even when using the legacy condition. Use each old
+run's recorded source for its exact inference/resume; no guard is bypassed.

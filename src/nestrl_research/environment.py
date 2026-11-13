@@ -1,8 +1,9 @@
 """Figure 1 cooking task backed by the unmodified, pinned PACE world.
 
 The paper does not publish its observation indices.  We retain the PACE dense
-partial construction (93 values on this layout), followed by 12 reserved zeros.
-This explicit reconstruction is not a claim of observation-level equivalence.
+construction (93 values on this layout), followed by 12 reserved zeros or
+ingredient-lock flags. Visibility and per-episode cooking limits are explicit
+conditions, not claims of equivalence to the paper's unpublished encoding.
 """
 
 from __future__ import annotations
@@ -25,7 +26,21 @@ RECIPE_INGREDIENTS = {
     "PotatoBroccoliSalad": ("Potato", "Broccoli"),
 }
 OBSERVATION_SCHEMA = "pace_dense_partial_93_plus_reserved12_v1"
+INGREDIENT_NAMES = ("Lettuce", "Tomato", "Potato", "Onion", "Carrot", "Broccoli")
 UPSTREAM_COMMIT = "f008c19aa743ec209550375c9ee9c25379ac8b24"
+
+
+def observation_schema_for(visibility: str, max_ingredients_per_agent: int | None) -> str:
+    """Name all four observation contracts; reject ambiguous limit values."""
+    if visibility not in ("own_side", "full"):
+        raise ValueError("visibility must be own_side or full")
+    if max_ingredients_per_agent is not None and (
+        type(max_ingredients_per_agent) is not int or max_ingredients_per_agent != 1
+    ):
+        raise ValueError("max_ingredients_per_agent must be null or integer 1")
+    view = "partial" if visibility == "own_side" else "full"
+    tail = "reserved12" if max_ingredients_per_agent is None else "ingredient_locks12"
+    return f"pace_dense_{view}_93_plus_{tail}_v1"
 
 
 @dataclass(frozen=True)
@@ -40,6 +55,8 @@ class EnvironmentConfig:
     layout: str = "paper_figure1"
     observation_schema: str = OBSERVATION_SCHEMA
     random_start: bool = True
+    visibility: str = "own_side"
+    max_ingredients_per_agent: int | None = None
 
     def __post_init__(self) -> None:
         object.__setattr__(self, "recipes", tuple(self.recipes))
@@ -51,7 +68,8 @@ class EnvironmentConfig:
             raise ValueError("horizon must be positive")
         if self.observation_dim != 105 or self.layout != "paper_figure1":
             raise ValueError("only the 105-slot paper_figure1 reconstruction is supported")
-        if self.observation_schema != OBSERVATION_SCHEMA:
+        expected_schema = observation_schema_for(self.visibility, self.max_ingredients_per_agent)
+        if self.observation_schema != expected_schema:
             raise ValueError(f"unsupported observation schema: {self.observation_schema}")
         if not isinstance(self.random_start, bool):
             raise ValueError("random_start must be a boolean")
@@ -173,11 +191,14 @@ class CookingEnv:
         self.t = 0
         self.success = False
         self.completed_recipe: str | None = None
+        self.chosen_ingredients: list[str | None] = [None, None]
         self._done = False
         return self.observe()
 
     def visible(self, agent_id: int, location: Sequence[int]) -> bool:
-        """Own compartment plus the shared divider is visible."""
+        """An explicit observation condition; physical access stays unchanged."""
+        if self.config.visibility == "full":
+            return True
         own_x = self.world.agents[agent_id].location[0]
         return location[0] <= 3 if own_x < 3 else location[0] >= 3
 
@@ -231,8 +252,16 @@ class CookingEnv:
             front[o.OBJ_IDX[name]] = 1
             if isinstance(obj, o.Food):
                 front_state[o.FOOD_CLASSES_IDX[name]] = obj.done()
+        tail = np.zeros(12)
+        if self.config.max_ingredients_per_agent is not None:
+            # Self then peer, in INGREDIENT_NAMES order. The partial-view
+            # condition never leaks the hidden peer's ingredient commitment.
+            for offset, index in ((0, agent_id), (6, 1 - agent_id)):
+                choice = self.chosen_ingredients[index]
+                if choice is not None and (index == agent_id or self.visible(agent_id, self.world.agents[index].location)):
+                    tail[offset + INGREDIENT_NAMES.index(choice)] = 1
         observation = np.concatenate((positions, directions, states, next_to_counter, holding,
-                                      holding_state, front, front_state, np.zeros(12))).astype(np.float32)
+                                      holding_state, front, front_state, tail)).astype(np.float32)
         if observation.shape != (105,):
             raise RuntimeError(f"observation schema drift: {observation.shape}")
         return observation
@@ -250,9 +279,36 @@ class CookingEnv:
         if len(actions) != 2 or any(not isinstance(action, (int, np.integer)) or not 0 <= action < 6 for action in actions):
             raise ValueError("actions must be two integers in [0, 5]")
         before = self._snapshot()
-        self.world.perform_agent_actions(self.world.agents, [int(action) for action in actions])
-        self.t += 1
+        executed = [int(action) for action in actions]
+        chop_intents: dict[int, Any] = {}
         events: list[dict[str, Any]] = []
+        if self.config.max_ingredients_per_agent is not None:
+            # Inspect only genuine chopping interactions. Preserve all upstream
+            # movement/collision/interaction ordering, and never edit PACE.
+            for index, agent in enumerate(self.world.agents):
+                if executed[index] != 5 or agent.holding is not None:
+                    continue
+                target = self.world.get_target_location(agent, agent.orientation)
+                if not self.world.get_objects_at(target, self.objects.CutBoard):
+                    continue
+                dynamic = self.world.get_objects_at(target, self.objects.DynamicObject)
+                if len(dynamic) != 1 or not isinstance(dynamic[0], self.objects.ChopFood) or dynamic[0].done():
+                    continue
+                food = dynamic[0]
+                name = type(food).__name__
+                choice = self.chosen_ingredients[index]
+                if choice is not None and choice != name:
+                    executed[index] = 0
+                    events.append({"type": "ingredient_limit_blocked", "agent": index,
+                                   "object": name, "chosen": choice})
+                else:
+                    chop_intents[index] = food
+        self.world.perform_agent_actions(self.world.agents, executed)
+        self.t += 1
+        for index, food in chop_intents.items():
+            if food.done() and self.chosen_ingredients[index] is None:
+                self.chosen_ingredients[index] = type(food).__name__
+                events.append({"type": "ingredient_selected", "agent": index, "object": type(food).__name__})
         for object_id, (name, location, done) in self._snapshot().items():
             previous = before[object_id]
             if done and not previous[2]:
@@ -293,7 +349,10 @@ class CookingEnv:
         if terminated:
             events.append({"type": "complete", "recipe": self.completed_recipe})
         info = {"success": self.success, "recipe": self.completed_recipe, "events": events, "t": self.t,
-                "observation_schema": OBSERVATION_SCHEMA}
+                "observation_schema": self.config.observation_schema}
+        if self.config.max_ingredients_per_agent is not None:
+            info["chosen_ingredients"] = list(self.chosen_ingredients)
+            info["executed_actions"] = executed
         return self.observe(), reward, terminated, truncated, info
 
     def close(self) -> None:

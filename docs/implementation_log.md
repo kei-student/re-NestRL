@@ -281,3 +281,47 @@ scientific config, checkpoint format or compatibility was changed.
   manifest asset741605889, manifest SHA-256
   `74d712d89568aab656851ec93d62b733cdb185884218f03763fcdaa8259eaf97`.
   Fresh re-download and all185 member hashes verified; archive SHA unchanged.
+
+## 2026-11-13: three explicit random-start /400-update environment variants
+
+- User requested full observation, one-ingredient cooking, and their combination
+  on a new branch. Confirmed limit unit: one ingredient type per agent per
+  physical episode. Created task configs for all3, preserving random starts,
+  400 complete PPO batches (28,800,000 steps), rewards, recipes, horizon,
+  architecture and recurrent round semantics. No training task was launched.
+- `visibility=full` reveals both rooms and all positions/directions/food states;
+  physical access stays separated. Partial/unrestricted defaults and historical
+  config canonical hashes remain unchanged. New fields are canonically omitted
+  when they select historical default behavior.
+- `max_ingredients_per_agent=1` commits on first successful chop, independently
+  per agent; raw pickup does not commit. Another type's chop becomes no-op,
+  consumes time, adds no new penalty and emits an explicit blocked event.
+  Already chopped objects and plate handling retain normal semantics.
+  Successful chops, not attempted interactions, establish the commitment.
+- Limited schemas use the old12 reserved observation slots for self/peer
+  six-type commitment one-hots, masking invisible peers. All4 schema names
+  distinguish partial/full × unrestricted/limited; input105/actions6 retained.
+  Each reset clears commitments; seed/action replay reconstructs them during
+  recovery. Upstream PACE sources are unchanged.
+- New task configs use disjoint construction blocks11001–11020,21001–21020,
+  31001–31020 and separate held-out/learner/evaluation seeds. Canonical hashes:
+  full `e4cadb24affe169c54bbc82d52b2f0f89bff066afdd6e73c2f20f0d3362666a9`;
+  single `56e484a864edda6e3b862261301e0d68cd597f2801bc7128e8d5aa226bd7a6da`;
+  both `ca761e86dde4a204d9079bd0f069638ab5b43d75cacb630a4df3d96e8fa54ab5`.
+- Compatibility: changed scientific conditions require fresh runs/models and
+  output registries. Shape105 is not permission to migrate old weights/runs.
+  New environment source hash also causes strict rejection of old manifests;
+  preserve old source for historical inference/resume, without bypassing guards.
+- Validation covers all3 recipes from12 random seeds under all3 conditions,
+  full visibility and unchanged physics/rewards, real sequential cooking that
+  blocks the second ingredient, independent simultaneous choices, raw pickup,
+  reset/unlock, partial masking and exact action-history state reconstruction.
+  See docs/l1_environment_variants_20261113.md and environment_schema.md.
+- Finite validation provenance captured before execution under
+  outputs/l1-environment-variants-20261113:10 dedicated tests,108 expert-pair
+  episodes; each new schema accepted by a fresh105-input neural model. Replayed
+  15 old1023 evaluation episodes/383 joint steps with exact reward/event/
+  success/boundary matching in the unchanged default condition. No old policy
+  inference, training, checkpoint writes or Cloud launches. Source/config stayed
+  unchanged throughout validation. Workspace dirty check and95 tests passed
+  (2 Docker opt-in skips).
