@@ -365,3 +365,22 @@ scientific config, checkpoint format or compatibility was changed.
   switch. The initial safe-stop message was rejected by automatic approval
   review as lacking explicit approval for stopping an already-active run;
   no stop action was transmitted. Confirm actual process state first.
+- Pilot confirmed the old-seed processes/containers/writers/managers were all
+  absent; no training had started, so no stop was necessary. Switched the same
+  Cloud chat to fixed matched-seed source21d9d1d40948b6756b57875a181c69cc33cffcc8.
+  Pilot4 workers reached saved updates2/3/4/4 within4vCPU/16GiB, used~3.73GiB,
+  OOM/restarts0. Fixed manager's symlink-resolved interpreter path to use the
+  existing.venv; no scientific source/runtime/worker changes. Startup upload
+  and fresh-download verified, then created remaining4 chats.
+- All5 chats/12 models passed startup: e2-p01 seeds101/102 update2 each;
+  e2-p02 seeds103/104 update1; e3-p01 seeds101/102 update1; e3-p02 seeds103/104
+  update1. All pointer/snapshot hashes match, workers/writers and single finite
+  managers run, OOM/restarts0. Dedicated Draft443670277 startup transfer
+  manifests741675724/741695992/741692913/741696304/741697520. See the detailed
+  task/resource/hash report in docs/l1_environment_variants_training_20261113.md.
+  These are startup observations, not completed400-update or final-storage claims.
+- Coordinator independently downloaded all5 startup archives and verified448
+  payload member hashes, all12 resume pointers/snapshots, exact seed/config/
+  environment hashes and strict CPU model-state loading. 97 tests passed
+  (2 Docker opt-in skips), workspace dirty/clean checks passed. Shared branch
+  remains a record branch; all learning checkouts stay pinned to21d9d1d.
