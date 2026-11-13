@@ -22,6 +22,11 @@ construction seed1001〜1020を10個の新規Cloudタスクへ2体ずつ割り�
 （全体観測／各エージェント各エピソード1種類の調理／両方）を追加した。
 環境・設定の作成と検証のみで、これらの条件の学習は起動していない。
 
+その後のユーザー指示による各条件4体の学習は、別の
+[12体・5タスクの実行計画](l1-environment-variants-4agents-20261113-plan.json)
+で扱う。環境1の4体並列を先に検証してから環境2・3の各2タスクへ展開する。
+起動計画と実測進捗・完了/保存確認は区別して記録する。
+
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。
 - Release target commitと、dirtyな実行時source、再構成用commitを区別する。元manifestを更新しない。

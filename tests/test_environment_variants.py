@@ -1,6 +1,7 @@
 """Test the visibility/cooking-limit matrix without training any policies."""
 
 from dataclasses import asdict, replace
+import json
 from pathlib import Path
 import unittest
 
@@ -180,6 +181,26 @@ class IngredientLimitTests(unittest.TestCase):
 
 
 class VariantConfigTests(unittest.TestCase):
+    def test_cloud_launch_plan_assigns_exactly_four_models_per_condition(self):
+        plan = json.loads((ROOT / "docs/experiments/l1-environment-variants-4agents-20261113-plan.json").read_text())
+        self.assertEqual(len(plan["tasks"]), 5)
+        all_seeds = []
+        for condition in (1, 2, 3):
+            tasks = [t for t in plan["tasks"] if t["condition"] == condition]
+            self.assertEqual([len(t["seeds"]) for t in tasks], [4] if condition == 1 else [2, 2])
+            cfg = load_config(ROOT / tasks[0]["config"])
+            assigned = [s for t in tasks for s in t["seeds"]]
+            self.assertEqual(assigned, list(cfg.construction_seeds))
+            self.assertEqual(cfg.total_steps // cfg.batch_size, 400)
+            for task in tasks:
+                self.assertEqual(task["config_sha256"], cfg.sha256)
+                self.assertNotIn("--max-updates", task["launch_command"])
+                self.assertLessEqual(task["requested_memory_gib_per_model"] * len(task["seeds"]), 12)
+            all_seeds.extend(assigned)
+        self.assertEqual(len(all_seeds), 12)
+        self.assertEqual(len(set(all_seeds)), 12)
+        self.assertTrue(set(all_seeds).isdisjoint(range(1001, 1041)))
+
     def test_new_configs_are_disjoint_and_keep_random_starts_and_400_updates(self):
         used = set()
         baseline = load_config(ROOT / "configs/l1-random-start-400u-pilot-20261112.json")

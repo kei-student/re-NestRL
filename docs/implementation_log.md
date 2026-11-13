@@ -325,3 +325,29 @@ scientific config, checkpoint format or compatibility was changed.
   inference, training, checkpoint writes or Cloud launches. Source/config stayed
   unchanged throughout validation. Workspace dirty check and95 tests passed
   (2 Docker opt-in skips).
+
+## 2026-11-13: launch four L1 agents per new environment condition
+
+- User requested12 models: full-view condition1 in oneCloud task with4 parallel
+  learners; condition2 and condition3 in twoCloud tasks each,2 learners/task.
+  Prepare dedicated four-construction-model configs without changing the
+  earlier20-model preparation configs or any existing experiments.
+- Fresh construction seeds:11001–11004,21001–21004,31001–31004. Maintain all
+  environment semantics, CPU backend, oneTorch/BLAS thread,400 full PPO batches
+  and28,800,000 steps per model. No max-updates limit, old checkpoints or
+  additional evaluation/model selection. Other historical runs stay untouched.
+- Fixed task allocation and exact record/launch commands are in
+  docs/experiments/l1-environment-variants-4agents-20261113-plan.json.
+  First verify condition1's4 simultaneous jobs, saved updates, VM limits/use
+  and startup artifact upload/fresh-download hashes, then dispatch remaining4
+  tasks. Per-job requested memory3GiB for4-model pilot,6GiB for2-model tasks;
+  distinguish unenforced rootless Docker flags from effective VM limits.
+- Dedicated Draft Release443670277, tag
+  l1-environment-variants-400u-4agents-20261113, stores startup/final/recovery
+  bundles with unique names and hash-verified read-back/re-download.
+- New config canonical hashes: full
+  `0de8db77a9416c7b5b5ac3e77b93da985e4528be9f3b50c5f6ca8eee922ba411`;
+  single `04111735d95efbf8c4e76691ae48c479f9a97003b1b42707f426e5523c76ca25`;
+  both `9e37376eb1c96c4b5ed46ae7b78df4ab38a3f52fc0a6a7dceca191fd814fdebd`.
+  Environment/model implementation unchanged from50e7e07; new config/registry
+  requires fresh model runs. Exact source commit is fixed in each dispatch.
