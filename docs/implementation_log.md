@@ -418,3 +418,22 @@ scientific config, checkpoint format or compatibility was changed.
   `6b50e2f1e0c22ef2f2a4482fd8e1bd409dfdf4fd9477588509c66ee706d34baf`;
   single `f0bbdda67e4afe66a7bbc3db059e04198eae74dae963f73e8d030ac645a7e775`;
   both `b74a3d2b47b25633d1a9dcc315ed2385fc8981c448ab1380cd26f63b3cff4001`.
+- Full validation passed104 tests (102 success,2 Docker opt-in skips), clean
+  and dirty workspace checks. Learning source fixed at2d82b2e888b7970806ad9b9329bcf73303396d2a.
+  Pilot4 models reached snapshots1/2/1/1, ego_side0 and360 right-agent1 L0
+  scripts per snapshot. Verified4CPU/16GiB,~4.6GiB use,OOM/restarts0 and a
+  single independent manager, then dispatched remaining4 chats.
+- All12 left L1 models reached saved update>=1 and passed startup transfer,
+  role metadata and snapshot hash checks. Coordinator independently downloaded
+  all5 archives, verified630 payload hashes and12 primary snapshots,4320 saved
+  right-side frozen scripts and strict CPU model-state loading. Startup
+  manifests:741994046,742022014,742017683,742022053,742024124 in Draft443746098.
+  All worker OOM/restarts0; source/config/budgets unchanged, models continue
+  toward400 updates under single finite managers. Final completion/storage is
+  not yet claimed. See docs/l0_serving_left_l1_training_20261113.md.
+- Corrected only operational resource monitoring/manager independence under
+  outputs, retaining failed staging as evidence. e2-p02 supplemental manager
+  code upload was rejected by automatic review; used saved/read-back status
+  audit JSON instead, preserved the code locally, and excluded that rejected
+  payload from future final bundles. Scientific source/recovery/model storage
+  remains verified, and workers were not stopped for these corrections.

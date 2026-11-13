@@ -59,3 +59,7 @@ L0の固定仕様は`configs/l0/right-serving-recipe-pool-v1.json`。
 `docs/experiments/l1-left-l0-serving-3env-400u-s101-20261113-plan.json`。
 保存先は新しいDraft Release443746098、tag `l1-left-l0-serving-3env-400u-s101-20261113`。
 元チャットのRelease443670277や担当chatには書き込まない。
+
+全5task・12体の保存更新、役割metadata、startup保存・再download/hash・strict CPU loadが揃った。
+[起動記録・Cloud thread・保存manifest](l0_serving_left_l1_training_20261113.md)を参照。
+400更新完走と最終保存は別途担当managerが記録する。

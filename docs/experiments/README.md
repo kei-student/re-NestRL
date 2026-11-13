@@ -39,6 +39,10 @@ construction seed1001〜1020を10個の新規Cloudタスクへ2体ずつ割り�
 同じ3環境・各seed101–104を、L0右/L1左の独立設定・runで学習する。
 元チャットの上記12体や管理タスクには干渉しない。
 
+役割交換した新12体も全5taskで起動確認済み。
+[左L1・右配膳L0の起動証跡](../l0_serving_left_l1_training_20261113.md)に
+snapshot、役割、資源、manager、startup保存の検証を記録した。400更新完走・最終保存は未完了。
+
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。
 - Release target commitと、dirtyな実行時source、再構成用commitを区別する。元manifestを更新しない。
