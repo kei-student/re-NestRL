@@ -164,7 +164,10 @@ python scripts/record_run.py --run-id l1-1036-cue-delay-20261113 --config config
 bundle内reportはこの保存状況追記前の版。比較表、全48000回の指標、追加8回のtrace、
 source/config/runtime snapshots、検証記録を含む。元の学習モデルは既存Releaseのhash参照。
 
-予定保存先は既存の`kei-student/re-NestRL` Draft Release442708737。
-アップロードの自動承認審査が、解析結果・ソース・検証データの具体的payloadに対する
-明示承認が未確認という理由で拒否したため、ネットワーク送信は実施していない。
-ローカル解析・検証は完了。外部保存と、この結果を含むブランチのpushは承認待ち。
+保存先は既存の`kei-student/re-NestRL` Draft Release442708737。
+初回のアップロードは自動承認審査で具体的payloadへの明示承認が未確認として拒否された。
+2026-11-13にユーザーがbundle保存とブランチpushを明示承認したため、同じbundleを保存した。
+転送manifest asset IDは`741605889`、manifest SHA-256は
+`74d712d89568aab656851ec93d62b733cdb185884218f03763fcdaa8259eaf97`。
+upload read-back、新しいパスへの再download、archiveと全185 memberのSHA-256照合に成功。
+bundleの内容・hashは承認時のものと同一。保存receiptと再download証跡は出力rootに追記した。

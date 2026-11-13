@@ -276,3 +276,8 @@ scientific config, checkpoint format or compatibility was changed.
   for lack of explicit approval of this analysis/source/verification payload.
   No upload was executed; local computation and validation are complete.
   External storage and push of the branch containing these results await approval.
+- Follow-up explicit user approval on2026-11-13 authorized the exact1.49MB
+  bundle and branch push. Stored unchanged bytes in Draft442708737; transfer
+  manifest asset741605889, manifest SHA-256
+  `74d712d89568aab656851ec93d62b733cdb185884218f03763fcdaa8259eaf97`.
+  Fresh re-download and all185 member hashes verified; archive SHA unchanged.
