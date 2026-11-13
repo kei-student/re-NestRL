@@ -384,3 +384,37 @@ scientific config, checkpoint format or compatibility was changed.
   environment hashes and strict CPU model-state loading. 97 tests passed
   (2 Docker opt-in skips), workspace dirty/clean checks passed. Shared branch
   remains a record branch; all learning checkouts stay pinned to21d9d1d.
+
+## 2026-11-13: forked experiment with left L1 and right serving L0
+
+- User forked the chat and assigned previous models to the original chat.
+  Use a separate managed worktree and codex/l0-serving-left-l1-20261113 branch;
+  leave original checkout/Cloud chats/runs/managers and Draft443670277 untouched.
+- Freeze the existing right-side ScriptedPeer recipe specialists as the new
+  serving L0 pool. They prepare/plate their own recipe ingredient, wait for the
+  exact two-ingredient recipe, then pick up the plate and deliver on the right.
+  They neither learn nor change recipe, and reject wrong/extra plate contents.
+  Formal contract: configs/l0/right-serving-recipe-pool-v1.json. Reuse existing
+  side-aware peer implementation; no duplicated or changed environment policy.
+- New configs set l1_ego_side0 and ego_side1. Actual L1 learner/observation is
+  agent0; FrozenPartners automatically constructs agent1 scripts, and recorded
+  training/evaluation partner identities are l0-1-<recipe>. Preserve full-view,
+  partial-view/one-ingredient, and combined variants, random starts,105 input,
+  40-step horizon,5-episode recurrent rounds,400 updates/28,800,000steps and PPO.
+- All conditions use fresh models at seeds101–104. One4-model task for full
+  view; two2-model tasks per remaining condition. First verify the pilot4
+  workers, saved updates/resources and startup upload/download before expansion.
+  Separate namespace l1-left-l0-serving-3env-400u-s101-20261113 and dedicated
+  Draft443746098; no previous checkpoint transfer or old-run resumes.
+- Validation:1296 prescribed-recipe joint-start cases complete with right L0
+  delivering and return16.5. A visible-cue-only wait/follow left baseline also
+  completes all432 starts in partial/one-ingredient mode. Unit checks cover
+  incomplete/wrong plates, role-specific pipeline metadata/evaluation and
+  bit-exact CPU resume of left L1. No scientific core src change was needed.
+- Compatibility: original conditions and peer/environment behavior are
+  unchanged. New role assignment/config/registry requires fresh runs and rejects
+  cross-config checkpoint loading; existing strict guards remain unchanged.
+- Canonical config hashes: full
+  `6b50e2f1e0c22ef2f2a4482fd8e1bd409dfdf4fd9477588509c66ee706d34baf`;
+  single `f0bbdda67e4afe66a7bbc3db059e04198eae74dae963f73e8d030ac645a7e775`;
+  both `b74a3d2b47b25633d1a9dcc315ed2385fc8981c448ab1380cd26f63b3cff4001`.

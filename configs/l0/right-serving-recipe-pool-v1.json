@@ -1,0 +1,27 @@
+{
+  "schema": "re-nestrl-fixed-l0-contract-v1",
+  "policy": "ScriptedPeer",
+  "module": "nestrl_research.peers",
+  "agent_id": 1,
+  "frozen": true,
+  "random_action_probability": 0.0,
+  "recipes": {
+    "LettuceOnionSalad": "Onion",
+    "TomatoCarrotSalad": "Carrot",
+    "PotatoBroccoliSalad": "Broccoli"
+  },
+  "states": [
+    "prepare own ingredient",
+    "plate on divider",
+    "wait for exact recipe",
+    "take complete plate",
+    "deliver on right"
+  ],
+  "plate_acceptance": "exactly the two ingredients in the fixed recipe; never adapt recipe or deliver extra/wrong ingredients",
+  "delivery_square": [
+    6,
+    3
+  ],
+  "learner_agent_id": 0,
+  "recipe_sampling": "uniform frozen L0 convention per5-episode round as in FrozenPartners"
+}
