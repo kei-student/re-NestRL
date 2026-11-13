@@ -181,6 +181,22 @@ class IngredientLimitTests(unittest.TestCase):
 
 
 class VariantConfigTests(unittest.TestCase):
+    def test_user_selected_matching_seeds_are_isolated_by_condition_namespace(self):
+        plan = json.loads((ROOT / "docs/experiments/l1-environment-variants-4agents-s101-20261113-plan.json").read_text())
+        roots = []
+        for condition in (1, 2, 3):
+            tasks = [t for t in plan["tasks"] if t["condition"] == condition]
+            self.assertEqual([len(t["seeds"]) for t in tasks], [4] if condition == 1 else [2, 2])
+            self.assertEqual([s for t in tasks for s in t["seeds"]], [101, 102, 103, 104])
+            for task in tasks:
+                config = load_config(ROOT / task["config"])
+                self.assertEqual(list(config.construction_seeds), [101, 102, 103, 104])
+                self.assertEqual(config.sha256, task["config_sha256"])
+                self.assertEqual(config.total_steps // config.batch_size, 400)
+                self.assertNotIn("--max-updates", task["launch_command"])
+                roots.append(task["output_root"])
+        self.assertEqual(len(roots), len(set(roots)))
+
     def test_cloud_launch_plan_assigns_exactly_four_models_per_condition(self):
         plan = json.loads((ROOT / "docs/experiments/l1-environment-variants-4agents-20261113-plan.json").read_text())
         self.assertEqual(len(plan["tasks"]), 5)

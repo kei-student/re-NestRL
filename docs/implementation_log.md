@@ -351,3 +351,17 @@ scientific config, checkpoint format or compatibility was changed.
   both `9e37376eb1c96c4b5ed46ae7b78df4ab38a3f52fc0a6a7dceca191fd814fdebd`.
   Environment/model implementation unchanged from50e7e07; new config/registry
   requires fresh model runs. Exact source commit is fixed in each dispatch.
+
+### Superseding seed instruction in the same launch session
+
+- User explicitly chose matching100-series seeds across the three different
+  conditions. New plan/configs with `s101` in their names use construction
+  101,102,103,104 in all3 conditions, with independent output roots/registries.
+  validation111,test121–125,learner131,evaluation141 are also aligned.
+  Preserve the original distinct-seed plan/configs and any partial run records;
+  do not rename old runs or import their checkpoints into the new experiment.
+- Only the condition1 pilot chat had been created when the user changed seeds.
+  Read-only status and conditional pre-launch hold were requested before any
+  switch. The initial safe-stop message was rejected by automatic approval
+  review as lacking explicit approval for stopping an already-active run;
+  no stop action was transmitted. Confirm actual process state first.

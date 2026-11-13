@@ -27,6 +27,10 @@ construction seed1001〜1020を10個の新規Cloudタスクへ2体ずつ割り�
 で扱う。環境1の4体並列を先に検証してから環境2・3の各2タスクへ展開する。
 起動計画と実測進捗・完了/保存確認は区別して記録する。
 
+起動準備中のユーザー変更により、現在の計画は
+[全条件seed101–104を揃えた版](l1-environment-variants-4agents-s101-20261113-plan.json)。
+上記の別seed割当は履歴として保持し、新条件の出力とは混ぜない。
+
 - 元A/Cのソースは[provenance記録](../provenance/a_snapshot_20261111.json)と元source commitで識別する。
 - 112〜127の実効設定は[履歴設定](../../configs/history/paper-l1-112-127.json)として元bytesを保存した。
 - Release target commitと、dirtyな実行時source、再構成用commitを区別する。元manifestを更新しない。
