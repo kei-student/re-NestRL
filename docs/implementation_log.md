@@ -365,3 +365,9 @@ scientific config, checkpoint format or compatibility was changed.
   switch. The initial safe-stop message was rejected by automatic approval
   review as lacking explicit approval for stopping an already-active run;
   no stop action was transmitted. Confirm actual process state first.
+
+## 2026-11-15 Environment3 fresh 20-agent cohort
+
+New profile/config `l1-random-start-400u-full-single-ingredient-20agents-s151-20261115` changes only profile and construction seeds from the original environment3 s101 config. Seeds 151–170 are divided p01=151–154, p02=155–158, p03=159–162, p04=163–166, p05=167–170, four simultaneous workers per task. Namespaces use `outputs/l1-env3-400u-20agents-s151-20261115-pNN`; internal IDs remain `l1-construction-<seed>`. Validation/test/learner/evaluation seeds remain frozen and disjoint. All environment, PPO/GRU/history, recipes, rewards, layout and 400-update (28,800,000-step) budget remain unchanged. No evaluation is added.
+
+Old checkpoints remain usable for inference under their original configs. The new canonical config hash differs, so checkpoint transfer/resume from earlier cohorts is prohibited. Only a matching CPU run in this new namespace may resume after strict provenance verification. Config contract tests check exact scientific equivalence, split coverage/disjointness, and update budget.

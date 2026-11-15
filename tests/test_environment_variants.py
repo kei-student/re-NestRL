@@ -181,6 +181,26 @@ class IngredientLimitTests(unittest.TestCase):
 
 
 class VariantConfigTests(unittest.TestCase):
+    def test_env3_twenty_fresh_agents_preserve_science_and_held_out_splits(self):
+        path = ROOT / "configs/l1-random-start-400u-full-single-ingredient-20agents-s151-20261115.json"
+        current = load_config(path)
+        original = load_config(ROOT / "configs/l1-random-start-400u-full-single-ingredient-4agents-s101-20261113.json")
+        a, b = asdict(current), asdict(original)
+        for field in ("profile", "construction_seeds"):
+            a.pop(field)
+            b.pop(field)
+        self.assertEqual(a, b)
+        self.assertEqual(current.sha256, "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658")
+        groups = [list(range(151 + 4*i, 155 + 4*i)) for i in range(5)]
+        assigned = [seed for group in groups for seed in group]
+        self.assertEqual(assigned, list(current.construction_seeds))
+        self.assertEqual(len(set(assigned)), 20)
+        held_out = {*current.validation_seeds, *current.test_seeds, current.learner_seed, current.evaluation_seed}
+        self.assertTrue(set(assigned).isdisjoint(held_out | set(range(101, 105)) | set(range(1001, 1041))))
+        self.assertEqual((current.batch_size, current.total_steps), (72_000, 28_800_000))
+        self.assertEqual(current.total_steps // current.batch_size, 400)
+        self.assertNotEqual(current.sha256, original.sha256)
+
     def test_user_selected_matching_seeds_are_isolated_by_condition_namespace(self):
         plan = json.loads((ROOT / "docs/experiments/l1-environment-variants-4agents-s101-20261113-plan.json").read_text())
         roots = []
