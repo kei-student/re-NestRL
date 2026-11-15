@@ -437,3 +437,27 @@ scientific config, checkpoint format or compatibility was changed.
   audit JSON instead, preserved the code locally, and excluded that rejected
   payload from future final bundles. Scientific source/recovery/model storage
   remains verified, and workers were not stopped for these corrections.
+
+## 2026-11-15: completion audit and frozen left-L1 performance evaluation
+
+- User requested completion checking followed by performance evaluation. All12
+  models report400 saved updates/28,800,000steps, coherent complete/final/latest
+  and recovery hashes, strict CPU load, exited workers and no active writers.
+  Four tasks saved verified final bundles; e2-p02 completed computation but its
+  multipart upload failed. Retrieve the existing final data without retraining,
+  preserving partial assets and excluding the previously rejected manager code.
+- Freeze all12 final-budget checkpoints, seeds101–104 in each condition. Three
+  explicit evaluation plans use each original training config and its immutable
+  hash, left learner0 and each of the three frozen right-side L0 specialists1.
+  Per model:200 rounds/partner ×5 episodes =1000 episodes/partner,3000 total.
+  Across12 models:36,000 episodes. Stochastic action sampling, evaluation seed
+  6001, CPU with oneTorch/BLAS thread/worker and at most4 workers total.
+- Preserve recurrent memory across five physical episodes in a round; reset
+  between rounds. Use matched episode-seed schedule and random physical starts.
+  Pass only if every L0 yields >=950/1000 successes, rather than a pooled mean.
+  Save episode/action traces, before/after checkpoint hashes and command/source/
+  config/runtime records. No parameter updates, tuning or checkpoint selection.
+- Compatibility: no environment, model, scripted-peer or checkpoint changes;
+  strict original-config CPU inference remains compatible. This measures fixed
+  training-partner success, not held-out generalization or a population guarantee.
+  Added a contract check for all models, roles, recipes, budgets and denominators.

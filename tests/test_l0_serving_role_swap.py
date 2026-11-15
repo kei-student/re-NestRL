@@ -140,6 +140,28 @@ class RightServingL0Tests(unittest.TestCase):
                 roots.append(t["output_root"])
         self.assertEqual(len(set(roots)), 5)
 
+    def test_final_evaluation_covers_every_left_model_and_right_recipe(self):
+        launch = json.loads(PLAN.read_text())
+        for condition, name in zip(launch["conditions"],
+                ("full", "single-ingredient", "full-single-ingredient")):
+            path = ROOT / f"configs/evaluations/l1-left-l0-serving-{name}-20261115.json"
+            plan = json.loads(path.read_text())
+            config = load_config(ROOT / plan["training_config"])
+            self.assertEqual(plan["training_config"], condition["config"])
+            self.assertEqual(plan["training_config_sha256"], config.sha256)
+            self.assertEqual((config.l1_ego_side, config.environment.random_start), (0, True))
+            self.assertEqual(plan["seeds"], list(config.construction_seeds))
+            self.assertEqual(plan["partner_ids"], [f"l0-1-{recipe}" for recipe in RECIPES])
+            self.assertEqual(plan["checkpoint_updates"], config.total_steps // config.batch_size)
+            self.assertEqual(plan["checkpoint_steps"], config.total_steps)
+            self.assertEqual(plan["episodes_per_round"], config.episodes_per_round)
+            self.assertEqual(plan["rounds_per_partner"] * config.episodes_per_round, 1000)
+            self.assertEqual(plan["episodes_per_partner"], 1000)
+            self.assertEqual(plan["minimum_successes_per_partner"], 950)
+            self.assertEqual(plan["evaluation_seed"], 6001)
+            self.assertFalse(plan["weight_updates"])
+            self.assertFalse(plan["deterministic_actions"])
+
 
 class LeftL1PipelineTests(unittest.TestCase):
     @classmethod
