@@ -1,0 +1,20 @@
+{
+  "schema": "re-nestrl-left-l1-replay-v1",
+  "analysis_id": "left-l1-replay-20261115",
+  "evaluation_root": "outputs/l1-left-l0-serving-evaluation-20261115",
+  "evaluation_summary_sha256": "78eab04cbc5101d30a12f0b145dcb38ee3290fcca7af4d7c6517cf225c21bd2a",
+  "model_seed": 101,
+  "conditions": [1, 2, 3],
+  "selection": "First construction seed in every condition, without performance-based selection. Visualize all five episodes of round0 for each L0; analyze all 3000 saved episodes/model.",
+  "visual_round": 0,
+  "visual_episodes": [0, 1, 2, 3, 4],
+  "episodes_per_model": 3000,
+  "workers": 3,
+  "l1_side": 0,
+  "l0_side": 1,
+  "policy_inference": false,
+  "weight_updates": false,
+  "time_convention": "Frames t=0 initial state, t=k state after kth simultaneous action, 1-based event times. A cue created at t can first influence decision t+1.",
+  "cue": "First visible state change (position or cooked status) of any right-side ingredient relative to reset. In partial view it must reach the shared divider; in full view the first observed pickup can reveal L0's selection.",
+  "waiting_measure": "Longest consecutive unchanged left-chef pose/holding/left-food state before its first raw-food pickup and before the first observable right-food change. Descriptive only, not evidence of intent."
+}

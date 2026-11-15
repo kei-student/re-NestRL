@@ -481,3 +481,22 @@ scientific config, checkpoint format or compatibility was changed.
   Training weights/recovery remain in the independently verified final bundles;
   the evaluation archive references them and preserves the full1,140,018-step
   joint-action trace and all36,000 episode records.
+
+## 2026-11-15: visualize and analyze one left L1 per environment
+
+- User requested movements against every L0 and analysis of failed cooperation.
+  Select construction seed101 in each of three conditions before inspecting
+  behavior. Replay all9,000 saved evaluation episodes, with no policy inference,
+  new trials, training, checkpoint changes or performance-based selection.
+- Visualize the first full five-episode round for each of nine combinations
+  (45 episodes), including successful controls and failures. Exact state/action/
+  reward/event replay is verified, including the frozen right-L0 policy and
+  original per-condition implementation/config. Times use initial frame0 and
+  1-based post-action states; cues can first influence the following action.
+- Record left-food pickup/chop/plate order, visible right-food changes, incorrect
+  plate contents, inactive transitions and L0 waiting with its own ingredient
+  already plated. Distinguish unchanged local state from intentional waiting;
+  positive shaping reward in failures does not prove a causal learning mechanism.
+- Added a separate immutable analysis config, offline replay script and meaningful
+  correct/wrong-plate and corruption tests. Environment/model/peer/checkpoint
+  format and strict CPU compatibility are unchanged.
