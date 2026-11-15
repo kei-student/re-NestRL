@@ -500,3 +500,20 @@ scientific config, checkpoint format or compatibility was changed.
 - Added a separate immutable analysis config, offline replay script and meaningful
   correct/wrong-plate and corruption tests. Environment/model/peer/checkpoint
   format and strict CPU compatibility are unchanged.
+- Verified all9,000 saved episodes and45 visual clips at source2f5b489.
+  Condition1 never cooks Potato against Broccoli (1,000/1,000 failures), mostly
+  cooking both Lettuce and Tomato (998 episodes). Conditions2/3 cook Lettuce
+  almost exclusively, including against Carrot/Broccoli; correct-food chops0.
+  L0 waits after plating because the required exact recipe is absent. These
+  patterns persist across all5 within-round episode positions. See
+  docs/left_l1_failure_replay_20261115.md for counts, examples and limitations.
+- Analysis config canonical SHA-256:
+  7d89452c7b0438fdf18925ec7f2e2810b4b921d5f91f4b67d41d272a4a5d1b23.
+  109 tests passed (2 Docker opt-in skips); all input/model hashes unchanged.
+- Stored392,524-byte replay/analysis bundle in existing Draft443746098.
+  Transfer manifest751188498, receipt751188780; fresh download verified82
+  payload hashes. Archive SHA-256:
+  608599fbdb17d2c119f0ad628d348a36b24108f11c2035f9b844b6a4fec1be0a.
+  Interactive view contains45 exact replay clips; offline syntax/control checks
+  passed637 assertions. No browser rendering inspection: local file navigation
+  was prohibited by browser policy. No alternative browser route was attempted.
