@@ -461,3 +461,23 @@ scientific config, checkpoint format or compatibility was changed.
   strict original-config CPU inference remains compatible. This measures fixed
   training-partner success, not held-out generalization or a population guarantee.
   Added a contract check for all models, roles, recipes, budgets and denominators.
+- All12 models evaluated successfully over36,000 episodes. Each condition has
+  0/4 models passing every L0 at95%. Full-view/unrestricted models achieve
+  100% against LettuceOnion,99.7–100% against TomatoCarrot,0% against PotatoBroccoli.
+  Both limited conditions achieve99.9–100% against LettuceOnion and0% against
+  the other two partners. See l0_serving_left_l1_evaluation_20261115.md.
+- e2-p02 unchanged final bundle recovered to Draft443746098, manifest751117626,
+  archive7b9ca047c587a2f4c89210074f1a76d9dced5149d152910c9f6c5a5d1ee5b5a5.
+  Coordinator downloaded all5 final bundles, verified693 payload hashes,12
+  final weights and recovery snapshots/budgets and strict CPU loads. Evaluation
+  on macOS/arm64 CPU is an independent inference run, with unchanged weights;
+  training used Linux/x86_64 CPU. No model/backend training continuation.
+- Per-model episode/count/trace/artifact checks and source/config/weight
+  immutability passed. Evaluation source548406ec6b450192bee4b441afdc8e2a8f65f2bb.
+  Workspace checks and105 tests passed (2 Docker opt-in skips).
+- Evaluation bundle10,363,611bytes stored in existing Draft443746098, manifest
+  asset751137135, receipt751137466. Fresh download verified all1,031 payloads;
+  archive SHA-256d7bf984358d73cc4d6ae95570158ac071ee59bbc7c4cc69439eef89e191b412e.
+  Training weights/recovery remain in the independently verified final bundles;
+  the evaluation archive references them and preserves the full1,140,018-step
+  joint-action trace and all36,000 episode records.
