@@ -188,3 +188,14 @@ Existing400-update models must not be resumed under a new condition. This
 revision changes the environment source hash, so strict loaders also reject
 historical model manifests even when using the legacy condition. Use each old
 run's recorded source for its exact inference/resume; no guard is bypassed.
+
+## Mirrored dual-delivery layout (2026-11-15)
+
+An additional layout `mirrored_dual_delivery_v1` mirrors the stations and paired
+ingredient positions about x=3 and provides delivery ports at(0,5)/(6,5).
+Both agents can deliver; completed dishes record their delivering agent. This
+layout uses108 observation slots (96 dense +12 reserved/locks). Figure1 remains
+105 slots, and omitted layout/dimension fields preserve historical config hashes.
+The extra port, fair seeded simultaneous plate-grab arbitration and changed
+positions are a new scientific condition requiring fresh models. PACE is unchanged.
+See [the specification and validation](mirrored_dual_delivery_20261115.md).

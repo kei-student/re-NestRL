@@ -74,7 +74,7 @@ def prepare(config_path, index_path, archives_dir, output_root):
             raise ValueError(f"Incomplete or mismatched L1: {seed}")
     before = [{k: v.clone() for k, v in model.state_dict().items()} for model in models]
     pool = FrozenPartners(config, config.l1_ego_side, "cpu", np.random.default_rng(7), models)
-    actions = pool.act(np.zeros((config.num_envs, 105), dtype=np.float32), [])
+    actions = pool.act(np.zeros((config.num_envs, config.environment.observation_dim), dtype=np.float32), [])
     assert actions.shape == (config.num_envs,) and np.all((actions >= 0) & (actions < 6))
     for model, original in zip(models, before):
         assert not model.training and all(not p.requires_grad for p in model.parameters())

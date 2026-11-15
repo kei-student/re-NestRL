@@ -1,9 +1,9 @@
-"""Figure 1 cooking task backed by the unmodified, pinned PACE world.
+"""Explicit cooking layouts backed by the unmodified, pinned PACE world.
 
-The paper does not publish its observation indices.  We retain the PACE dense
-construction (93 values on this layout), followed by 12 reserved zeros or
-ingredient-lock flags. Visibility and per-episode cooking limits are explicit
-conditions, not claims of equivalence to the paper's unpublished encoding.
+The paper does not publish its observation indices. Figure 1 retains 93 dense
+features plus 12 reserved/lock slots. The mirrored layout adds one delivery
+position triple (96+12). Layout, visibility and per-episode cooking limits are
+explicit conditions, not claims of equivalence to the unpublished encoding.
 """
 
 from __future__ import annotations
@@ -28,10 +28,18 @@ RECIPE_INGREDIENTS = {
 OBSERVATION_SCHEMA = "pace_dense_partial_93_plus_reserved12_v1"
 INGREDIENT_NAMES = ("Lettuce", "Tomato", "Potato", "Onion", "Carrot", "Broccoli")
 UPSTREAM_COMMIT = "f008c19aa743ec209550375c9ee9c25379ac8b24"
+MIRRORED_LAYOUT = "mirrored_dual_delivery_v1"
 
 
-def observation_schema_for(visibility: str, max_ingredients_per_agent: int | None) -> str:
-    """Name all four observation contracts; reject ambiguous limit values."""
+def observation_dim_for(layout: str) -> int:
+    if layout not in ("paper_figure1", MIRRORED_LAYOUT):
+        raise ValueError("Unsupported cooking layout")
+    return 108 if layout == MIRRORED_LAYOUT else 105
+
+
+def observation_schema_for(visibility: str, max_ingredients_per_agent: int | None,
+                           layout: str = "paper_figure1") -> str:
+    """Name each layout/visibility/limit contract; reject ambiguous limits."""
     if visibility not in ("own_side", "full"):
         raise ValueError("visibility must be own_side or full")
     if max_ingredients_per_agent is not None and (
@@ -40,7 +48,9 @@ def observation_schema_for(visibility: str, max_ingredients_per_agent: int | Non
         raise ValueError("max_ingredients_per_agent must be null or integer 1")
     view = "partial" if visibility == "own_side" else "full"
     tail = "reserved12" if max_ingredients_per_agent is None else "ingredient_locks12"
-    return f"pace_dense_{view}_93_plus_{tail}_v1"
+    base = observation_dim_for(layout) - 12
+    suffix = "_mirrored_dual_delivery" if layout == MIRRORED_LAYOUT else ""
+    return f"pace_dense_{view}_{base}_plus_{tail}{suffix}_v1"
 
 
 @dataclass(frozen=True)
@@ -66,9 +76,9 @@ class EnvironmentConfig:
             raise ValueError("recipes must not contain duplicates")
         if self.horizon < 1:
             raise ValueError("horizon must be positive")
-        if self.observation_dim != 105 or self.layout != "paper_figure1":
-            raise ValueError("only the 105-slot paper_figure1 reconstruction is supported")
-        expected_schema = observation_schema_for(self.visibility, self.max_ingredients_per_agent)
+        if type(self.observation_dim) is not int or self.observation_dim != observation_dim_for(self.layout):
+            raise ValueError("Observation dimension does not match layout")
+        expected_schema = observation_schema_for(self.visibility, self.max_ingredients_per_agent, self.layout)
         if self.observation_schema != expected_schema:
             raise ValueError(f"unsupported observation schema: {self.observation_schema}")
         if not isinstance(self.random_start, bool):
@@ -121,7 +131,8 @@ def upstream_modules() -> dict[str, ModuleType]:
 class CookingEnv:
     """Two-player, simultaneous-action cooking environment.
 
-    ``reset(seed)`` returns a float32 array of shape (2, 105). ``step`` accepts
+    ``reset(seed)`` returns float32 (2,105) for Figure 1 or (2,108) for the
+    mirrored dual-delivery layout. ``step`` accepts
     two actions and returns observation, shared reward, terminated, truncated,
     and info. Each chef starts on a uniformly sampled floor in its own room.
     An explicit seed restarts the RNG; unseeded resets advance the same stream.
@@ -139,6 +150,7 @@ class CookingEnv:
         elif not isinstance(config, EnvironmentConfig):
             config = EnvironmentConfig(**asdict(config))
         self.config = config
+        self.observation_dim = config.observation_dim
         self.horizon = config.horizon
         modules = upstream_modules()
         self.objects = modules["gym_cooking.cooking_world.world_objects"]
@@ -157,24 +169,33 @@ class CookingEnv:
             for x in range(world.width):
                 is_counter = x in (0, 3, 6) or y in (0, 7)
                 world.add_object((objects.Counter if is_counter else objects.Floor)((x, y)))
-        for name, location in (
-            ("CutBoard", (0, 4)), ("CutBoard", (5, 7)), ("DeliverSquare", (6, 3)),
-        ):
+        mirrored = self.config.layout == MIRRORED_LAYOUT
+        stations = (("CutBoard", (0, 4)), ("CutBoard", (6, 4)),
+                    ("DeliverSquare", (0, 5)), ("DeliverSquare", (6, 5))) if mirrored else (
+                    ("CutBoard", (0, 4)), ("CutBoard", (5, 7)), ("DeliverSquare", (6, 3)))
+        for name, location in stations:
             original = world.get_objects_at(location, objects.StaticObject)[0]
             world.delete_object(original)
             world.add_object(getattr(objects, name)(location))
-        for name, location in (
+        foods = (
             ("Plate", (3, 3)), ("Lettuce", (0, 3)), ("Tomato", (0, 1)),
             ("Potato", (0, 2)), ("Onion", (6, 4)), ("Carrot", (6, 5)),
             ("Broccoli", (6, 6)),
-        ):
+        )
+        if mirrored:
+            foods = (("Plate", (3, 3)), ("Lettuce", (0, 3)), ("Tomato", (0, 1)),
+                     ("Potato", (0, 2)), ("Onion", (6, 3)), ("Carrot", (6, 1)), ("Broccoli", (6, 2)))
+        for name, location in foods:
             world.add_object(getattr(objects, name)(location))
-        for index, location in enumerate(((2, 5), (5, 5))):
+        starts = ((2, 5), (4, 5)) if mirrored else ((2, 5), (5, 5))
+        for index, location in enumerate(starts):
             if self.config.random_start:
                 floors = [floor.location for floor in world.world_objects["Floor"]
                           if (floor.location[0] < 3) == (index == 0)]
                 location = floors[int(self.rng.integers(len(floors)))]
             world.agents.append(objects.Agent(location, world.COLORS[index], f"agent-{index + 1}"))
+            if mirrored and index == 1:
+                world.agents[-1].change_orientation(2)
         world.index_objects()
         return world
 
@@ -262,7 +283,7 @@ class CookingEnv:
                     tail[offset + INGREDIENT_NAMES.index(choice)] = 1
         observation = np.concatenate((positions, directions, states, next_to_counter, holding,
                                       holding_state, front, front_state, tail)).astype(np.float32)
-        if observation.shape != (105,):
+        if observation.shape != (self.observation_dim,):
             raise RuntimeError(f"observation schema drift: {observation.shape}")
         return observation
 
@@ -303,7 +324,27 @@ class CookingEnv:
                                    "object": name, "chosen": choice})
                 else:
                     chop_intents[index] = food
-        self.world.perform_agent_actions(self.world.agents, executed)
+        # Preserve PACE's legacy order except for shared-plate contention in
+        # the new layout. Seeded fair arbitration removes a permanent left
+        # advantage without editing or reordering the upstream world objects.
+        agents = self.world.agents
+        order = [0, 1]
+        plate = self.world.world_objects["Plate"][0]
+        mirrored = self.config.layout == MIRRORED_LAYOUT
+        delivery_attempts = {
+            i: self.world.get_target_location(a, a.orientation)
+            for i, a in enumerate(agents) if a.holding is plate and executed[i] == 5
+            and self.world.get_objects_at(self.world.get_target_location(a, a.orientation), self.objects.DeliverSquare)
+        } if mirrored else {}
+        if mirrored and all(
+            executed[i] == 5 and a.holding is None
+            and self.world.get_target_location(a, a.orientation) == plate.location
+            for i, a in enumerate(agents)
+        ):
+            if self.rng.integers(2):
+                order.reverse()
+            events.append({"type": "shared_plate_contention", "first_agent": order[0]})
+        self.world.perform_agent_actions([agents[i] for i in order], [executed[i] for i in order])
         self.t += 1
         for index, food in chop_intents.items():
             if food.done() and self.chosen_ingredients[index] is None:
@@ -346,13 +387,21 @@ class CookingEnv:
         terminated = self.success
         truncated = self.t >= self.config.horizon and not terminated
         self._done = terminated or truncated
+        delivery_agent = None
         if terminated:
-            events.append({"type": "complete", "recipe": self.completed_recipe})
+            complete = {"type": "complete", "recipe": self.completed_recipe}
+            if self.config.layout == MIRRORED_LAYOUT:
+                delivery_agent = next((i for i, location in delivery_attempts.items()
+                                       if plate.location == location and agents[i].holding is not plate), None)
+                complete["agent"] = delivery_agent
+            events.append(complete)
         info = {"success": self.success, "recipe": self.completed_recipe, "events": events, "t": self.t,
                 "observation_schema": self.config.observation_schema}
         if self.config.max_ingredients_per_agent is not None:
             info["chosen_ingredients"] = list(self.chosen_ingredients)
             info["executed_actions"] = executed
+        if self.config.layout == MIRRORED_LAYOUT:
+            info["delivery_agent"] = delivery_agent
         return self.observe(), reward, terminated, truncated, info
 
     def close(self) -> None:

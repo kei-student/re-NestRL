@@ -8,7 +8,7 @@ import math
 from dataclasses import asdict, dataclass, field, fields
 from pathlib import Path
 
-from .environment import observation_schema_for
+from .environment import observation_dim_for, observation_schema_for
 
 ROOT = Path(__file__).resolve().parents[2]
 RECIPES = ("LettuceOnionSalad", "TomatoCarrotSalad", "PotatoBroccoliSalad")
@@ -32,6 +32,8 @@ class EnvironmentConfig:
     random_start: bool = True
     visibility: str = "own_side"
     max_ingredients_per_agent: int | None = None
+    layout: str = "paper_figure1"
+    observation_dim: int = 105
 
 
 @dataclass(frozen=True)
@@ -90,6 +92,10 @@ class ExperimentConfig:
             del data["environment"]["visibility"]
         if self.environment.max_ingredients_per_agent is None:
             del data["environment"]["max_ingredients_per_agent"]
+        if self.environment.layout == "paper_figure1":
+            del data["environment"]["layout"]
+        if self.environment.observation_dim == 105:
+            del data["environment"]["observation_dim"]
         return data
 
     @property
@@ -97,11 +103,15 @@ class ExperimentConfig:
         return canonical_hash(self.to_dict())
 
     def validate(self) -> None:
-        expected_schema = observation_schema_for(self.environment.visibility, self.environment.max_ingredients_per_agent)
+        expected_schema = observation_schema_for(self.environment.visibility, self.environment.max_ingredients_per_agent,
+                                                self.environment.layout)
+        if (type(self.environment.observation_dim) is not int
+                or self.environment.observation_dim != observation_dim_for(self.environment.layout)):
+            raise ValueError("Observation dimension does not match layout")
         if self.schema != SCHEMA or self.environment.observation_schema != expected_schema:
             raise ValueError("Unsupported schema; use a new implementation version for new semantics")
         if tuple(self.environment.recipes) != RECIPES:
-            raise ValueError("This reconstruction freezes the main-text recipes and 105-slot observation schema")
+            raise ValueError("This reconstruction freezes the three main-text recipes")
         if not isinstance(self.environment.random_start, bool):
             raise ValueError("random_start must be a boolean")
         if self.environment.horizon <= 0 or self.episodes_per_round <= 0 or self.evaluation_rounds <= 0:

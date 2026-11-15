@@ -1,0 +1,25 @@
+{
+  "schema": "re-nestrl-fixed-l0-contract-v1",
+  "policy": "ScriptedPeer",
+  "module": "nestrl_research.peers",
+  "layout": "mirrored_dual_delivery_v1",
+  "agent_ids": [0, 1],
+  "frozen": true,
+  "random_action_probability": 0.0,
+  "recipes": {
+    "LettuceOnionSalad": ["Lettuce", "Onion"],
+    "TomatoCarrotSalad": ["Tomato", "Carrot"],
+    "PotatoBroccoliSalad": ["Potato", "Broccoli"]
+  },
+  "states": [
+    "prepare own-side recipe ingredient",
+    "plate on shared divider",
+    "wait for exact recipe",
+    "take complete plate if available",
+    "deliver through own-side port"
+  ],
+  "delivery_squares": {"0": [0, 5], "1": [6, 5]},
+  "plate_acceptance": "exactly the two fixed-recipe ingredients; never adapt recipe or deliver extra/wrong ingredients",
+  "contention": "If both empty-handed chefs simultaneously interact with the shared plate, choose execution priority uniformly with the episode RNG; otherwise retain PACE execution order.",
+  "recipe_sampling": "uniform frozen L0 convention per five-episode round as in FrozenPartners"
+}

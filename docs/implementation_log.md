@@ -517,3 +517,36 @@ scientific config, checkpoint format or compatibility was changed.
   Interactive view contains45 exact replay clips; offline syntax/control checks
   passed637 assertions. No browser rendering inspection: local file navigation
   was prohibited by browser policy. No alternative browser route was attempted.
+
+## 2026-11-15: mirrored kitchens with either-side delivery
+
+- User requested equal left/right layouts and either agent able to deliver.
+  Added explicit mirrored_dual_delivery_v1 on a separate codex branch. Mirror
+  the paired foods, boards at(0,4)/(6,4), ports at(0,5)/(6,5), fixed starts
+  and facing; retain the impassable divider, one shared plate and random floors.
+- The frozen side-aware L0 uses its own delivery port. Both agents may collect
+  and deliver a complete matching plate. Seeded50/50 execution priority only
+  for simultaneous empty-handed grabs avoids permanent agent0 precedence;
+  other PACE action order and all six imported sources stay unchanged. Record
+  plate-contention priority and the actual delivering agent in new-layout info.
+- A second delivery-position triple changes observations to108 (96+12).
+  New schemas/configs name the layout and dimension. Model creation and L2
+  preparation use the configured width. Historical105-slot configs retain their
+  canonical hashes via omission of default fields. No old config/artifact edited.
+- Prepare the same three visibility/one-food conditions, random starts,400
+  updates, matched construction101–104 and held-out partitions. No Cloud job
+  or research training started. Existing running experiments are untouched.
+- Meaningful tests cover2,592 prescribed-deliverer joint-start cases, reflected
+  completion time, either autonomous L0 serving, deterministic/fair contention,
+  both-port visibility, wrong plates, fresh108-input PPO/evaluation and exact
+  CPU recovery. Old-checkpoint migration is incompatible; strict config/source
+  guards remain. Old runs require their recorded source for inference/recovery.
+- Layout symmetry preserves unequal food-to-board distances and original
+  recipe-graph rewards. Its effect on learned ingredient bias is unmeasured.
+  See docs/mirrored_dual_delivery_20261115.md for the full scientific contract.
+- Validation passed119 tests (117 successes,2 Docker opt-in skips), including
+  all2,592 designated-side completions; dirty workspace check, diff check and
+  bootstrap verification of the six pinned PACE files passed. New canonical
+  configs: full0cf676c4b1aec5f024887400fa30c7365cbbf85ebb9df7e5a25878640256cfef;
+  partial/limit3c4114d902779b5ca75c0e0a7c3024c100b4c7c2af659269f1bb40e8024af4d1;
+  full/limitf08c233af8b7a7102bb61aea2ec512bc23f2b72b978dacbc5dc633933e4b949c.

@@ -78,8 +78,11 @@ class ScriptedPeer:
         cutting_board = world.world_objects["CutBoard"][self.agent_id]
         recipe_names = set(RECIPE_INGREDIENTS[self.recipe])
         plate_names = {type(content).__name__ for content in plate.content}
+        deliveries = world.world_objects["DeliverSquare"]
+        own_deliveries = [d for d in deliveries if (d.location[0] < 3) == (self.agent_id == 0)]
+        delivery = own_deliveries[0] if own_deliveries else deliveries[0]
         if isinstance(agent.holding, o.Plate):
-            target = world.world_objects["DeliverSquare"][0].location if plate_names == recipe_names else (3, 3)
+            target = delivery.location if plate_names == recipe_names else (3, 3)
         elif agent.holding is not None:
             target = plate.location if agent.holding.done() else cutting_board.location
         elif food not in plate.content:
@@ -88,7 +91,7 @@ class ScriptedPeer:
                 target = cutting_board.location
             else:
                 target = food.location
-        elif self.agent_id == 1 and plate_names == recipe_names:
+        elif (self.agent_id == 1 or own_deliveries) and plate_names == recipe_names:
             target = plate.location
         else:
             return 0

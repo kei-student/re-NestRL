@@ -29,7 +29,7 @@ def seed_all(seed: int) -> None:
 
 
 def make_model(config: ExperimentConfig, device):
-    return RecurrentActorCritic(obs_dim=105, action_dim=6, hidden_dim=config.hidden_dim,
+    return RecurrentActorCritic(obs_dim=config.environment.observation_dim, action_dim=6, hidden_dim=config.hidden_dim,
                                hidden_dims=tuple(config.hidden_dims)).to(device)
 
 
