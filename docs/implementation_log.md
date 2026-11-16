@@ -550,3 +550,47 @@ scientific config, checkpoint format or compatibility was changed.
   configs: full0cf676c4b1aec5f024887400fa30c7365cbbf85ebb9df7e5a25878640256cfef;
   partial/limit3c4114d902779b5ca75c0e0a7c3024c100b4c7c2af659269f1bb40e8024af4d1;
   full/limitf08c233af8b7a7102bb61aea2ec512bc23f2b72b978dacbc5dc633933e4b949c.
+
+## 2026-11-16: launch four mirrored-layout full-view / one-ingredient L1s
+
+- User requested4 L1s in2 Cloud tasks with2 simultaneous models/task, then
+  explicitly selected full observation plus one ingredient per agent/episode.
+  Preserve random starts,400 updates/28,800,000steps, CPU/Torch-BLAS1thread,
+  construction seeds101–104 and original validation/test splits. L1 is left0,
+  right1 is frozen L0; either may deliver through its own port. Observe108 slots.
+- Training source is fixed at4ad6d8a6d82c2eb04a3062b91bbe7db0690029bf on
+  codex/mirrored-dual-delivery-20261115. Config canonical SHA-256:
+  f08c233af8b7a7102bb61aea2ec512bc23f2b72b978dacbc5dc633933e4b949c;
+  file SHA-2567a6ff4d8d6c0c6c577aa1028fd61468836617f23be9880a121a83b7f423c533b.
+  Scientific implementation/config unchanged; this commit only records launch.
+- A user-owned pilot Cloud chat was provisioned while the condition was being
+  clarified, with no training allowed then. After the user's selection, use
+  that same VM for seeds101/102. Verify its saved updates/resources and startup
+  artifact upload/fresh-download hashes before creating seeds103/104's chat.
+- New campaign namespace l1-mirrored-full-single-400u-s101-20261116; dedicated
+  Draft446495466 in kei-student/re-NestRL. Each task uses its own p01/p02 root
+  with canonical internal L1 run IDs. No old model imports/resumes or changes to
+  other chats/experiments. No evaluation or model selection in this launch.
+- Only the assigned runs may be handled by a single finite48h manager/task,
+  ending after full budget and final model/recovery upload/download/strict CPU
+  verification. No recurring automation. Resume, if needed, is same-run CPU
+  recovery after writer absence and full provenance/hash/runtime validation.
+- Plan: docs/experiments/l1-mirrored-full-single-400u-s101-20261116-plan.json.
+  Compatibility remains fresh108-input models only; prior105-input models and
+  historical conditions are not continued or migrated.
+- p01 passed startup with both seeds at saved update3; later Cloud measurement
+  update12 each. Independent verification found25 repository Python sources
+  excluded by an overbroad bundle filter (not approval rejection). Supplemented
+  them without changing workers/manager, verified all64 sources across archives,
+  and retained a complete nested source archive for final saving. Only after
+  this gate passed, created p02 for103/104.
+- p02 passed saved update1 each; later Cloud measurement update3 each. All4
+  108-input snapshots and1,440 frozen right-agent1 L0 states verified;228 payload
+  hashes and64 source originals/task independently downloaded and checked.
+  Both VMs have4CPU/16GiB, OOM/restarts0, and one finite independent manager
+  (p01 PID934; p02 PID1236, PPID1). Research completion is not claimed.
+- Startup manifest assets: p01 752945446 plus source supplement752958608 and
+  resource proof752949379; p02 752981004, in Draft446495466. See
+  docs/l1_mirrored_full_single_training_20261116.md for exact hashes and details.
+  Local119 tests passed (117 success/2 Docker opt-in skips), workspace checks
+  and diff checks passed. Launch records only; scientific code/config unchanged.
