@@ -1,0 +1,33 @@
+{
+  "schema": "re-nestrl-l1-l0-evaluation-v1",
+  "evaluation_id": "l1-mirrored-full-single-evaluation-20261116",
+  "training_config": "configs/l1-mirrored-dual-delivery-full-single-ingredient-400u-s101-20261115.json",
+  "training_config_sha256": "f08c233af8b7a7102bb61aea2ec512bc23f2b72b978dacbc5dc633933e4b949c",
+  "training_source_commit": "4ad6d8a6d82c2eb04a3062b91bbe7db0690029bf",
+  "seeds": [
+    101,
+    102,
+    103,
+    104
+  ],
+  "checkpoint_updates": 400,
+  "checkpoint_steps": 28800000,
+  "partner_ids": [
+    "l0-1-LettuceOnionSalad",
+    "l0-1-TomatoCarrotSalad",
+    "l0-1-PotatoBroccoliSalad"
+  ],
+  "rounds_per_partner": 200,
+  "episodes_per_round": 5,
+  "episodes_per_partner": 1000,
+  "evaluation_seed": 6001,
+  "deterministic_actions": false,
+  "device": "cpu",
+  "threads_per_worker": 1,
+  "workers": 4,
+  "minimum_successes_per_partner": 950,
+  "criterion": "Every fixed right-side L0 partner must achieve at least 950 successes in 1000 episodes.",
+  "weight_updates": false,
+  "model_selection": "All four final-budget mirrored L1 checkpoints, no exclusion, retraining or selection.",
+  "interpretation": "Empirical fixed-partner episode success under the trained mirrored environment; not held-out partner generalization or a guarantee on true success probability."
+}

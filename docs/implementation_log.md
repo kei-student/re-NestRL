@@ -594,3 +594,23 @@ scientific config, checkpoint format or compatibility was changed.
   docs/l1_mirrored_full_single_training_20261116.md for exact hashes and details.
   Local119 tests passed (117 success/2 Docker opt-in skips), workspace checks
   and diff checks passed. Launch records only; scientific code/config unchanged.
+
+## 2026-11-16: frozen evaluation of the mirrored L1 campaign
+
+- Preregister all four final400-update models (seeds101–104), without model
+  selection or optimization, against all three frozen right-side L0 experts.
+  Use200 rounds x5 episodes per partner, seed6001, sampled actions, random
+  starts and within-round recurrent memory, matching the earlier left-L1
+  evaluation schedule. Each partner must reach950/1000 independently.
+- Plan: configs/evaluations/l1-mirrored-full-single-20261116.json. A contract
+  test fixes the trained108-input layout/roles/config, full budget, all models,
+  partner pool, denominators and stopping/acceptance rules. Scientific source,
+  training configs and historical checkpoints remain unchanged; inference and
+  same-run CPU recovery compatibility are preserved.
+- Evaluate the separate old-layout105-input seed151 only on its original
+  source/config, with the same episode schedule. Do not mix environments or
+  checkpoint manifests. Preserve separate provenance and Draft destinations.
+- Record commands/config/source/runtime, downloaded final model hashes,
+  immutable checkpoint hashes before/after, and independent episode/trace
+  recounts. Report training completion, performance and saved-result
+  verification separately in docs/l1_mirrored_full_single_evaluation_20261116.md.
