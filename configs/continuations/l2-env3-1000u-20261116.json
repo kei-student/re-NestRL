@@ -1,0 +1,515 @@
+{
+  "additional_updates": 600,
+  "artifact_name_prefix": "l2-env3-1000u-continuation-20261116",
+  "backend": "cpu",
+  "changed_config_fields": [
+    "total_steps"
+  ],
+  "github_draft_release_id": 446574423,
+  "launch_gate": "Verify first existing task saved updates above400 before dispatching remaining8",
+  "model_count": 18,
+  "models": [
+    {
+      "child_config_sha256": "5cf5808d186fde6f6a6032025e24de40eb7f305a81e810082474a4cf431c980d",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p01/k03-p01-s181",
+      "child_run_id": "l2-181-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "eb593322c78ecd9e3b33b97605dc3044895116cb92ce6a128fc4d45b0f0d5cd4",
+      "parent_final_sha256": "45a4f365dee117db338bf0abdd09df6038693dcc73f65d7a286776b305878bba",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p01/k03-p01-s181",
+      "parent_run_id": "l2-181",
+      "parent_snapshot_sha256": "a876eb26d879f7352a3b1db74e8e8ded1457cbfc12d35588138f16d4c011802f",
+      "seed": 181,
+      "selected_l1": [
+        102,
+        103,
+        168
+      ],
+      "task": "k03-p01"
+    },
+    {
+      "child_config_sha256": "cd3bbc6bc081cb9414995626c7a3ffcb8a416e141603bf97075fd197f1b50a1d",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p01/k03-p01-s182",
+      "child_run_id": "l2-182-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "70484d33362b6627bf251fccda9c0d82092431dc1f618195a8ffb19dd04f8237",
+      "parent_final_sha256": "c78c2a08b12fde47cc593bd4a1294d0c2452f58884462fb1b2b28a0acfc40870",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p01/k03-p01-s182",
+      "parent_run_id": "l2-182",
+      "parent_snapshot_sha256": "c29765e2dfe036f2fb9888cecfec31e8a4a6ea55dc92036a7d3af3d7f58ebed2",
+      "seed": 182,
+      "selected_l1": [
+        160,
+        161,
+        165
+      ],
+      "task": "k03-p01"
+    },
+    {
+      "child_config_sha256": "13667a6ecdf6797a8b4a702ace3ce1be4c1058aab6c913f669440b643fd6b495",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p02/k03-p02-s183",
+      "child_run_id": "l2-183-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "c0515af5a1dabd8f0d8ea8ecf8c831a29fbbf833817811a2900f9a015675c9f7",
+      "parent_final_sha256": "2c8dc731ee93d26574a87f091bf041af02c37d31dd066f83b76774ba20fd7f79",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p02/k03-p02-s183",
+      "parent_run_id": "l2-183",
+      "parent_snapshot_sha256": "5858040eb308946cb3477a76ac9971a61b988c39b62c6de8cc1247c8c0219256",
+      "seed": 183,
+      "selected_l1": [
+        153,
+        165,
+        170
+      ],
+      "task": "k03-p02"
+    },
+    {
+      "child_config_sha256": "160bea6f1e0086a557e5d0836854bca388ccfcfb57bf3a719916456eaf2bbb52",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p02/k03-p02-s184",
+      "child_run_id": "l2-184-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "e82088657caf863ba6ca2d719db552debd857e1eba5100e9c6776c372c1a4828",
+      "parent_final_sha256": "d12b28ba201d811fe8b95ae02856461a2c8fa503676b2bc40480ff4bbfa1d86c",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p02/k03-p02-s184",
+      "parent_run_id": "l2-184",
+      "parent_snapshot_sha256": "fec8829946733319cca8b989402c45504befd706e035ee0be333da098ef7e9f5",
+      "seed": 184,
+      "selected_l1": [
+        103,
+        153,
+        168
+      ],
+      "task": "k03-p02"
+    },
+    {
+      "child_config_sha256": "07bb24978b4abeb84b0e9b3c9f80a3fcbc4e9a41423ddb97b6e647c2cf1dac5b",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p03/k03-p03-s185",
+      "child_run_id": "l2-185-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "ed8d2557a15605db8878ab0627a047c73905a552f075a89ce4b0d84eaad8428c",
+      "parent_final_sha256": "6a73302a67907645dbe6a7d32cf7e8327b982768fd021f6aa0d6daca86c18b9f",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p03/k03-p03-s185",
+      "parent_run_id": "l2-185",
+      "parent_snapshot_sha256": "6c873c53721c6b625f549d00bed3575bfe025c23650b5f6806037cfa078ecf9b",
+      "seed": 185,
+      "selected_l1": [
+        157,
+        168,
+        170
+      ],
+      "task": "k03-p03"
+    },
+    {
+      "child_config_sha256": "cfe7abd1ce22f871431ede7b653af744b96ed90c4c4264ae8924e5588d925bba",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k03-p03/k03-p03-s186",
+      "child_run_id": "l2-186-u1000-from400",
+      "condition": "k03",
+      "parent_config_sha256": "40ef2cb30a961e64bad49bc7d12481600385721191c394d4a27a51880b2f3527",
+      "parent_final_sha256": "0ce9d196eaa23c40015e2a132a0bf0512d32c0d41e0fb874b608f1ab86c4bccf",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p03/k03-p03-s186",
+      "parent_run_id": "l2-186",
+      "parent_snapshot_sha256": "62fe21c6876ea04af9a3d5d5faacfa61070b0209102cc475e57aa2e45c854941",
+      "seed": 186,
+      "selected_l1": [
+        102,
+        151,
+        153
+      ],
+      "task": "k03-p03"
+    },
+    {
+      "child_config_sha256": "ce6a443737c284ce88470090147d4b621c1b876fbe95fa7f3a3827d1e8cd8660",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p01/k05-p01-s181",
+      "child_run_id": "l2-181-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "573055546d92c488b0c409295f75bf88d773c683d60d0acdc8b4877a6d2ca329",
+      "parent_final_sha256": "f649f7dd5aa8672a474b35e8e8d586f9332ccace6cfa91882c29b22a177cb5a2",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p01/k05-p01-s181",
+      "parent_run_id": "l2-181",
+      "parent_snapshot_sha256": "8e4c2b7a9609426a967dcb8236e1cff4b6c2ae358fc968f30201eb51825c37d5",
+      "seed": 181,
+      "selected_l1": [
+        102,
+        151,
+        161,
+        165,
+        166
+      ],
+      "task": "k05-p01"
+    },
+    {
+      "child_config_sha256": "ed0dfff7c1e0fd6444fa8fbf3cf3b885ea1c4e56061b8fec40ee16fa352ca749",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p01/k05-p01-s182",
+      "child_run_id": "l2-182-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "1b8c18bdef3f3f321b927d889a2298e069809fa91dcc84253ae701cc9e87986f",
+      "parent_final_sha256": "5d2ba431b973c1fa8a0c2504162534a96a98e134b81800eb5bf04571b21a8640",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p01/k05-p01-s182",
+      "parent_run_id": "l2-182",
+      "parent_snapshot_sha256": "4b3151888e8123303d63f94140392ab32ef047f2e4d7c1f77f6ab3189a237e43",
+      "seed": 182,
+      "selected_l1": [
+        102,
+        151,
+        157,
+        162,
+        168
+      ],
+      "task": "k05-p01"
+    },
+    {
+      "child_config_sha256": "c530803ba1e5f8d39ad2f815c5a57cf901fb125bc744e27bf901f9b824b7f668",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p02/k05-p02-s183",
+      "child_run_id": "l2-183-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "cbc86e9886e2a5d91a6fd7a98b5d9fe478b1bd620a00e976655dd7f90d8b523a",
+      "parent_final_sha256": "60fef7234b9c2cf896487a4161ffff15731571d0bd3ba01e0962d1e88fba3317",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p02/k05-p02-s183",
+      "parent_run_id": "l2-183",
+      "parent_snapshot_sha256": "2cff6d333cfbd6be2d9f1cb969cb86b1d4d03cab9b102a57e2d52b92cfe67f86",
+      "seed": 183,
+      "selected_l1": [
+        103,
+        157,
+        160,
+        165,
+        168
+      ],
+      "task": "k05-p02"
+    },
+    {
+      "child_config_sha256": "067c738f77a197021ae695a3f1f72242474233ae14b2d5f06f747decc54445a7",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p02/k05-p02-s184",
+      "child_run_id": "l2-184-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "41f3cafae3bad951a6a644002a980550d70499a62f330da12d45dbe3d30ebbe4",
+      "parent_final_sha256": "3602f6a879db75e51ff6101df772f563752f838c3e715a425224dccc681eedb2",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p02/k05-p02-s184",
+      "parent_run_id": "l2-184",
+      "parent_snapshot_sha256": "911ccaac006bcc5dc17220846203d34a5d628df6bfec16b10be3d5b665d72497",
+      "seed": 184,
+      "selected_l1": [
+        102,
+        151,
+        153,
+        161,
+        166
+      ],
+      "task": "k05-p02"
+    },
+    {
+      "child_config_sha256": "d4f554111358e29aac70b0ef20d1f01812019d03d34cb75d6f2ffc3b665b85e8",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p03/k05-p03-s185",
+      "child_run_id": "l2-185-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "22f045a849ab1653cb1eab4bb729176d0a9d0767be7b8d6ebfea4c7e4fa88244",
+      "parent_final_sha256": "b793d44c14b63af04328a1552563e9db273bccfead07c7771eee7132cacfbce9",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p03/k05-p03-s185",
+      "parent_run_id": "l2-185",
+      "parent_snapshot_sha256": "30ac28f6a2e0b31bb5865d6d41b4a6de6253ab7955270fc49cd49701c5ee92b5",
+      "seed": 185,
+      "selected_l1": [
+        102,
+        151,
+        160,
+        164,
+        170
+      ],
+      "task": "k05-p03"
+    },
+    {
+      "child_config_sha256": "9e38325393f4878ef7d8da1098afb972291271c48956fd245a5fad241c4fb82e",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k05-p03/k05-p03-s186",
+      "child_run_id": "l2-186-u1000-from400",
+      "condition": "k05",
+      "parent_config_sha256": "614b2d7210031e37bb6cd5a4974567441bf54316115fa45eacab6f9ca3d7d90a",
+      "parent_final_sha256": "5be31e74511d5fac745d992a647eecab34b8a0f62a7c0acf28668fa9cf9c888c",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p03/k05-p03-s186",
+      "parent_run_id": "l2-186",
+      "parent_snapshot_sha256": "56838f9267ade1daaaba30a1a27695f923d54991aa6c2c27eb37eb393957f373",
+      "seed": 186,
+      "selected_l1": [
+        157,
+        161,
+        162,
+        164,
+        166
+      ],
+      "task": "k05-p03"
+    },
+    {
+      "child_config_sha256": "e84df27ccb5703a787268c0ea98bf0faeebddabd7a9eb6583cbe6d6aa5c4e5b3",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p01/k15-p01-s181",
+      "child_run_id": "l2-181-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "b4c0df43d85efd13ef0e7279ad22fc5670c93b67cf9cc2e699615e6cb42f9716",
+      "parent_final_sha256": "54c546f62f5409b689c1bd178f67f38781f334aa77a79406379061fc907993bd",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p01/k15-p01-s181",
+      "parent_run_id": "l2-181",
+      "parent_snapshot_sha256": "89312befcbb10720897785344ba1242c577ab201095315ee7876cde9310a0120",
+      "seed": 181,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p01"
+    },
+    {
+      "child_config_sha256": "7c52ba962935e54ada477cf2434b145b25a34bf9d2d4e1481961c847995e5abe",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p01/k15-p01-s182",
+      "child_run_id": "l2-182-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "a606345f4fa8fdb6dd419d9bfb2758d5ac8c08454dc933a38410c1564bd3cc8b",
+      "parent_final_sha256": "8bce6b024e4b6e1d67c7048befc0559f574887f4d7589bc131127a8368ce8bd4",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p01/k15-p01-s182",
+      "parent_run_id": "l2-182",
+      "parent_snapshot_sha256": "536d136bb6dcb5bba772cf9330202afa52639a25999a51f36145adf640230560",
+      "seed": 182,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p01"
+    },
+    {
+      "child_config_sha256": "564e5332fc7a4b9619f359467df4313c0382ff7dba6c7e07d2b1424cdc3d2cca",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p02/k15-p02-s183",
+      "child_run_id": "l2-183-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "b1efe941ad1420a929a382cd482989d6dfa7e6b9bc55aabadb6f9bcba7a537e4",
+      "parent_final_sha256": "5dd1c006ff506f0d736b075569b1da5e275288d1383d3587edfbc9607d6f455c",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p02/k15-p02-s183",
+      "parent_run_id": "l2-183",
+      "parent_snapshot_sha256": "9c407f8e6848b2de3c7e4b9f09c5debdd0204abdc738b4b4a1b6ca68f34cd7a8",
+      "seed": 183,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p02"
+    },
+    {
+      "child_config_sha256": "afb9061c46e8048c45bc1ad63836693a4c60894903e67dc80d281f297ac9ff23",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p02/k15-p02-s184",
+      "child_run_id": "l2-184-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "2193ba06a380c43575c250102a61b92483a056d2a302b6690589b1a68115cddc",
+      "parent_final_sha256": "db6023563c18b734aff86b0d2d3ec7582b9ae186cf4f929c8ff15fe2e2996f1e",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p02/k15-p02-s184",
+      "parent_run_id": "l2-184",
+      "parent_snapshot_sha256": "a89760b6ea03848613f5dd35dc38c4a683d0567c929e62720d1674cb170a8bbb",
+      "seed": 184,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p02"
+    },
+    {
+      "child_config_sha256": "891d6ebdef403d9eb316de12bdd41c34d2cfcbf73f08f375c9f5576f55ed978b",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p03/k15-p03-s185",
+      "child_run_id": "l2-185-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "230e53a5952038b866436033a19fd561b3db030a97fee132faa39f992ac22c11",
+      "parent_final_sha256": "41f74e18cb371ad912344cb5d2f2820b5ecfa64d7f0416b28f5b830b9905ee50",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p03/k15-p03-s185",
+      "parent_run_id": "l2-185",
+      "parent_snapshot_sha256": "efbc27f62e1a819812770df58e7ddbedd0e45dce983deb61f21b255225bd4c99",
+      "seed": 185,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p03"
+    },
+    {
+      "child_config_sha256": "5a6d21546ec1cab793efce97d23bd55044c15600945e622975a321af2bcc91bf",
+      "child_root": "outputs/l2-env3-1000u-continuation-20261116-k15-p03/k15-p03-s186",
+      "child_run_id": "l2-186-u1000-from400",
+      "condition": "k15",
+      "parent_config_sha256": "3df33dd8fd0472dba0ec1a004b2007686c37ee073f35b272eb961d00a065d31d",
+      "parent_final_sha256": "18455b84ea17661d75477283d917be3d084a3d95c5b85ab92e18ccd0ea82b516",
+      "parent_root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p03/k15-p03-s186",
+      "parent_run_id": "l2-186",
+      "parent_snapshot_sha256": "d61f77d925af81e6c368a0e2d42bb06729d2938951fc168b234637d61fda9903",
+      "seed": 186,
+      "selected_l1": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "task": "k15-p03"
+    }
+  ],
+  "monitor_hours": 6,
+  "parallel_models_per_task": 2,
+  "parent_index_file_sha256": "28eae3e937395cdcd50677399f9021d0c9f9673d99bcc5f0270a1a16a8559e6a",
+  "parent_source_commit": "24e53e44925e059a3f23ca09ef155f472c330ca6",
+  "parent_updates": 400,
+  "preserve_full_state": true,
+  "preserve_parent": true,
+  "schema": "re-nestrl-l2-budget-extension-plan-v1",
+  "target_updates": 1000,
+  "tasks": [
+    {
+      "host_id": "durable",
+      "seeds": [
+        181,
+        182
+      ],
+      "task": "k03-p01",
+      "thread_id": "6afa76c8-36c8-8191-995c-b106c53c508e"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        183,
+        184
+      ],
+      "task": "k03-p02",
+      "thread_id": "6afa79d4-7af8-8191-8d08-4dd5b11180a4"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        185,
+        186
+      ],
+      "task": "k03-p03",
+      "thread_id": "6afa79de-70f8-8191-b4d9-7b65759510ab"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        181,
+        182
+      ],
+      "task": "k05-p01",
+      "thread_id": "6afa79e7-4478-8191-98df-519f96c860bd"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        183,
+        184
+      ],
+      "task": "k05-p02",
+      "thread_id": "6afa79f2-df7c-8191-8947-db7102b5708b"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        185,
+        186
+      ],
+      "task": "k05-p03",
+      "thread_id": "6afa79fc-37a0-8191-a31c-289a2d0430b2"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        181,
+        182
+      ],
+      "task": "k15-p01",
+      "thread_id": "6afa7a05-38f4-8191-8f0e-aaab3a9560ab"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        183,
+        184
+      ],
+      "task": "k15-p02",
+      "thread_id": "6afa7a0f-5f74-8191-b1fe-0a910f5f5082"
+    },
+    {
+      "host_id": "durable",
+      "seeds": [
+        185,
+        186
+      ],
+      "task": "k15-p03",
+      "thread_id": "6afa7a18-5794-8191-b4f1-6780dfe950a0"
+    }
+  ],
+  "threads_per_worker": 1,
+  "total_steps_each": 72000000
+}

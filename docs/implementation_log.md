@@ -444,3 +444,17 @@ Old checkpoints remain usable for inference under their original configs. The ne
 - Compatibility: src/nestrl_research and all original configs/checkpoints remain
   unchanged. Existing inference and checkpoint hashes remain compatible. The
   new evaluation driver has its own commit/SHA and does not resume any run.
+# 2026-11-16: explicit L2 CPU budget continuation to1,000 updates
+
+- User extended all18 environment3 L2 policies from400 to1,000 total updates,
+  retaining each model's own partner subset, seed, CPU runtime and full training
+  state. New plan/config hashes and child run IDs preserve the completed parents.
+- Added a standalone preparation script; native source and PACE are unchanged.
+  It authenticates and read-back compares the full400-update snapshot, changes
+  only budget/config/registry/run identity, and records immutable lineage.
+- Added exact uninterrupted-versus-extension tests and real small L2 catalog
+  continuation plus hash/runtime/writer/collision rejection checks. See
+  `docs/l2_1000u_continuation_20261116.md` for commands, storage and monitoring.
+- Old inference and same-config recovery remain compatible; changed-budget
+  recovery requires the explicit new child rather than weakening validation.
+
