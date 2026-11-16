@@ -1,0 +1,331 @@
+{
+  "schema": "re-nestrl-l2-final-evaluation-v1",
+  "training_source_commit": "24e53e44925e059a3f23ca09ef155f472c330ca6",
+  "environment_condition": 3,
+  "environment_changed": false,
+  "device": "cpu",
+  "threads_per_worker": 1,
+  "deterministic_actions": false,
+  "evaluation_seed": 6001,
+  "episodes_per_round": 5,
+  "common_l1_pool": "configs/partner_pools/env3-common15-evaluation-20261116.json",
+  "common_l1_pool_file_sha256": "46ce4870190915a929f01cdd7a516ee30fd7dc064a94032eecc5276899ec100b",
+  "catalog_sha256": "78e47375a85c5fe6d02851781f3fb04b9e50a0eb1f0c3b891da390c36d1c834f",
+  "l0": {
+    "rounds_per_partner": 200,
+    "episodes_per_partner": 1000,
+    "minimum_successes_per_partner": 950,
+    "qualification": "all three fixed L0 conventions must meet the inclusive threshold"
+  },
+  "l1_common": {
+    "rounds_per_partner": 200,
+    "episodes_per_partner": 1000,
+    "primary_k03": "exclude each model's three training partners; 12 unused L1s",
+    "primary_k05": "exclude each model's five training partners; 10 unused L1s",
+    "partition": "construction_diagnostic; not heldout validation/test"
+  },
+  "l1_random_k15": {
+    "rounds": 3000,
+    "episodes": 15000,
+    "selection": "uniform with replacement per five-episode round",
+    "selection_rng": "numpy.PCG64",
+    "selection_seeds": {
+      "181": 2026111781,
+      "182": 2026111782,
+      "183": 2026111783,
+      "184": 2026111784,
+      "185": 2026111785,
+      "186": 2026111786
+    },
+    "episode_seed_rule": "6001 + 1000 * global_round + episode_position",
+    "primary_metric": "pooled_episode_success_rate",
+    "interpretation": "all partners were used in k15 training; not unseen performance",
+    "driver": "scripts/evaluate_l2_random_partners.py"
+  },
+  "results_storage": "VM local plus local coordinator; GitHub evaluation upload requires separate user request",
+  "weight_updates": false,
+  "models": [
+    {
+      "condition": "k03",
+      "learner_seed": 181,
+      "config_sha256": "eb593322c78ecd9e3b33b97605dc3044895116cb92ce6a128fc4d45b0f0d5cd4",
+      "checkpoint_sha256": "45a4f365dee117db338bf0abdd09df6038693dcc73f65d7a286776b305878bba",
+      "training_l1_seeds": [
+        102,
+        103,
+        168
+      ]
+    },
+    {
+      "condition": "k03",
+      "learner_seed": 182,
+      "config_sha256": "70484d33362b6627bf251fccda9c0d82092431dc1f618195a8ffb19dd04f8237",
+      "checkpoint_sha256": "c78c2a08b12fde47cc593bd4a1294d0c2452f58884462fb1b2b28a0acfc40870",
+      "training_l1_seeds": [
+        160,
+        161,
+        165
+      ]
+    },
+    {
+      "condition": "k03",
+      "learner_seed": 183,
+      "config_sha256": "c0515af5a1dabd8f0d8ea8ecf8c831a29fbbf833817811a2900f9a015675c9f7",
+      "checkpoint_sha256": "2c8dc731ee93d26574a87f091bf041af02c37d31dd066f83b76774ba20fd7f79",
+      "training_l1_seeds": [
+        153,
+        165,
+        170
+      ]
+    },
+    {
+      "condition": "k03",
+      "learner_seed": 184,
+      "config_sha256": "e82088657caf863ba6ca2d719db552debd857e1eba5100e9c6776c372c1a4828",
+      "checkpoint_sha256": "d12b28ba201d811fe8b95ae02856461a2c8fa503676b2bc40480ff4bbfa1d86c",
+      "training_l1_seeds": [
+        103,
+        153,
+        168
+      ]
+    },
+    {
+      "condition": "k03",
+      "learner_seed": 185,
+      "config_sha256": "ed8d2557a15605db8878ab0627a047c73905a552f075a89ce4b0d84eaad8428c",
+      "checkpoint_sha256": "6a73302a67907645dbe6a7d32cf7e8327b982768fd021f6aa0d6daca86c18b9f",
+      "training_l1_seeds": [
+        157,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k03",
+      "learner_seed": 186,
+      "config_sha256": "40ef2cb30a961e64bad49bc7d12481600385721191c394d4a27a51880b2f3527",
+      "checkpoint_sha256": "0ce9d196eaa23c40015e2a132a0bf0512d32c0d41e0fb874b608f1ab86c4bccf",
+      "training_l1_seeds": [
+        102,
+        151,
+        153
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 181,
+      "config_sha256": "573055546d92c488b0c409295f75bf88d773c683d60d0acdc8b4877a6d2ca329",
+      "checkpoint_sha256": "f649f7dd5aa8672a474b35e8e8d586f9332ccace6cfa91882c29b22a177cb5a2",
+      "training_l1_seeds": [
+        102,
+        151,
+        161,
+        165,
+        166
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 182,
+      "config_sha256": "1b8c18bdef3f3f321b927d889a2298e069809fa91dcc84253ae701cc9e87986f",
+      "checkpoint_sha256": "5d2ba431b973c1fa8a0c2504162534a96a98e134b81800eb5bf04571b21a8640",
+      "training_l1_seeds": [
+        102,
+        151,
+        157,
+        162,
+        168
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 183,
+      "config_sha256": "cbc86e9886e2a5d91a6fd7a98b5d9fe478b1bd620a00e976655dd7f90d8b523a",
+      "checkpoint_sha256": "60fef7234b9c2cf896487a4161ffff15731571d0bd3ba01e0962d1e88fba3317",
+      "training_l1_seeds": [
+        103,
+        157,
+        160,
+        165,
+        168
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 184,
+      "config_sha256": "41f3cafae3bad951a6a644002a980550d70499a62f330da12d45dbe3d30ebbe4",
+      "checkpoint_sha256": "3602f6a879db75e51ff6101df772f563752f838c3e715a425224dccc681eedb2",
+      "training_l1_seeds": [
+        102,
+        151,
+        153,
+        161,
+        166
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 185,
+      "config_sha256": "22f045a849ab1653cb1eab4bb729176d0a9d0767be7b8d6ebfea4c7e4fa88244",
+      "checkpoint_sha256": "b793d44c14b63af04328a1552563e9db273bccfead07c7771eee7132cacfbce9",
+      "training_l1_seeds": [
+        102,
+        151,
+        160,
+        164,
+        170
+      ]
+    },
+    {
+      "condition": "k05",
+      "learner_seed": 186,
+      "config_sha256": "614b2d7210031e37bb6cd5a4974567441bf54316115fa45eacab6f9ca3d7d90a",
+      "checkpoint_sha256": "5be31e74511d5fac745d992a647eecab34b8a0f62a7c0acf28668fa9cf9c888c",
+      "training_l1_seeds": [
+        157,
+        161,
+        162,
+        164,
+        166
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 181,
+      "config_sha256": "b4c0df43d85efd13ef0e7279ad22fc5670c93b67cf9cc2e699615e6cb42f9716",
+      "checkpoint_sha256": "54c546f62f5409b689c1bd178f67f38781f334aa77a79406379061fc907993bd",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 182,
+      "config_sha256": "a606345f4fa8fdb6dd419d9bfb2758d5ac8c08454dc933a38410c1564bd3cc8b",
+      "checkpoint_sha256": "8bce6b024e4b6e1d67c7048befc0559f574887f4d7589bc131127a8368ce8bd4",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 183,
+      "config_sha256": "b1efe941ad1420a929a382cd482989d6dfa7e6b9bc55aabadb6f9bcba7a537e4",
+      "checkpoint_sha256": "5dd1c006ff506f0d736b075569b1da5e275288d1383d3587edfbc9607d6f455c",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 184,
+      "config_sha256": "2193ba06a380c43575c250102a61b92483a056d2a302b6690589b1a68115cddc",
+      "checkpoint_sha256": "db6023563c18b734aff86b0d2d3ec7582b9ae186cf4f929c8ff15fe2e2996f1e",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 185,
+      "config_sha256": "230e53a5952038b866436033a19fd561b3db030a97fee132faa39f992ac22c11",
+      "checkpoint_sha256": "41f74e18cb371ad912344cb5d2f2820b5ecfa64d7f0416b28f5b830b9905ee50",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "condition": "k15",
+      "learner_seed": 186,
+      "config_sha256": "3df33dd8fd0472dba0ec1a004b2007686c37ee073f35b272eb961d00a065d31d",
+      "checkpoint_sha256": "18455b84ea17661d75477283d917be3d084a3d95c5b85ab92e18ccd0ea82b516",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    }
+  ]
+}

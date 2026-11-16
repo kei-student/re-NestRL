@@ -425,3 +425,22 @@ Old checkpoints remain usable for inference under their original configs. The ne
   identify the new selections; old runs retain their original frozen partners.
   Tests check per-instance entropy, seed independence, reproducible membership,
   immutable existing configs, all15 membership and unchanged400-update budgets.
+
+### 2026-11-16: Frozen L2 comparison after all18 completed400 updates
+
+- The user's clarified evaluation compares each fixed L0 and L1 partners absent
+  from each L2's own training subset. k03 uses its12 unused construction L1s;
+  k05 uses its10 unused L1s. k15 has no unused cohort member and instead samples
+  the15 known L1s uniformly with replacement at every five-episode round.
+- The immutable evaluation plan records1000 episodes per fixed L0, the inclusive
+  950/1000 threshold on all three L0 conventions, common15 diagnostic counts,
+  and3000 random rounds/15000 episodes for each k15 model. Random-partner seeds
+  are recorded independently of action/environment RNG. No recipe restriction,
+  observation/reward change or training update is introduced.
+- Added a separate frozen evaluation script, schedule/protocol/trace artifacts,
+  and before/after file and tensor checks. Exact stochastic joint-action traces
+  and episode history match the native evaluator in the single-partner case.
+  Results distinguish unseen-within-construction from k15 known-partner scores.
+- Compatibility: src/nestrl_research and all original configs/checkpoints remain
+  unchanged. Existing inference and checkpoint hashes remain compatible. The
+  new evaluation driver has its own commit/SHA and does not resume any run.
