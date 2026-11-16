@@ -614,3 +614,13 @@ scientific config, checkpoint format or compatibility was changed.
   immutable checkpoint hashes before/after, and independent episode/trace
   recounts. Report training completion, performance and saved-result
   verification separately in docs/l1_mirrored_full_single_evaluation_20261116.md.
+- Completed all15000 episodes. Mirrored seeds101–104: every-partner passes0/4;
+  old-layout seed151:1000/1000 with each of three partners, passes1/1. Different
+  seeds/environments do not isolate a causal effect of learner concurrency.
+- Independently recounted all episode/trace counts, seeds, step/reward/terminal
+  consistency and checkpoint/source/config hashes. Native task also replayed
+  old151 traces using its frozen environment/L0. No weights or source changed.
+- Stored mirrored full evaluation plus five-model comparison in Draft446495466,
+  manifest754310736, archive SHA42cfc6ff69134a168a95e0533399756f906d541f3e5ab11cbbd9cd23b863a09c;
+  independently downloaded all389payload. Old151 native evaluation remains in
+  Draft446571560, manifest754287690,132payload, also independently downloaded.
