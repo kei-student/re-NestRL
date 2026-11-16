@@ -1,0 +1,67 @@
+{
+  "campaign_id": "l1-left-env3-12models-400u-s152-20261116",
+  "source_parent_commit": "16216917ce67bf2e21515dc328b72255d20ea103",
+  "config": "configs/l1-left-env3-12models-400u-s152-20261116.json",
+  "config_file_sha256": "651fe0407ce2af9cf0dc095f676bf3a67880337a2a1bb19dc68262a313e5bb79",
+  "config_sha256": "a522fb5181f75f3eb0bae2ffe3ae53afaf2ecef268d8a3df7bfab3ef6f0e0407",
+  "total_models": 12,
+  "total_tasks": 6,
+  "models_per_task": 2,
+  "updates": 400,
+  "batch_size": 72000,
+  "steps": 28800000,
+  "backend": "cpu",
+  "threads": 1,
+  "release_tag": "l1-left-env3-12models-400u-s152-20261116",
+  "task_assignments": [
+    {
+      "task_id": "p01",
+      "seeds": [
+        152,
+        153
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p01"
+    },
+    {
+      "task_id": "p02",
+      "seeds": [
+        154,
+        155
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p02"
+    },
+    {
+      "task_id": "p03",
+      "seeds": [
+        156,
+        157
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p03"
+    },
+    {
+      "task_id": "p04",
+      "seeds": [
+        158,
+        159
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p04"
+    },
+    {
+      "task_id": "p05",
+      "seeds": [
+        160,
+        161
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p05"
+    },
+    {
+      "task_id": "p06",
+      "seeds": [
+        162,
+        163
+      ],
+      "output_root": "outputs/l1-left-env3-12models-400u-s152-20261116-p06"
+    }
+  ],
+  "recovery": "Docker on-failure:3 only; manager never restarts. Exact same-run CPU recovery; no historical checkpoint reuse."
+}
