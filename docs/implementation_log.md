@@ -418,3 +418,7 @@ scientific config, checkpoint format or compatibility was changed.
   `6b50e2f1e0c22ef2f2a4482fd8e1bd409dfdf4fd9477588509c66ee706d34baf`;
   single `f0bbdda67e4afe66a7bbc3db059e04198eae74dae963f73e8d030ac645a7e775`;
   both `b74a3d2b47b25633d1a9dcc315ed2385fc8981c448ab1380cd26f63b3cff4001`.
+
+## 2026-11-16: environment 3, one task / one L1, seed 151
+
+Fresh 400-update CPU run from 2d82b2e; only profile and construction_seeds change. Old asymmetric left agent0 L1 / right agent1 serving L0, full 105 observation and one ingredient per physical episode remain fixed. Three frozen right-side L0 recipes remain independent of L1 construction pool size. Validation/test registrations are untrained. See experiments/l1-left-env3-single-worker-400u-s151-20261116-plan.json. Existing src/scripts/configs and checkpoints remain immutable. Same architecture does not imply resume compatibility: new config/registry hashes require fresh initialization. Only this run supports identical-source/runtime CPU recovery. Startup launch/resources/transfer and final training/storage statuses are recorded separately under the dedicated output namespace.

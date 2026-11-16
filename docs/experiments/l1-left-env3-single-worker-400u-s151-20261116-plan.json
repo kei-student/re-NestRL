@@ -1,0 +1,20 @@
+{
+  "campaign_id": "l1-left-env3-single-worker-400u-s151-20261116",
+  "base_source_commit": "2d82b2e888b7970806ad9b9329bcf73303396d2a",
+  "config": "configs/l1-left-env3-single-worker-400u-s151-20261116.json",
+  "config_file_sha256": "ca98399fb95769ed54b7e24863c36a25065a0112e314a58f152be311c515aa9e",
+  "config_canonical_sha256": "72defc6b1fd0e9caca4a25f1832a38d4af018d0c57da07486fab9c64155df266",
+  "total_tasks": 1,
+  "parallel_learners_per_vm": 1,
+  "seed": 151,
+  "updates": 400,
+  "steps": 28800000,
+  "batch_size": 72000,
+  "backend": "cpu",
+  "threads": 1,
+  "output_root": "outputs/l1-left-env3-single-worker-400u-s151-20261116-p01",
+  "release_tag": "l1-left-env3-single-worker-400u-s151-20261116",
+  "launch_command": ".venv/bin/python scripts/cloud_train.py start --stage l1 --config configs/l1-left-env3-single-worker-400u-s151-20261116.json --output-root outputs/l1-left-env3-single-worker-400u-s151-20261116-p01 --seeds 151 --memory-gib 6",
+  "compatibility": "Same 105-input architecture; changed config and registry hashes prohibit historical checkpoint reuse. Fresh initialization; exact CPU recovery of this run only.",
+  "manager": "Single finite <=48h session; Docker alone owns on-failure:3 restarts; manager never restarts worker. Verify source/config/runtime/registry and snapshot for recovery; no additional tasks or monitoring jobs."
+}
