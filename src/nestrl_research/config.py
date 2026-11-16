@@ -5,8 +5,9 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 from dataclasses import asdict, dataclass, field, fields
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 
 from .environment import observation_schema_for
 
@@ -50,6 +51,29 @@ class PPOConfig:
 
 
 @dataclass(frozen=True)
+class L1PoolConfig:
+    """An immutable, explicitly selected construction pool in the run root."""
+
+    catalog: str
+    catalog_sha256: str
+    partner_ids: tuple[str, ...]
+
+    def __post_init__(self):
+        object.__setattr__(self, "partner_ids", tuple(self.partner_ids))
+
+    def validate(self):
+        path = PurePosixPath(self.catalog)
+        if (not self.catalog or path.is_absolute() or ".." in path.parts
+                or "\\" in self.catalog or ":" in self.catalog or path.suffix != ".json"):
+            raise ValueError("L1 pool catalog must be a portable relative JSON path")
+        if not re.fullmatch(r"[a-f0-9]{64}", self.catalog_sha256):
+            raise ValueError("L1 pool catalog requires a SHA-256")
+        if (not self.partner_ids or len(set(self.partner_ids)) != len(self.partner_ids)
+                or any(not re.fullmatch(r"l1-construction-[0-9]+", x) for x in self.partner_ids)):
+            raise ValueError("L1 pool needs unique construction partner IDs")
+
+
+@dataclass(frozen=True)
 class ExperimentConfig:
     schema: str = SCHEMA
     profile: str = "paper"
@@ -73,6 +97,7 @@ class ExperimentConfig:
     previous_action_input: bool = True
     episode_boundary_input: bool = True
     finite_horizon_returns: bool = True
+    l1_pool: L1PoolConfig | None = None
 
     @property
     def batch_size(self) -> int:
@@ -90,6 +115,8 @@ class ExperimentConfig:
             del data["environment"]["visibility"]
         if self.environment.max_ingredients_per_agent is None:
             del data["environment"]["max_ingredients_per_agent"]
+        if self.l1_pool is None:
+            del data["l1_pool"]
         return data
 
     @property
@@ -131,6 +158,10 @@ class ExperimentConfig:
             raise ValueError("L1 construction/validation/test seed partitions must be nonempty and disjoint")
         if not 0 <= self.ppo.gamma <= 1 or not 0 <= self.ppo.gae_lambda <= 1:
             raise ValueError("Invalid discount/GAE coefficient")
+        if self.l1_pool is not None:
+            self.l1_pool.validate()
+            if not {int(x.removeprefix("l1-construction-")) for x in self.l1_pool.partner_ids}.issubset(self.construction_seeds):
+                raise ValueError("L1 pool partners must remain in construction")
 
 
 def _strict(cls, value: dict):
@@ -146,6 +177,8 @@ def load_config(path: Path | str) -> ExperimentConfig:
     data.setdefault("environment", {}).setdefault("random_start", False)
     data["environment"] = _strict(EnvironmentConfig, data.get("environment", {}))
     data["ppo"] = _strict(PPOConfig, data.get("ppo", {}))
+    if data.get("l1_pool") is not None:
+        data["l1_pool"] = _strict(L1PoolConfig, data["l1_pool"])
     config = _strict(ExperimentConfig, data)
     config.validate()
     return config

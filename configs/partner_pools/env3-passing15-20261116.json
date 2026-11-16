@@ -1,0 +1,768 @@
+{
+  "schema": "re-nestrl-l1-catalog-v1",
+  "cohort_id": "env3-passing15-20261116",
+  "models": [
+    {
+      "id": "l1-construction-101",
+      "seed": 101,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "746a747c9f22c135b2f002ef65b0ddace31ad8ed72aff1461cb100de7e15890c",
+      "source_commit": "21d9d1d40948b6756b57875a181c69cc33cffcc8",
+      "files": {
+        "config.json": "9c843a612eb8f4b57913044458d22a981736e9bc51bfe5eb1f7afe8c64de2616",
+        "registry.json": "20a3b7c2d8fabaf05a39c997cb7c06228f70ccff8c2b7bb29d0953103ee19acc",
+        "run.json": "74fa3bc796304231240291386d90ccad27cf21bc9de356827d8ae8e853420346",
+        "complete.json": "281724e7181cc795d49afcdf0bf4260e6c642b1630755bec634d1a864b173a41",
+        "checkpoints/final.pt": "7e5f5b2f857b46e28b6296d0aaeb1c235a60903c22e0155ad6d67f4cb302150e",
+        "checkpoints/final.json": "9cc0085d14bd9f4724b08c14449496d30668909d98af0824de12ff98eed6318a",
+        "checkpoints/latest.json": "d8b1ae7ae0776db8ec4851700fed62e2a8c09be2656de580bcebe43a49e0149d"
+      },
+      "archive": {
+        "filename": "e3-p01-s101-final-20261113T071422437415Z.zip",
+        "sha256": "023ac0b2780371e3a8c3f3306560b4c5a115669ef02283de4d5e1b33f8b9667a",
+        "release_id": 443670277,
+        "manifest_asset_id": 742680128,
+        "manifest_sha256": "ddb9eb58e1d63463cc583e7eb9fda105adc2e38006ea1625b68ca5ba9b70f78c",
+        "members": {
+          "config.json": "l1-construction-101/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-101/run.json",
+          "complete.json": "l1-construction-101/complete.json",
+          "checkpoints/final.pt": "l1-construction-101/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-101/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-101/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "PotatoBroccoliSalad": 1000,
+          "TomatoCarrotSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-variants-l0-eval-20261113-e3-p01",
+          "evaluation_seed": 6001,
+          "chat_summary_file_sha256": "6ad7dd9e06cc9eedb4ce8c0dcdfbfbf55901a7408c93ad56179c87ce71f9436a"
+        }
+      }
+    },
+    {
+      "id": "l1-construction-102",
+      "seed": 102,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "746a747c9f22c135b2f002ef65b0ddace31ad8ed72aff1461cb100de7e15890c",
+      "source_commit": "21d9d1d40948b6756b57875a181c69cc33cffcc8",
+      "files": {
+        "config.json": "9c843a612eb8f4b57913044458d22a981736e9bc51bfe5eb1f7afe8c64de2616",
+        "registry.json": "20a3b7c2d8fabaf05a39c997cb7c06228f70ccff8c2b7bb29d0953103ee19acc",
+        "run.json": "6bb817e4d5a5d4d887431edf2604c86babc6ee4c21ded8045c19e9895d88bbdc",
+        "complete.json": "5074b0c9051f9427f8f7201fb9cbbcf1f73723d967148cab3209aefb3b3fd1b9",
+        "checkpoints/final.pt": "b40e415c4c2eadebf22f8a02d9dec42ce4248af004cb3567cdb25442dcdc3ea0",
+        "checkpoints/final.json": "ba7f29ead11c02d72ac79cb36fa59bedf3aeaf5498e645bf949857bf69f9f4e1",
+        "checkpoints/latest.json": "9be9f36121d123a7ea0972e252aa7b2de67874dc37ee957bb53e61bd0a9dffcf"
+      },
+      "archive": {
+        "filename": "e3-p01-s101-final-20261113T071422437415Z.zip",
+        "sha256": "023ac0b2780371e3a8c3f3306560b4c5a115669ef02283de4d5e1b33f8b9667a",
+        "release_id": 443670277,
+        "manifest_asset_id": 742680128,
+        "manifest_sha256": "ddb9eb58e1d63463cc583e7eb9fda105adc2e38006ea1625b68ca5ba9b70f78c",
+        "members": {
+          "config.json": "l1-construction-102/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-102/run.json",
+          "complete.json": "l1-construction-102/complete.json",
+          "checkpoints/final.pt": "l1-construction-102/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-102/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-102/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "PotatoBroccoliSalad": 1000,
+          "TomatoCarrotSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-variants-l0-eval-20261113-e3-p01",
+          "evaluation_seed": 6001,
+          "chat_summary_file_sha256": "6ad7dd9e06cc9eedb4ce8c0dcdfbfbf55901a7408c93ad56179c87ce71f9436a"
+        }
+      }
+    },
+    {
+      "id": "l1-construction-103",
+      "seed": 103,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "746a747c9f22c135b2f002ef65b0ddace31ad8ed72aff1461cb100de7e15890c",
+      "source_commit": "21d9d1d40948b6756b57875a181c69cc33cffcc8",
+      "files": {
+        "config.json": "9c843a612eb8f4b57913044458d22a981736e9bc51bfe5eb1f7afe8c64de2616",
+        "registry.json": "20a3b7c2d8fabaf05a39c997cb7c06228f70ccff8c2b7bb29d0953103ee19acc",
+        "run.json": "f09ade0461a181f927451bcef1cca7b86a31ee1bfb3a0e9973042496ef8827b0",
+        "complete.json": "eeb19ee2b54c70a1d1a3469b21d70c86bf3cdaf2db576f74f090183c6908d719",
+        "checkpoints/final.pt": "6a87a3c13c10a6eb1634671737d53b9d899df5715c52135a9e8cece9caa5c47c",
+        "checkpoints/final.json": "babf0387a404da66b74018ff2af1ff93f528bd267867a2bbc137e1929d32f552",
+        "checkpoints/latest.json": "d02062a99dc91b49076d1dbbb534095101f3556017f660c1fdcfc2cfa2ae7222"
+      },
+      "archive": {
+        "filename": "e3-p02-s101-final-20261113T074202697924Z.zip",
+        "sha256": "dbf2249a4585c620672b19be8a5dd0544485bdb09136e1b0a6db690f127344e0",
+        "release_id": 443670277,
+        "manifest_asset_id": 742758309,
+        "manifest_sha256": "8e1122ebbb6a9ddfd2eee9c7ab39c6b4d2266dab23c6886cfd87c69dc1f14b6c",
+        "members": {
+          "config.json": "l1-construction-103/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-103/run.json",
+          "complete.json": "l1-construction-103/complete.json",
+          "checkpoints/final.pt": "l1-construction-103/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-103/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-103/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-variants-l0-eval-20261113-e3-p02",
+          "evaluation_seed": 6001,
+          "chat_summary_file_sha256": "170318cb130f4b7e0dfb63fb037403bbc53f724668bedbe6f3b0193c6612412e"
+        }
+      }
+    },
+    {
+      "id": "l1-construction-151",
+      "seed": 151,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "de1230148beef09e269ff9b53c57034ecb0619aec6f411028bebbaa2a77733cc",
+        "complete.json": "0d18d2e7d0fda3bd01e19be256f98cfb71a0555478b8e10911a3006deef96da9",
+        "checkpoints/final.pt": "927fa2e41f0c7f9029be41b2c3e20cc6733f7b6b14753fb1062084b4ee892e0c",
+        "checkpoints/final.json": "67d8d9c6113f762ab3605f2572b192b666019cec0840cdb1c9b69dc9f25413f9",
+        "checkpoints/latest.json": "d3dffa401914b159356d1e6a2ecc0cb401b73391cd7951d5f7503398ecf7776d"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p01-final-20261115T191833994058Z.zip",
+        "sha256": "4c0af29ccad076c985468cf9c538411651052f4c755f2586648754ae3c180180",
+        "release_id": 446096945,
+        "manifest_asset_id": 752077932,
+        "manifest_sha256": "0096358bc23e377de0a52a4e752afc00e40a5a2da9d88e70430ece973ee5149e",
+        "members": {
+          "config.json": "l1-construction-151/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-151/run.json",
+          "complete.json": "l1-construction-151/complete.json",
+          "checkpoints/final.pt": "l1-construction-151/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-151/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-151/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p01",
+          "summary_sha256": "8ef8c3271e12174027da00d99cb9b290e92fdf80f4db96b1c800805d2fd61710",
+          "verification_sha256": "8de3fe7ffa40fb3746c799f4ef7fc1af8f095f491c1392cacc9021be4b458375",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-153",
+      "seed": 153,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "bc0d4d0dfee2700d0c3c5aea12b3352e9209027b728f4467422c79c110fb0ed6",
+        "complete.json": "6d7418e35953541e28d807e77fb143ab49add3014bf26ad1d04871fd02aa0990",
+        "checkpoints/final.pt": "d3a78b90ca00e9bbcafa2b713673713ba5582cad883218f5346bd4433a7267b3",
+        "checkpoints/final.json": "4fb64ce6da16bf074c546a82727815360af5b2f7cd6d397d04a5dc985a6204d1",
+        "checkpoints/latest.json": "9d5d9e73c54198a7b9ea44c707f8295943fa64ff64b50d1b840c59c1f706a0bb"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p01-final-20261115T191833994058Z.zip",
+        "sha256": "4c0af29ccad076c985468cf9c538411651052f4c755f2586648754ae3c180180",
+        "release_id": 446096945,
+        "manifest_asset_id": 752077932,
+        "manifest_sha256": "0096358bc23e377de0a52a4e752afc00e40a5a2da9d88e70430ece973ee5149e",
+        "members": {
+          "config.json": "l1-construction-153/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-153/run.json",
+          "complete.json": "l1-construction-153/complete.json",
+          "checkpoints/final.pt": "l1-construction-153/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-153/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-153/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p01",
+          "summary_sha256": "8ef8c3271e12174027da00d99cb9b290e92fdf80f4db96b1c800805d2fd61710",
+          "verification_sha256": "8de3fe7ffa40fb3746c799f4ef7fc1af8f095f491c1392cacc9021be4b458375",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-157",
+      "seed": 157,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "a4c20b6702214c1d1a57c605a850065dc9f3f123469574374a6f86f5cfa48a05",
+        "complete.json": "669768ca699e64c8761d27f31b2fe3dda336f1bb49a2a46bb7a50cf812029f91",
+        "checkpoints/final.pt": "2f5de2e3c813f05658b2fe17344b9fa99ddc9d51a3ece2f84074746fca1c7b94",
+        "checkpoints/final.json": "d0efdea918cf71a005530d860624a42307d3e3764901f123f6958ca3833b8eab",
+        "checkpoints/latest.json": "db1e4e1284b0e9debb742ad45bd0e30f6b68f678edf06357dcbffcba8cb714e0"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p02-final-20261115T191901810150Z.zip",
+        "sha256": "efe38c3daeaa05432823be0658f8268d7445e4d32e11e77b259a9f8f2b4f42d7",
+        "release_id": 446096945,
+        "manifest_asset_id": 752079067,
+        "manifest_sha256": "146ffb6106c1072e74e02bfaa481c88f738d0834a6e5f9516d9e93200bdf4136",
+        "members": {
+          "config.json": "l1-construction-157/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-157/run.json",
+          "complete.json": "l1-construction-157/complete.json",
+          "checkpoints/final.pt": "l1-construction-157/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-157/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-157/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 996,
+          "TomatoCarrotSalad": 997,
+          "PotatoBroccoliSalad": 998
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p02",
+          "summary_sha256": "46547daf6a635e244aa7bad8e9e9f0e3e01d0e37f1e92d632992a497b28d64d1",
+          "verification_sha256": "f8dbbee78fc147d3956aed6e07b05931b4421fd8b9fab69cf6346cd4db21051f",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-160",
+      "seed": 160,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "48752c6a72aab4c7d27eb5cc1047491007f9cfc65efe4e35eb6bf33af728632c",
+        "complete.json": "09e9ef1f8ab9a84170846d4b8ad3ad010fb86b44243bbac068e8385db8507300",
+        "checkpoints/final.pt": "fdc3e9a9acb7e2dc0f6394ace679723dba8435eede793cfca21115ce6252a51b",
+        "checkpoints/final.json": "f43da04ff74e4572016d6278de54852321c62814d916b56df4a93e2d9ea419f9",
+        "checkpoints/latest.json": "ff07cf7cb1a1c00177f10c19fbab10f5f754ee31c5adb930fb955d50d889141b"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p03-final-20261115T192219974996Z.zip",
+        "sha256": "519f746e052fb2860eb47fadb86e142137e11630f69110f40c2924385c076897",
+        "release_id": 446096945,
+        "manifest_asset_id": 752088552,
+        "manifest_sha256": "ac00c11ace27a01e75460c157441ae004b6138971789b942217e49143ad5539d",
+        "members": {
+          "config.json": "l1-construction-160/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-160/run.json",
+          "complete.json": "l1-construction-160/complete.json",
+          "checkpoints/final.pt": "l1-construction-160/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-160/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-160/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 999,
+          "PotatoBroccoliSalad": 999
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p03",
+          "summary_sha256": "96da012d4e85f37f625d97f26de0276ff507475792a661bb1ab89205d70692ca",
+          "verification_sha256": "3f55b2984bcf54ecf44daf7f5656e48371dec437b8e4f1278b0745c4bb80955d",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-161",
+      "seed": 161,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "ad339e90c78edd4fd1273dc06abd831c1c1abfd0a2b1dcbdf2c491261368a8c0",
+        "complete.json": "b00e0a12ceea382cb2fcd2b022b07bf1033002f7d94e1a147e23d4ad1d9b258d",
+        "checkpoints/final.pt": "6de06ab08664bcc3b90da6a948d1fbd6cbf960f27e3e9d8a581c82118b9bb789",
+        "checkpoints/final.json": "ef43c46358fc18baa3bee13a5b9fb2339fa487d5bdcb9992a9f1b8b6bad92d39",
+        "checkpoints/latest.json": "25f91518596bd1650297da9e76a783e5d06bbf3c22ed377a137bd61a073b658b"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p03-final-20261115T192219974996Z.zip",
+        "sha256": "519f746e052fb2860eb47fadb86e142137e11630f69110f40c2924385c076897",
+        "release_id": 446096945,
+        "manifest_asset_id": 752088552,
+        "manifest_sha256": "ac00c11ace27a01e75460c157441ae004b6138971789b942217e49143ad5539d",
+        "members": {
+          "config.json": "l1-construction-161/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-161/run.json",
+          "complete.json": "l1-construction-161/complete.json",
+          "checkpoints/final.pt": "l1-construction-161/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-161/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-161/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p03",
+          "summary_sha256": "96da012d4e85f37f625d97f26de0276ff507475792a661bb1ab89205d70692ca",
+          "verification_sha256": "3f55b2984bcf54ecf44daf7f5656e48371dec437b8e4f1278b0745c4bb80955d",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-162",
+      "seed": 162,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "2b03536f67b0043c7037f65aae4562c3e7a9108e335b52976f4b6014d80848bc",
+        "complete.json": "9036c64ae9d82972c0cf993b39907be94b874efb7b32238fe3c8bc992d18c022",
+        "checkpoints/final.pt": "e69d20a4e90a962a6f894f96605c65b81ce1ad55cbb15c2eedc4ffa0551417fb",
+        "checkpoints/final.json": "d0e500ad206997e22406e5698628fe4257f5f95974f6ca0a009a9b309359009d",
+        "checkpoints/latest.json": "a928fc9c1ad8c23b3705342bdb01e8abcd9285a6cd4ee252ba1b59524d690cfa"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p03-final-20261115T192219974996Z.zip",
+        "sha256": "519f746e052fb2860eb47fadb86e142137e11630f69110f40c2924385c076897",
+        "release_id": 446096945,
+        "manifest_asset_id": 752088552,
+        "manifest_sha256": "ac00c11ace27a01e75460c157441ae004b6138971789b942217e49143ad5539d",
+        "members": {
+          "config.json": "l1-construction-162/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-162/run.json",
+          "complete.json": "l1-construction-162/complete.json",
+          "checkpoints/final.pt": "l1-construction-162/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-162/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-162/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 990,
+          "TomatoCarrotSalad": 998,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p03",
+          "summary_sha256": "96da012d4e85f37f625d97f26de0276ff507475792a661bb1ab89205d70692ca",
+          "verification_sha256": "3f55b2984bcf54ecf44daf7f5656e48371dec437b8e4f1278b0745c4bb80955d",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-164",
+      "seed": 164,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "ce87cffa9a42b9bbf3ea1cf4803d4dea035d7922ea3e0fc42d656b0d2fecd2f4",
+        "complete.json": "16f88793d305cbc7ef28b0f4f83a6a475e6baef5cdbaa0b4fa775a295eaa9caa",
+        "checkpoints/final.pt": "ee25666165b69918102518c88df02481a54fde15e8bc124fa36dd7a988889ce2",
+        "checkpoints/final.json": "88b2eecdaa5b9bc0d942dae76530f832a43b6a5212b9a50e146be349c1b1c4dc",
+        "checkpoints/latest.json": "be46c145aa5f1fc19fb2aafb2b1ae008f13c646a72125a1ca5b7e84a59f432c1"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p04-final-20261115T192000675164Z.zip",
+        "sha256": "34aa5a413e1cbd6d3ba931511ebafd6f52a3119123a83f4af713dc666fe7e918",
+        "release_id": 446096945,
+        "manifest_asset_id": 752081809,
+        "manifest_sha256": "82ef1ab8d10409318c54f3457eed557a9bdb3e1e4ff9d1a9a489837a6439c428",
+        "members": {
+          "config.json": "l1-construction-164/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-164/run.json",
+          "complete.json": "l1-construction-164/complete.json",
+          "checkpoints/final.pt": "l1-construction-164/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-164/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-164/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 999
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p04",
+          "summary_sha256": "2427554af4fba58db7b947bba8a17bc891797f28e59fcc19f293c24468c1f829",
+          "verification_sha256": "c58996be13e963d08a25999c6bb87fabfcc56059a6c40534cbd48ef3552b222a",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-165",
+      "seed": 165,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "4e1086bd4df6488d0f31dee90bfcbf1564ce30c6118772c81d669448e07b7909",
+        "complete.json": "35a5640ec225a4392921d68d89b4a66525d026a004d8cd3927c602ebd5595efa",
+        "checkpoints/final.pt": "b928477e57b6facb847960c2cc92b73ce700f4188c3159960c103c54e55a7f77",
+        "checkpoints/final.json": "08729c8d1d41a52c0178b2111af2c609f227017cdee534396013e53dd1bc02c9",
+        "checkpoints/latest.json": "84f189f89f4c4367e24451ccc3d03efc64cdadfc9466568268fda6f61b10d1db"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p04-final-20261115T192000675164Z.zip",
+        "sha256": "34aa5a413e1cbd6d3ba931511ebafd6f52a3119123a83f4af713dc666fe7e918",
+        "release_id": 446096945,
+        "manifest_asset_id": 752081809,
+        "manifest_sha256": "82ef1ab8d10409318c54f3457eed557a9bdb3e1e4ff9d1a9a489837a6439c428",
+        "members": {
+          "config.json": "l1-construction-165/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-165/run.json",
+          "complete.json": "l1-construction-165/complete.json",
+          "checkpoints/final.pt": "l1-construction-165/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-165/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-165/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 964,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 960
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p04",
+          "summary_sha256": "2427554af4fba58db7b947bba8a17bc891797f28e59fcc19f293c24468c1f829",
+          "verification_sha256": "c58996be13e963d08a25999c6bb87fabfcc56059a6c40534cbd48ef3552b222a",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-166",
+      "seed": 166,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "341a3b558211228ba522ab252f41648675a4d72ede837497212e3d5b50f15bc6",
+        "complete.json": "f44eabb7ecbcc6493b27178564daad1ab37ac7b40880ec02ecffa17e117708da",
+        "checkpoints/final.pt": "303da68b0c13980edb68035e82d50a49b1c98345d35148625af9e1adc324a089",
+        "checkpoints/final.json": "d19070c4ae464982e1836cbf3144a04ced062ccfbdafc551c1e3c100810c0741",
+        "checkpoints/latest.json": "82448f0f41970cc0e794d1e451fbba1445030ad4f8303d2d0473c0b3b3a33b38"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p04-final-20261115T192000675164Z.zip",
+        "sha256": "34aa5a413e1cbd6d3ba931511ebafd6f52a3119123a83f4af713dc666fe7e918",
+        "release_id": 446096945,
+        "manifest_asset_id": 752081809,
+        "manifest_sha256": "82ef1ab8d10409318c54f3457eed557a9bdb3e1e4ff9d1a9a489837a6439c428",
+        "members": {
+          "config.json": "l1-construction-166/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-166/run.json",
+          "complete.json": "l1-construction-166/complete.json",
+          "checkpoints/final.pt": "l1-construction-166/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-166/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-166/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 989,
+          "PotatoBroccoliSalad": 997
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p04",
+          "summary_sha256": "2427554af4fba58db7b947bba8a17bc891797f28e59fcc19f293c24468c1f829",
+          "verification_sha256": "c58996be13e963d08a25999c6bb87fabfcc56059a6c40534cbd48ef3552b222a",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-167",
+      "seed": 167,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "820e7dba4797e96e6a444e18f7ae231ed3bfbde2a9cf97ac6bce30766e836177",
+        "complete.json": "6f726d3a29f7958f2c7d6a6ad063a098bc56927a2d1c694e101dbbf131f0b3ff",
+        "checkpoints/final.pt": "03f1c0a3c1697948174c10b70a3c2b0bb23c6bd2e0c5c67d0a27e0d29fbf1150",
+        "checkpoints/final.json": "cee114115677831c133d9ad1cd9a75bca447fb454f6aacf27e878499ec52e12f",
+        "checkpoints/latest.json": "410aa1b4ac8d361c62d84126cbb2d0d207679da5822bea03da54749c07710496"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p05-final-20261115T192818309143Z.zip",
+        "sha256": "8e213023d5363302bd409cbae22c33a5cc8e342b53a7d97024842d4f8e8fb0c1",
+        "release_id": 446096945,
+        "manifest_asset_id": 752105568,
+        "manifest_sha256": "b4d62ac4a55608311ddf2f79081f5c6bdd5382a4791ecedd0440141cb4fe0b84",
+        "members": {
+          "config.json": "l1-construction-167/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-167/run.json",
+          "complete.json": "l1-construction-167/complete.json",
+          "checkpoints/final.pt": "l1-construction-167/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-167/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-167/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p05",
+          "summary_sha256": "74e3f5668b64aa24b1d8eb38e3fccf2926ccbea5ef6d0b3a1886695623e5514f",
+          "verification_sha256": "245230c8eb97042cfa9e70db3f6038e1e864844a1e78e34372a2c61e7d1e13f3",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-168",
+      "seed": 168,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "5e5c79a631e084bbef4173537c131e3550abc27ac18e1d4162d854ee0920ed1c",
+        "complete.json": "dd5adfef8797d1fcc73c57a3acd1139a71ecb3c9845f7f422580b047655b0b48",
+        "checkpoints/final.pt": "60b4ae8850992b63b139a4f7463463c62cfe4527999522fb51da59254fd93c0e",
+        "checkpoints/final.json": "1ac80708cd1e32f6ebe1898d1be1a76844ba1b63f41f0665f1ae88c5177242c7",
+        "checkpoints/latest.json": "fd3a92d50b746bb059fd9d9c4e306fd15104305b0d9ac9ed6c7b2cfe7f7b00a1"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p05-final-20261115T192818309143Z.zip",
+        "sha256": "8e213023d5363302bd409cbae22c33a5cc8e342b53a7d97024842d4f8e8fb0c1",
+        "release_id": 446096945,
+        "manifest_asset_id": 752105568,
+        "manifest_sha256": "b4d62ac4a55608311ddf2f79081f5c6bdd5382a4791ecedd0440141cb4fe0b84",
+        "members": {
+          "config.json": "l1-construction-168/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-168/run.json",
+          "complete.json": "l1-construction-168/complete.json",
+          "checkpoints/final.pt": "l1-construction-168/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-168/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-168/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p05",
+          "summary_sha256": "74e3f5668b64aa24b1d8eb38e3fccf2926ccbea5ef6d0b3a1886695623e5514f",
+          "verification_sha256": "245230c8eb97042cfa9e70db3f6038e1e864844a1e78e34372a2c61e7d1e13f3",
+          "evaluation_seed": 6001
+        }
+      }
+    },
+    {
+      "id": "l1-construction-170",
+      "seed": 170,
+      "stage": "l1",
+      "split": "construction",
+      "ego_side": 1,
+      "steps": 28800000,
+      "updates": 400,
+      "config_sha256": "9327dbb49f721f6aefc122c04d97c13c2e866acc36fdf4ed5a50eb97e3cc1658",
+      "source_commit": "7a24e2a166ebe12a820e08ea27433a7210040e2c",
+      "files": {
+        "config.json": "6e037dbef193e20be384170dfff89b2b712fd449e6c37b81d505ec121c1f4ef1",
+        "registry.json": "3e173e2a51b0b16502d59d432f38fef191f0db0308332898b3a85f35b1b673a8",
+        "run.json": "bbe3c1c2d738d4fb9856faf5ad3752ce83b28fab2f93475d48f27e446041c1fd",
+        "complete.json": "0934f2b3e6fac7051f45a23be45d6e9dd56a25cc7f3fade1627ec3e1ea275bf0",
+        "checkpoints/final.pt": "8c1be047db77105623507ac114a5f4dc061dcd857a0b7f4a1b306c664e93c8a7",
+        "checkpoints/final.json": "a7b1ef7b03ce896c0b5f62da6f6d3504644c73449e04db50a0ad95328c2f721a",
+        "checkpoints/latest.json": "35f248f6cadc82d53ed91d6a6c93249212e089fc4b347b4443910f32e8e5114e"
+      },
+      "archive": {
+        "filename": "l1-env3-400u-20agents-s151-20261115-p05-final-20261115T192818309143Z.zip",
+        "sha256": "8e213023d5363302bd409cbae22c33a5cc8e342b53a7d97024842d4f8e8fb0c1",
+        "release_id": 446096945,
+        "manifest_asset_id": 752105568,
+        "manifest_sha256": "b4d62ac4a55608311ddf2f79081f5c6bdd5382a4791ecedd0440141cb4fe0b84",
+        "members": {
+          "config.json": "l1-construction-170/config.json",
+          "registry.json": "registry.json",
+          "run.json": "l1-construction-170/run.json",
+          "complete.json": "l1-construction-170/complete.json",
+          "checkpoints/final.pt": "l1-construction-170/checkpoints/final.pt",
+          "checkpoints/final.json": "l1-construction-170/checkpoints/final.json",
+          "checkpoints/latest.json": "l1-construction-170/checkpoints/latest.json"
+        }
+      },
+      "qualification": {
+        "episodes_per_recipe": 1000,
+        "minimum_successes_per_recipe": 950,
+        "successes": {
+          "LettuceOnionSalad": 1000,
+          "TomatoCarrotSalad": 1000,
+          "PotatoBroccoliSalad": 1000
+        },
+        "evidence": {
+          "evaluation_id": "l1-env3-20agents-l0-eval-20261116-p05",
+          "summary_sha256": "74e3f5668b64aa24b1d8eb38e3fccf2926ccbea5ef6d0b3a1886695623e5514f",
+          "verification_sha256": "245230c8eb97042cfa9e70db3f6038e1e864844a1e78e34372a2c61e7d1e13f3",
+          "evaluation_seed": 6001
+        }
+      }
+    }
+  ]
+}

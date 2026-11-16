@@ -1,0 +1,87 @@
+{
+  "schema": "re-nestrl-l2-pool-comparison-v1",
+  "environment_condition": 3,
+  "catalog": "configs/partner_pools/env3-passing15-20261116.json",
+  "catalog_sha256": "78e47375a85c5fe6d02851781f3fb04b9e50a0eb1f0c3b891da390c36d1c834f",
+  "candidate_seeds": [
+    101,
+    102,
+    103,
+    151,
+    153,
+    157,
+    160,
+    161,
+    162,
+    164,
+    165,
+    166,
+    167,
+    168,
+    170
+  ],
+  "selection_method": "independent uniform samples without replacement; no nesting or forced disjointness",
+  "selection_rng": "numpy.PCG64",
+  "common_learner_seed": 181,
+  "backend": "cpu",
+  "torch_blas_threads": 1,
+  "updates_per_condition": 400,
+  "steps_per_condition": 28800000,
+  "conditions": [
+    {
+      "id": "k03",
+      "config": "configs/l2-env3-400u-k03-20261116.json",
+      "config_sha256": "05f5e9a413a8df02f7bf2e4981753a05692724995e125b3313e2b60919661417",
+      "partner_count": 3,
+      "selection_seed": 2026111603,
+      "partner_seeds": [
+        160,
+        165,
+        170
+      ],
+      "output_root": "outputs/l2-env3-partner-pools-20261116/k03"
+    },
+    {
+      "id": "k05",
+      "config": "configs/l2-env3-400u-k05-20261116.json",
+      "config_sha256": "07a126a01d39059c141fd00063c8cd63fb5632563049c0070a9a0a6b47172dd1",
+      "partner_count": 5,
+      "selection_seed": 2026111605,
+      "partner_seeds": [
+        102,
+        157,
+        165,
+        168,
+        170
+      ],
+      "output_root": "outputs/l2-env3-partner-pools-20261116/k05"
+    },
+    {
+      "id": "k15",
+      "config": "configs/l2-env3-400u-k15-20261116.json",
+      "config_sha256": "ba4f9ad47ea468aaa8a51f69e7970a1bcec853245cdc654fe5cd7676d87af4f4",
+      "partner_count": 15,
+      "selection_seed": null,
+      "partner_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ],
+      "output_root": "outputs/l2-env3-partner-pools-20261116/k15"
+    }
+  ],
+  "common_evaluation_pool": "configs/partner_pools/env3-common15-evaluation-20261116.json",
+  "evaluation_interpretation": "All 15 remain construction policies. Report seen and untrained-within-cohort results separately; this is not validation/test generalization."
+}

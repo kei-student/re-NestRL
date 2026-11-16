@@ -66,6 +66,11 @@ def load_policy(config, checkpoint, device):
 
 
 def load_l1_pool(config, output_root, split, device):
+    if config.l1_pool is not None:
+        if split != "construction":
+            raise ValueError("Catalog pools contain construction partners; held-out pools must be declared separately")
+        from .partner_pool import load_catalog_pool
+        return load_catalog_pool(config, output_root, device)
     models, provenance = [], []
     for seed in partition_seeds(config, split):
         identity = l1_id(split, seed)
@@ -85,6 +90,8 @@ def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, sp
     if stage not in ("l1", "l2", "generalist"):
         raise ValueError("Supported training stages: l1, l2, generalist")
     config.validate()
+    if config.l1_pool is not None and stage != "l2":
+        raise ValueError("External frozen L1 catalogs are only valid for explicit L2 training")
     device = torch.device(device)
     checkpoint_every = (1 if device.type == "cpu" else 0) if checkpoint_every is None else checkpoint_every
     if checkpoint_every < 0 or (max_updates is not None and max_updates < 1):

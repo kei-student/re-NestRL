@@ -10,7 +10,7 @@ import numpy as np
 import torch
 
 from .artifacts import atomic_json, file_hash, freeze_manifest, new_run, runtime_metadata
-from .config import RECIPES
+from .config import L1PoolConfig, RECIPES, canonical_hash
 from .environment import CookingEnv
 from .peers import ScriptedPeer
 from .provenance import source_metadata
@@ -138,7 +138,7 @@ def passes_each_partner(summary, partner_ids, episodes_per_partner, minimum_succ
 
 @torch.no_grad()
 def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_level="l1", split="test", run_id=None,
-             deterministic=False, rounds=None, evaluation_seed=None):
+             deterministic=False, rounds=None, evaluation_seed=None, partner_pool=None):
     if split not in ("validation", "test") or partner_level not in ("l0", "l1"):
         raise ValueError("Evaluation uses validation/test L1 or the three fixed L0 conventions")
     config.validate()
@@ -153,18 +153,35 @@ def evaluate(config, output_root: Path, checkpoint: Path, device, *, partner_lev
     ensure_registry(config, output_root)
     ego, manifest = load_policy(config, checkpoint, device)
     ego_side = manifest["ego_side"]
+    if partner_pool is not None and (partner_level != "l1" or config.l1_pool is None):
+        raise ValueError("Explicit catalog evaluation requires an L2 config with an L1 pool")
     if partner_level == "l1":
         if ego_side == config.l1_ego_side:
             raise ValueError("L1 evaluation partners occupy the same role as this learner")
-        models, provenance = load_l1_pool(config, output_root, split, device)
+        if partner_pool is None:
+            models, provenance = load_l1_pool(config, output_root, split, device)
+        else:
+            from .partner_pool import load_catalog_pool
+            if not isinstance(partner_pool, L1PoolConfig):
+                raise ValueError("Invalid evaluation pool contract")
+            if (partner_pool.catalog != config.l1_pool.catalog
+                    or partner_pool.catalog_sha256 != config.l1_pool.catalog_sha256):
+                raise ValueError("Evaluation must use the same authenticated construction catalog")
+            models, provenance = load_catalog_pool(config, output_root, device, pool=partner_pool)
+            training_ids = {item["id"] for item in manifest["training_partners"]}
+            provenance = [{**item, "seen_in_l2_training": item["id"] in training_ids} for item in provenance]
         peers = [(item["id"], model) for item, model in zip(provenance, models)]
     else:
         peers = [(f"l0-{1-ego_side}-{recipe}", recipe) for recipe in RECIPES]
         provenance = [{"id": identity, "frozen": True} for identity, _ in peers]
+    partition = ("construction_diagnostic" if partner_pool is not None else
+                 split if partner_level == "l1" else "fixed_conventions")
     protocol = {**source_metadata(), "config_sha256": config.sha256, "learner_checkpoint_sha256": file_hash(checkpoint),
-                "partner_level": partner_level, "partition": split if partner_level == "l1" else "fixed_conventions",
+                "partner_level": partner_level, "partition": partition,
                 "partners": provenance, "rounds": rounds, "episodes_per_round": config.episodes_per_round,
                 "seed": evaluation_seed, "deterministic_actions": deterministic, "weight_updates": False}
+    if partner_pool is not None:
+        protocol["partner_pool_sha256"] = canonical_hash(asdict(partner_pool))
     run_id = run_id or f"eval-{manifest['run_id']}-{partner_level}-{split}"
     with new_run(output_root, run_id) as directory:
         freeze_manifest(directory / "protocol.json", protocol)

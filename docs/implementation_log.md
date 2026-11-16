@@ -371,3 +371,38 @@ scientific config, checkpoint format or compatibility was changed.
 New profile/config `l1-random-start-400u-full-single-ingredient-20agents-s151-20261115` changes only profile and construction seeds from the original environment3 s101 config. Seeds 151–170 are divided p01=151–154, p02=155–158, p03=159–162, p04=163–166, p05=167–170, four simultaneous workers per task. Namespaces use `outputs/l1-env3-400u-20agents-s151-20261115-pNN`; internal IDs remain `l1-construction-<seed>`. Validation/test/learner/evaluation seeds remain frozen and disjoint. All environment, PPO/GRU/history, recipes, rewards, layout and 400-update (28,800,000-step) budget remain unchanged. No evaluation is added.
 
 Old checkpoints remain usable for inference under their original configs. The new canonical config hash differs, so checkpoint transfer/resume from earlier cohorts is prohibited. Only a matching CPU run in this new namespace may resume after strict provenance verification. Config contract tests check exact scientific equivalence, split coverage/disjointness, and update budget.
+
+## 2026-11-16 Environment3 L2 partner-count preparation
+
+- User selected fifteen qualified construction L1s:101,102,103 and the twelve
+  passing models151,153,157,160,161,162,164,165,166,167,168,170. Original
+  qualification summaries and Draft transfer/manifest/checkpoint hashes were
+  cross-checked. No L1 is retrained, relabelled or moved between partitions.
+- User chose independent uniform draws without replacement. Fixed PCG64 seeds
+  2026111603/2026111605 select k03=160,165,170 and
+  k05=102,157,165,168,170; k15 contains all fifteen. Samples are frozen per
+  condition and need not be nested or disjoint. Conditions use common L2 seed181,
+  environment3, L2-left/L1-right, CPU/thread1, existing PPO/GRU/five-episode history,
+  random starts and400 updates/28,800,000steps. No production L2 training is started.
+- Added an authenticated mixed-cohort catalog loader: each L1 loads under its
+  original config, registry, final manifest/latest and completion record.
+  Policy/environment/history contracts, model/environment source, budget,
+  construction split, role and every artifact SHA are verified. Frozen partner
+  provenance becomes part of L2 checkpoints and exact-resume metadata. New
+  configs explicitly hash catalog bytes and selected identities; missing,
+  modified or incompatible pools fail instead of falling back to scripted L0s.
+- Three preparation roots stage original bytes and validate frozen batched
+  inference. The common15 diagnostic evaluator labels each partner as seen or
+  untrained within this construction cohort. It never presents these models as
+  held-out validation/test policies. Full protocol, portable fetch/staging,
+  record/train/evaluation commands and canonical config hashes are in
+  docs/l2_env3_partner_pools_20261116.md and configs/l2-env3-experiment-20261116.json.
+- Compatibility: omitted pool metadata leaves all historical config hashes
+  unchanged. Ordinary old L1 inference remains compatible. New pool conditions
+  have distinct L2 config/registry hashes. Historical training trajectories
+  still require their historical implementation/runtime for exact resume;
+  this code change does not authorize resuming them under new source.
+- Validation includes mixed-config frozen inference, corruption and wrong-split
+  rejection, immutable staging, selected-partner-only tiny-fixture L2 training
+  and CPU resume, independent-draw controls, common-pool evaluation and real
+  qualified-model rollout checks. Real preflight uses zero PPO updates.

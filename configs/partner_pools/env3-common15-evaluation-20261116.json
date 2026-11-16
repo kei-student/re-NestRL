@@ -1,0 +1,21 @@
+{
+  "catalog": "partners/catalog.json",
+  "catalog_sha256": "78e47375a85c5fe6d02851781f3fb04b9e50a0eb1f0c3b891da390c36d1c834f",
+  "partner_ids": [
+    "l1-construction-101",
+    "l1-construction-102",
+    "l1-construction-103",
+    "l1-construction-151",
+    "l1-construction-153",
+    "l1-construction-157",
+    "l1-construction-160",
+    "l1-construction-161",
+    "l1-construction-162",
+    "l1-construction-164",
+    "l1-construction-165",
+    "l1-construction-166",
+    "l1-construction-167",
+    "l1-construction-168",
+    "l1-construction-170"
+  ]
+}

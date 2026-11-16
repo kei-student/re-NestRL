@@ -15,8 +15,30 @@ from nestrl_research.pipeline import ensure_registry, load_l1_pool
 from nestrl_research.rollout import FrozenPartners
 
 
-def prepare(config_path, index_path, archives_dir, output_root):
+def prepare(config_path, index_path, archives_dir, output_root, *, catalog_path=None):
     config = load_config(config_path)
+    if config.l1_pool is not None:
+        if catalog_path is None:
+            raise ValueError("Mixed-cohort preparation needs --catalog; original manifests must not be relabelled")
+        from nestrl_research.partner_pool import stage_catalog
+        models, provenance = stage_catalog(config, catalog_path, archives_dir, output_root)
+        before = [{k: v.clone() for k, v in model.state_dict().items()} for model in models]
+        pool = FrozenPartners(config, config.l1_ego_side, "cpu", np.random.default_rng(7), models)
+        actions = pool.act(np.zeros((config.num_envs, 105), dtype=np.float32), [])
+        if actions.shape != (config.num_envs,) or np.any((actions < 0) | (actions >= 6)):
+            raise ValueError("Invalid frozen L1 batched inference")
+        for model, original in zip(models, before):
+            if model.training or any(p.requires_grad for p in model.parameters()) or any(not torch.equal(v, original[k]) for k, v in model.state_dict().items()):
+                raise ValueError("Frozen L1 changed during preparation")
+        report = {"config_sha256": config.sha256, "learner_side": config.ego_side,
+                  "partner_side": config.l1_ego_side, "partner_count": len(models),
+                  "partner_seeds": [p["seed"] for p in provenance], "all_frozen": True,
+                  "batched_inference": "passed", "provenance": provenance,
+                  "training_started": False, "catalog_sha256": config.l1_pool.catalog_sha256}
+        atomic_json(Path(output_root) / "l2-preparation.json", report)
+        return report
+    if catalog_path is not None or index_path is None:
+        raise ValueError("Legacy same-config preparation requires --model-index")
     index = json.loads(Path(index_path).read_text())
     rows = {row["seed"]: row for row in index["models"]}
     if len(rows) != len(index["models"]) or not set(config.construction_seeds).issubset(rows):
@@ -92,12 +114,14 @@ def prepare(config_path, index_path, archives_dir, output_root):
 def main():
     p = argparse.ArgumentParser(description=__doc__)
     p.add_argument("--config", type=Path, default=ROOT / "configs/paper-eight-l1.json")
-    p.add_argument("--model-index", required=True, type=Path)
+    inputs = p.add_mutually_exclusive_group(required=True)
+    inputs.add_argument("--model-index", type=Path)
+    inputs.add_argument("--catalog", type=Path)
     p.add_argument("--archives-dir", required=True, type=Path)
     p.add_argument("--output-root", required=True, type=Path)
     args = p.parse_args()
     torch.set_num_threads(1)
-    result = prepare(args.config, args.model_index, args.archives_dir, args.output_root)
+    result = prepare(args.config, args.model_index, args.archives_dir, args.output_root, catalog_path=args.catalog)
     print(json.dumps({k: v for k, v in result.items() if k not in ("partners", "provenance")}, indent=2))
 
 
