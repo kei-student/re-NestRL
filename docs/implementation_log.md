@@ -406,3 +406,22 @@ Old checkpoints remain usable for inference under their original configs. The ne
   rejection, immutable staging, selected-partner-only tiny-fixture L2 training
   and CPU resume, independent-draw controls, common-pool evaluation and real
   qualified-model rollout checks. Real preflight uses zero PPO updates.
+
+### Per-L2 partner selection supersedes condition-wide subsets
+
+- The user's subsequent instruction requires a separate random partner draw
+  for each L2 agent. Added `configs/l2-env3-per-agent-20261116.json` and
+  `scripts/create_l2_config.py`. Every fresh k03/k05 instance obtains its own
+  OS-entropy selection seed, independent of learner seed/condition, then records
+  the PCG64 draw and partner IDs in an immutable per-agent config/selection pair.
+  k15 uses all fifteen. Within one subset IDs are unique; overlap or coincidental
+  duplicate subsets across independent agents are allowed.
+- The selected pool is fixed for that L2's400-update trajectory. Resume reuses
+  the saved config; creation refuses existing instance roots instead of drawing
+  again. No learner, environment, PPO, rollout, frozen-model or recovery logic
+  changed. No production training starts during configuration creation.
+- Prior fixed-subset configs, their hashes and prepared artifacts remain intact
+  as historical templates. New per-agent profiles/config hashes and namespaces
+  identify the new selections; old runs retain their original frozen partners.
+  Tests check per-instance entropy, seed independence, reproducible membership,
+  immutable existing configs, all15 membership and unchanged400-update budgets.

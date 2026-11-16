@@ -23,27 +23,35 @@ L2 results or further tuning. Original models/configs/registries/manifests and
 their hashes remain unchanged. Historical validation/test partitions are not
 relabelled or used for L2 training.
 
-The user chose **independent** draws of size 3 and 5. Each draw is uniform
-without replacement from the same candidate cohort. Neither nesting nor
-disjointness is forced. NumPy PCG64 is explicit; the selections are frozen in
-the experiment configuration and are not resampled by task or update.
+The user's latest instruction is an **independent draw for every L2 agent**.
+Each 3/5-partner L2 draws uniformly without replacement from these fifteen.
+Fresh OS entropy supplies a selection seed, independently of the L2 learner
+seed and condition. NumPy PCG64 and the selected identities are recorded before
+training. Distinct L2 agents may overlap or coincidentally draw the same subset;
+no condition-wide subset, nesting, forced disjointness or uniqueness is imposed.
+The 15-partner condition necessarily uses all fifteen every time.
 
-| Condition | Selection seed | L1 partner seeds | L2 updates |
-|---|---:|---|---:|
-| k03 | 2026111603 | 160,165,170 | 400 |
-| k05 | 2026111605 | 102,157,165,168,170 | 400 |
-| k15 | all candidates | all fifteen above | 400 |
+| Condition | Pool selection for each L2 | L2 updates |
+|---|---|---:|
+| k03 | a fresh independent draw of 3 | 400 |
+| k05 | a fresh independent draw of 5 | 400 |
+| k15 | all fifteen candidates | 400 |
 
-The common initial L2 seed is 181 for the first controlled comparison. No
-replicate count or Cloud launch is scheduled by preparation. Additional L2 or
-subset-selection replicates need an explicit experimental configuration.
+Current study manifest: `configs/l2-env3-per-agent-20261116.json`.
+Use `scripts/create_l2_config.py` for each L2; it writes a new `config.json`
+and `selection.json` in that agent's output root and never starts learning.
+Supply the learner seed explicitly. Do not derive or share a selection seed
+across L2s. The optional `--selection-seed` is for reproducing a recorded draw.
+Membership remains fixed throughout one L2 run. To resume, reuse that run's
+saved config and selection; the generator refuses an existing output root.
 
-Study manifest: `configs/l2-env3-experiment-20261116.json`.
-The three `configs/l2-env3-400u-k{03,05,15}-20261116.json` files differ only in
-profile and active L1 pool membership. The candidate registry, learner/evaluation
-seeds, environment, PPO and total budget are identical.
+The earlier `configs/l2-env3-experiment-20261116.json`, fixed-subset configs,
+and prepared outputs remain unchanged historical examples/templates. Their
+fixed L1 IDs are replaced when a per-agent config is generated. They are not
+the launch plan for the user's per-agent sampling instruction. No replicate
+count or Cloud launch is scheduled by preparation.
 
-| Condition | Canonical config SHA-256 |
+| Historical template | Canonical config SHA-256 |
 |---|---|
 | k03 | `05f5e9a413a8df02f7bf2e4981753a05692724995e125b3313e2b60919661417` |
 | k05 | `07a126a01d39059c141fd00063c8cd63fb5632563049c0070a9a0a6b47172dd1` |
@@ -56,7 +64,7 @@ Sources are Drafts 443670277 (seeds 101–103) and 446096945 (the twelve newer L
 Weights and raw outputs stay outside Git. No evaluation files are uploaded by
 these preparation tools.
 
-Reproduce a selection, without changing files or running an experiment:
+Inspect a historical selection, without changing files or running an experiment:
 
 ```sh
 .venv/bin/python scripts/select_l1_partners.py \
@@ -74,14 +82,19 @@ Use this repository's Python3.12 `.venv`. The Cloud environment supplies
   --catalog configs/partner_pools/env3-passing15-20261116.json \
   --output-dir outputs/l2-env3-partner-pools-20261116/archives
 
+.venv/bin/python scripts/create_l2_config.py \
+  --condition k03 --learner-seed 181 \
+  --output-root outputs/l2-env3-per-agent-20261116/k03-s181-a
+
 .venv/bin/python scripts/prepare_l2.py \
-  --config configs/l2-env3-400u-k03-20261116.json \
+  --config outputs/l2-env3-per-agent-20261116/k03-s181-a/config.json \
   --catalog configs/partner_pools/env3-passing15-20261116.json \
   --archives-dir outputs/l2-env3-partner-pools-20261116/archives \
-  --output-root outputs/l2-env3-partner-pools-20261116/k03
+  --output-root outputs/l2-env3-per-agent-20261116/k03-s181-a
 ```
 
-Repeat preparation with k05 and k15. It authenticates archive/manifest/member
+Create another unique output root for every additional L2, including within
+the same condition. Then prepare its own config. Preparation authenticates archive/manifest/member
 bytes, preserves each model's **original** config and registry, checks roles,
 history, environment and model-source compatibility, performs strict CPU load,
 freezes all L1 weights and checks batched inference. Existing different files
@@ -100,16 +113,16 @@ The following is a command template, not something setup executes:
 ```sh
 env OMP_NUM_THREADS=1 MKL_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 \
   .venv/bin/python scripts/record_run.py \
-  --run-id l2-env3-k03-s181-launch \
-  --config configs/l2-env3-400u-k03-20261116.json \
-  --output outputs/l2-env3-partner-pools-20261116/k03/execution/launch \
+  --run-id l2-env3-k03-s181-a-launch \
+  --config outputs/l2-env3-per-agent-20261116/k03-s181-a/config.json \
+  --output outputs/l2-env3-per-agent-20261116/k03-s181-a/execution/launch \
   -- .venv/bin/python -m nestrl_research train \
-  --config configs/l2-env3-400u-k03-20261116.json \
-  --output-root outputs/l2-env3-partner-pools-20261116/k03 \
+  --config outputs/l2-env3-per-agent-20261116/k03-s181-a/config.json \
+  --output-root outputs/l2-env3-per-agent-20261116/k03-s181-a \
   --stage l2 --seed 181 --device cpu --threads 1 --checkpoint-every 1
 ```
 
-The resulting run ID is `l2-181`; each condition has a different root and config
+The resulting run ID is `l2-181` within this agent's unique root and config
 SHA. A later Cloud launch must pin its source/runtime, select its Draft storage
 destination, and use the one-task startup gate before expansion. CPU resume
 continues only the same authenticated config, registry and ordered frozen
@@ -123,9 +136,9 @@ Evaluate each trained condition against this same pool and episode seeds:
 
 ```sh
 .venv/bin/python -m nestrl_research evaluate \
-  --config configs/l2-env3-400u-k03-20261116.json \
-  --checkpoint outputs/l2-env3-partner-pools-20261116/k03/l2-181/checkpoints/final.pt \
-  --output-root outputs/l2-env3-partner-pools-20261116/k03 \
+  --config outputs/l2-env3-per-agent-20261116/k03-s181-a/config.json \
+  --checkpoint outputs/l2-env3-per-agent-20261116/k03-s181-a/l2-181/checkpoints/final.pt \
+  --output-root outputs/l2-env3-per-agent-20261116/k03-s181-a \
   --run-id eval-l2-181-common15-s6001 \
   --partner-level l1 \
   --partner-pool configs/partner_pools/env3-common15-evaluation-20261116.json \
