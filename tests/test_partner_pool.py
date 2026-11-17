@@ -11,7 +11,7 @@ import numpy as np
 import torch
 
 from nestrl_research.artifacts import atomic_json, file_hash, save_checkpoint
-from nestrl_research.config import ROOT, L1PoolConfig, canonical_hash, load_config
+from nestrl_research.config import ROOT, L1PoolConfig, L2MixtureConfig, canonical_hash, load_config
 from nestrl_research.environment import observation_schema_for
 from nestrl_research.evaluation import evaluate
 from nestrl_research.partner_pool import ARTIFACT_FILES, CATALOG_SCHEMA, load_catalog_pool, select_partner_ids, stage_catalog
@@ -115,6 +115,44 @@ class CatalogPoolTests(unittest.TestCase):
         for cfg in [other,replace(self.cfg,episodes_per_round=4)]:
             with self.assertRaisesRegex(ValueError,'contract differs'):
                 load_catalog_pool(cfg,self.target,'cpu')
+
+    def test_mixed_frozen_pool_training_metadata_and_exact_resume(self):
+        from test_l2_coverage import equal
+        cfg = replace(self.cfg, num_envs=6, rollout_steps=10, total_steps=120,
+                      l2_mixture=L2MixtureConfig())
+        self.stage(cfg)
+        before={p:file_hash(p) for p in (self.target/'partners').rglob('*') if p.is_file()}
+        full=self.root/'full'
+        import importlib.util
+        spec=importlib.util.spec_from_file_location('prepare_mixed',ROOT/'scripts/prepare_l2.py')
+        prepare_module=importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(prepare_module)
+        config_path=self.root/'mixed.json';atomic_json(config_path,cfg.to_dict())
+        prepared=prepare_module.prepare(config_path,None,self.archives,full,catalog_path=self.catalog)
+        self.assertEqual(prepared['partner_count'],5)
+        self.assertEqual(prepared['l0_partner_count'],3)
+        self.assertEqual(prepared['l1_partner_count'],2)
+        self.assertEqual(prepared['real_environment_dispatch'],'passed')
+        self.assertFalse(prepared['training_started'])
+        with patch('builtins.print'):
+            train(cfg,self.target,'l2','cpu',seed=181,checkpoint_every=1,max_updates=1)
+            resumed=train(cfg,self.target,'l2','cpu',seed=181,checkpoint_every=1,resume=True)
+            train(cfg,full,'l2','cpu',seed=181,checkpoint_every=1)
+        manifest=json.loads(resumed.with_suffix('.json').read_text())
+        self.assertEqual([p['id'] for p in manifest['training_partners']],
+                         ['l1-construction-101','l1-construction-151']+
+                         [f'l0-1-{r}' for r in cfg.environment.recipes])
+        self.assertEqual(manifest['partner_sampling']['probability_per_partner'],1/5)
+        states=[]
+        for directory in [self.target,full]:
+            folder=directory/'l2-181/resume'
+            pointer=json.loads((folder/'latest.json').read_text())
+            states.append(torch.load(folder/pointer['file'],map_location='cpu',weights_only=True))
+        for key in ['model','optimizer','collector','rng']:
+            equal(self,states[0][key],states[1][key])
+        self.assertEqual(before,{p:file_hash(p) for p in (self.target/'partners').rglob('*') if p.is_file()})
+        with self.assertRaisesRegex(ValueError,'only valid'):
+            train(cfg,self.root/'not-l1','l1','cpu',seed=101)
 
     def test_tampered_artifact_catalog_and_mismatched_source_config_are_rejected(self):
         self.stage()

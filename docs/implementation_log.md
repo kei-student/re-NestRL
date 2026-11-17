@@ -444,3 +444,41 @@ Old checkpoints remain usable for inference under their original configs. The ne
 - Compatibility: src/nestrl_research and all original configs/checkpoints remain
   unchanged. Existing inference and checkpoint hashes remain compatible. The
   new evaluation driver has its own commit/SHA and does not resume any run.
+
+## 2026-11-17: environment3 coverage L2 with frozen L0 and L1 partners
+
+- User confirmed a fresh1000-update coverage L2 in re-NestRL (not author code):
+  full observation105, one ingredient type per agent/episode, random starts,
+  left L2/right partner, same PPO/GRU/history, CPU/thread1,72000000 steps.
+  Independently draw three of the qualified right-construction L1 fifteen for
+  each L2, record OS-entropy PCG64 seed/membership before training, then freeze
+  the subset. Add the three fixed right L0 recipe experts. Sample the six
+  uniformly with replacement at each five-episode round, holding identity
+  within the round. Per-partner1/6 means total L0/L1 probability1/2 each,
+  without equalizing episode duration or step counts.
+- Optional l2_mixture config adds mixed dispatch without changing environment,
+  observations, actions, rewards, model, scripted L0 or pinned PACE. Existing
+  missing-field canonical config hashes and pure-partner paths are preserved.
+  Record all six ordered identities, fixed weights/config provenance, sampler
+  metadata and per-episode partner identity/level. These labels are not inputs
+  to the policies. Only construction L1s are permitted.
+- Snapshot recovery preserves neural/script choices, L1 recurrent state, L0
+  RNG/state, learner/collector/RNG and exact rollout continuation. Tests cover
+  all six dispatches, no identity redraw at physical episode resets, five-
+  episode boundaries, immutable selection, invalid pools, frozen model weights,
+  and bit-exact paused versus uninterrupted miniature CPU training.
+- Real authenticated L1 validation uses only a recorded demonstration draw
+  (101/162/167, selection seed2026111701), all six partners and360 environments.
+  Strict original artifacts/source contracts and frozen inference pass with
+  zero PPO updates. This is not a production partner assignment or performance
+  result. No Cloud training, new recurring monitor or GitHub asset upload.
+- Compatibility: frozen historical L1 inference remains strict-compatible.
+  Implementation hash changes, so old exact training recovery uses old source;
+  coverage is a new config/run initialized fresh, never a converted old L2.
+  L0 evaluation is now training-seen; common15 L1 evaluation must distinguish
+  each model's three seen and twelve unused construction policies.
+- Study: configs/l2-env3-coverage-1000u-20261117.json; study file SHA-256
+  c70cfdd61197c43221ee0839a385ebf7c51a85ae4f0039e667b4071ff57ef746.
+  scripts/create_l2_coverage_config.py freezes each instance and refuses
+  redraw/overwrite. docs/l2_coverage_20261117.md documents preparation,
+  comparison and checkpoint compatibility.

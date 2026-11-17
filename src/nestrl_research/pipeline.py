@@ -119,6 +119,11 @@ def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, sp
     model = make_model(config, device)
     optimizer = torch.optim.Adam(model.parameters(), lr=config.ppo.lr, eps=1e-5)
     partner_models, provenance = (load_l1_pool(config, output_root, "construction", device) if stage == "l2" else (None, []))
+    if config.l2_mixture is not None:
+        provenance = [{**partner, "level": "l1"} for partner in provenance] + [
+            {"id": f"l0-{1-ego_side}-{recipe}", "level": "l0", "recipe": recipe,
+             "side": 1-ego_side, "frozen": True}
+            for recipe in config.l2_mixture.l0_recipes]
     from .artifacts import save_checkpoint
     start_time = time.monotonic()
     with training_run(output_root, run_id, resume=resume) as directory:
@@ -127,6 +132,12 @@ def train(config: ExperimentConfig, output_root: Path, stage: str, device, *, sp
                     "training_partners": provenance or [{"id": f"l0-{1-ego_side}-{recipe}", "frozen": True} for recipe in RECIPES],
                     "runtime": runtime_metadata(str(device)), "resumable": bool(checkpoint_every)}
         metadata["runtime"]["torch"] = str(metadata["runtime"]["torch"])
+        if config.l2_mixture is not None:
+            metadata["partner_sampling"] = {
+                "method": config.l2_mixture.sampling,
+                "replacement": True, "episodes_per_round": config.episodes_per_round,
+                "partner_order": [p["id"] for p in provenance],
+                "probability_per_partner": 1 / len(provenance)}
         if not resume:
             atomic_json(directory / "config.json", config.to_dict())
             atomic_json(directory / "run.json", metadata)

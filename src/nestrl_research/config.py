@@ -74,6 +74,23 @@ class L1PoolConfig:
 
 
 @dataclass(frozen=True)
+class L2MixtureConfig:
+    """Frozen L0 recipes added to the authenticated L1 pool, per round."""
+
+    l0_recipes: tuple[str, ...] = RECIPES
+    sampling: str = "uniform_per_partner_per_round"
+
+    def __post_init__(self):
+        object.__setattr__(self, "l0_recipes", tuple(self.l0_recipes))
+
+    def validate(self):
+        if (self.sampling != "uniform_per_partner_per_round"
+                or not self.l0_recipes or len(set(self.l0_recipes)) != len(self.l0_recipes)
+                or not set(self.l0_recipes).issubset(RECIPES)):
+            raise ValueError("Mixed L2 needs unique fixed L0 recipes and uniform round sampling")
+
+
+@dataclass(frozen=True)
 class ExperimentConfig:
     schema: str = SCHEMA
     profile: str = "paper"
@@ -98,6 +115,7 @@ class ExperimentConfig:
     episode_boundary_input: bool = True
     finite_horizon_returns: bool = True
     l1_pool: L1PoolConfig | None = None
+    l2_mixture: L2MixtureConfig | None = None
 
     @property
     def batch_size(self) -> int:
@@ -117,6 +135,8 @@ class ExperimentConfig:
             del data["environment"]["max_ingredients_per_agent"]
         if self.l1_pool is None:
             del data["l1_pool"]
+        if self.l2_mixture is None:
+            del data["l2_mixture"]
         return data
 
     @property
@@ -162,6 +182,10 @@ class ExperimentConfig:
             self.l1_pool.validate()
             if not {int(x.removeprefix("l1-construction-")) for x in self.l1_pool.partner_ids}.issubset(self.construction_seeds):
                 raise ValueError("L1 pool partners must remain in construction")
+        if self.l2_mixture is not None:
+            self.l2_mixture.validate()
+            if self.l1_pool is None:
+                raise ValueError("Mixed L2 requires an authenticated frozen construction L1 pool")
 
 
 def _strict(cls, value: dict):
@@ -179,6 +203,8 @@ def load_config(path: Path | str) -> ExperimentConfig:
     data["ppo"] = _strict(PPOConfig, data.get("ppo", {}))
     if data.get("l1_pool") is not None:
         data["l1_pool"] = _strict(L1PoolConfig, data["l1_pool"])
+    if data.get("l2_mixture") is not None:
+        data["l2_mixture"] = _strict(L2MixtureConfig, data["l2_mixture"])
     config = _strict(ExperimentConfig, data)
     config.validate()
     return config

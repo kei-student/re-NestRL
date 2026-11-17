@@ -1,0 +1,21 @@
+{
+  "schema": "re-nestrl-l2-coverage-study-v1",
+  "environment_condition": 3,
+  "base_config": "configs/l2-env3-400u-k03-20261116.json",
+  "base_config_sha256": "05f5e9a413a8df02f7bf2e4981753a05692724995e125b3313e2b60919661417",
+  "catalog": "configs/partner_pools/env3-passing15-20261116.json",
+  "catalog_sha256": "78e47375a85c5fe6d02851781f3fb04b9e50a0eb1f0c3b891da390c36d1c834f",
+  "candidate_seeds": [101, 102, 103, 151, 153, 157, 160, 161, 162, 164, 165, 166, 167, 168, 170],
+  "l1_partner_count": 3,
+  "l0_recipes": ["LettuceOnionSalad", "TomatoCarrotSalad", "PotatoBroccoliSalad"],
+  "l1_selection": "independent uniform draw without replacement per L2, recorded before training; fixed during training and resume",
+  "sampling": "uniform_per_partner_per_round",
+  "episodes_per_round": 5,
+  "updates_per_model": 1000,
+  "steps_per_model": 72000000,
+  "backend": "cpu",
+  "torch_blas_threads": 1,
+  "initialization": "fresh L2; do not continue L1-only checkpoints",
+  "evaluation": "same ordinary L0 and common15 protocol as the 400/1000-update L2 comparison; training-seen partners labeled explicitly",
+  "training_started": false
+}

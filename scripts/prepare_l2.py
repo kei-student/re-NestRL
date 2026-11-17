@@ -2,6 +2,7 @@
 """Stage hash-verified construction L1s for L2, preserving original artifacts."""
 
 import argparse
+from dataclasses import asdict
 import json
 from pathlib import Path, PurePosixPath
 import zipfile
@@ -11,6 +12,7 @@ import torch
 
 from nestrl_research.artifacts import atomic_json, file_hash
 from nestrl_research.config import ROOT, load_config
+from nestrl_research.environment import CookingEnv
 from nestrl_research.pipeline import ensure_registry, load_l1_pool
 from nestrl_research.rollout import FrozenPartners
 
@@ -23,18 +25,33 @@ def prepare(config_path, index_path, archives_dir, output_root, *, catalog_path=
         from nestrl_research.partner_pool import stage_catalog
         models, provenance = stage_catalog(config, catalog_path, archives_dir, output_root)
         before = [{k: v.clone() for k, v in model.state_dict().items()} for model in models]
-        pool = FrozenPartners(config, config.l1_ego_side, "cpu", np.random.default_rng(7), models)
-        actions = pool.act(np.zeros((config.num_envs, 105), dtype=np.float32), [])
+        mixed_recipes = config.l2_mixture.l0_recipes if config.l2_mixture is not None else ()
+        pool = FrozenPartners(config, config.l1_ego_side, "cpu", np.random.default_rng(7), models,
+                              l0_recipes=mixed_recipes)
+        environments = []
+        observations = np.zeros((config.num_envs, 105), dtype=np.float32)
+        if mixed_recipes:
+            environments = [CookingEnv(asdict(config.environment)) for _ in range(config.num_envs)]
+            observations = np.stack([env.reset(seed=7+i)[config.l1_ego_side]
+                                     for i, env in enumerate(environments)])
+        actions = pool.act(observations, environments)
         if actions.shape != (config.num_envs,) or np.any((actions < 0) | (actions >= 6)):
             raise ValueError("Invalid frozen L1 batched inference")
         for model, original in zip(models, before):
             if model.training or any(p.requires_grad for p in model.parameters()) or any(not torch.equal(v, original[k]) for k, v in model.state_dict().items()):
                 raise ValueError("Frozen L1 changed during preparation")
         report = {"config_sha256": config.sha256, "learner_side": config.ego_side,
-                  "partner_side": config.l1_ego_side, "partner_count": len(models),
+                  "partner_side": config.l1_ego_side, "partner_count": pool.count,
                   "partner_seeds": [p["seed"] for p in provenance], "all_frozen": True,
                   "batched_inference": "passed", "provenance": provenance,
                   "training_started": False, "catalog_sha256": config.l1_pool.catalog_sha256}
+        if mixed_recipes:
+            report.update({
+                "l1_partner_count": len(models), "l0_partner_count": len(mixed_recipes),
+                "l0_partner_ids": [f"l0-{config.l1_ego_side}-{r}" for r in mixed_recipes],
+                "sampling": config.l2_mixture.sampling, "probability_per_partner": 1/pool.count,
+                "initial_partner_counts": np.bincount(pool.indices, minlength=pool.count).tolist(),
+                "real_environment_dispatch": "passed"})
         atomic_json(Path(output_root) / "l2-preparation.json", report)
         return report
     if catalog_path is not None or index_path is None:

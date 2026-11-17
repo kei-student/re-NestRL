@@ -15,13 +15,18 @@ from .peers import ScriptedPeer
 class FrozenPartners:
     """Batch frozen inference by partner identity; each environment owns its history."""
 
-    def __init__(self, config: ExperimentConfig, side: int, device, rng, models=None):
+    def __init__(self, config: ExperimentConfig, side: int, device, rng, models=None, *, l0_recipes=()):
         self.config, self.side, self.device, self.rng = config, side, device, rng
         self.models = models or []
+        self.l0_recipes = tuple(l0_recipes)
+        if self.l0_recipes and (not self.models or len(set(self.l0_recipes)) != len(self.l0_recipes)
+                                or not set(self.l0_recipes).issubset(RECIPES)):
+            raise ValueError("Mixed partners require frozen neural L1s and unique L0 recipes")
         for model in self.models:
             model.eval()
             model.requires_grad_(False)
-        count = len(self.models) if self.models else len(RECIPES)
+        count = len(self.models) + len(self.l0_recipes) if self.models else len(RECIPES)
+        self.count = count
         self.indices = rng.integers(count, size=config.num_envs)
         self.hidden = torch.zeros(1, config.num_envs, config.hidden_dim, device=device)
         self.previous = torch.full((config.num_envs,), -1, dtype=torch.long, device=device)
@@ -31,6 +36,28 @@ class FrozenPartners:
             ScriptedPeer(RECIPES[int(index)], agent_id=side, seed=int(rng.integers(2**31)))
             for index in self.indices
         ])
+        if self.l0_recipes:
+            self.scripts = [self._mixed_script(index) for index in self.indices]
+
+    def _mixed_script(self, identity):
+        if identity < len(self.models):
+            return None
+        return ScriptedPeer(self.l0_recipes[int(identity) - len(self.models)], agent_id=self.side,
+                            seed=int(self.rng.integers(2**31)))
+
+    def validate_mixed_state(self):
+        if not self.l0_recipes:
+            return
+        if (len(self.scripts) != self.config.num_envs
+                or np.any(self.indices < 0) or np.any(self.indices >= self.count)):
+            raise ValueError("Mixed partner snapshot has invalid indices/scripts")
+        for identity, peer in zip(self.indices, self.scripts):
+            if identity < len(self.models):
+                if peer is not None:
+                    raise ValueError("Neural partner snapshot unexpectedly contains an L0")
+            elif (peer is None or peer.recipe != self.l0_recipes[int(identity) - len(self.models)]
+                  or peer.agent_id != self.side or peer.random_action_probability != 0):
+                raise ValueError("L0 snapshot differs from the frozen mixed pool")
 
     @torch.no_grad()
     def act(self, observations, environments, deterministic=False):
@@ -46,6 +73,10 @@ class FrozenPartners:
             result = model.act(observations[ix], self.previous[ix], self.starts[ix], self.hidden[:, ix],
                                self.resets[ix], deterministic=deterministic)
             actions[ix], _, _, self.hidden[:, ix] = result
+        if self.l0_recipes:
+            for index, peer in enumerate(self.scripts):
+                if peer is not None:
+                    actions[index] = peer.act(environments[index])
         return actions.cpu().numpy()
 
     def advance(self, actions, dones, round_dones):
@@ -54,11 +85,12 @@ class FrozenPartners:
         self.resets.copy_(torch.as_tensor(round_dones, device=self.device))
         self.previous[self.starts] = -1
         for index in np.flatnonzero(round_dones):
-            count = len(self.models) if self.models else len(RECIPES)
-            self.indices[index] = self.rng.integers(count)
+            self.indices[index] = self.rng.integers(self.count)
             if not self.models:
                 self.scripts[index] = ScriptedPeer(RECIPES[int(self.indices[index])], agent_id=self.side,
                                                    seed=int(self.rng.integers(2**31)))
+            elif self.l0_recipes:
+                self.scripts[index] = self._mixed_script(self.indices[index])
 
 
 class RolloutCollector:
@@ -67,7 +99,9 @@ class RolloutCollector:
         self.rng = np.random.default_rng(seed)
         self.envs = [CookingEnv(asdict(config.environment)) for _ in range(config.num_envs)]
         self.observations = np.stack([env.reset(seed=int(self.rng.integers(2**31))) for env in self.envs])
-        self.partners = FrozenPartners(config, 1 - ego_side, device, self.rng, partner_models)
+        self.partners = FrozenPartners(
+            config, 1 - ego_side, device, self.rng, partner_models,
+            l0_recipes=config.l2_mixture.l0_recipes if config.l2_mixture is not None else ())
         self.hidden = model.initial_state(config.num_envs, device)
         self.previous = torch.full((config.num_envs,), -1, dtype=torch.long, device=device)
         self.starts = torch.ones(config.num_envs, dtype=torch.bool, device=device)
@@ -111,6 +145,13 @@ class RolloutCollector:
                     completed.append({"success": bool(info["success"]), "return": float(self.episode_return[index]),
                                       "length": int(self.episode_steps[index]), "episode_in_round": int(self.in_round[index]),
                                       "partner_index": int(self.partners.indices[index])})
+                    if self.config.l2_mixture is not None:
+                        identity = int(self.partners.indices[index])
+                        neural_count = len(self.partners.models)
+                        completed[-1].update({
+                            "env_index": index, "partner_level": "l1" if identity < neural_count else "l0",
+                            "partner_id": (self.config.l1_pool.partner_ids[identity] if identity < neural_count
+                                           else f"l0-{1-self.ego_side}-{self.partners.l0_recipes[identity-neural_count]}")})
                     self.in_round[index] += 1
                     round_done = self.in_round[index] == self.config.episodes_per_round
                     if round_done:
@@ -149,7 +190,7 @@ class RolloutCollector:
             "partners": {
                 "indices": torch.from_numpy(self.partners.indices.copy()),
                 "tensors": {name: getattr(self.partners, name).detach().cpu().clone() for name in tensors},
-                "scripts": [{"recipe": peer.recipe, "agent_id": peer.agent_id, "seed": peer.seed,
+                "scripts": [None if peer is None else {"recipe": peer.recipe, "agent_id": peer.agent_id, "seed": peer.seed,
                              "random_action_probability": peer.random_action_probability,
                              "rng": peer.rng.bit_generator.state} for peer in self.partners.scripts],
             },
@@ -177,7 +218,11 @@ class RolloutCollector:
             setattr(self.partners, name, value.to(self.device).clone())
         self.partners.scripts = []
         for saved in state["partners"]["scripts"]:
+            if saved is None:
+                self.partners.scripts.append(None)
+                continue
             peer = ScriptedPeer(saved["recipe"], saved["agent_id"], saved["seed"],
                                 saved["random_action_probability"])
             peer.rng.bit_generator.state = saved["rng"]
             self.partners.scripts.append(peer)
+        self.partners.validate_mixed_state()
