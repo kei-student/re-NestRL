@@ -1,0 +1,18 @@
+{
+  "schema": "re-nestrl-coverage-budget-change-v1",
+  "user_instruction": "すみません。400更新で構いません。",
+  "target_updates": 400,
+  "target_steps": 28800000,
+  "parent_planned_updates": 1000,
+  "training_source_commit": "d49d6e91c0acaada11847299569a3efebc1f28ee",
+  "learner_seeds": [181, 182, 183, 184, 185, 186],
+  "models_per_task": 2,
+  "task_count": 3,
+  "preserve": ["learner seed", "frozen L1 draw", "L0 recipes", "environment", "PPO", "CPU runtime", "model", "optimizer", "collector", "GRU", "RNG", "parent artifacts"],
+  "changed_config_fields": ["total_steps"],
+  "initialization": "full-state handoff from each paused parent; never fresh initialization",
+  "namespace": "l2-env3-coverage-400u-6agents-20261117",
+  "child_run_id_pattern": "l2-SEED-u400-from1000-plan",
+  "release_id": 448263501,
+  "asset_name_policy": "new unique 400u names; preserve all original 1000-plan assets"
+}

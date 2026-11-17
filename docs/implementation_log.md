@@ -482,3 +482,25 @@ Old checkpoints remain usable for inference under their original configs. The ne
   scripts/create_l2_coverage_config.py freezes each instance and refuses
   redraw/overwrite. docs/l2_coverage_20261117.md documents preparation,
   comparison and checkpoint compatibility.
+
+### 2026-11-17: user reduces the six launched coverage L2s to total400 updates
+
+- Latest user instruction replaces1000 with total400 updates/28800000steps,
+  not400 additional updates. Same learner seeds181–186, frozen L1 draws,
+  three L0s, environment3, PPO/GRU and CPU runtime remain fixed.
+- Gracefully paused the six original1000-plan runs at113/114/91/96/92/93
+  updates and verified snapshots, state/metrics and writer release. Preserve
+  parent configs, run records, snapshots and existing Draft448263501 assets.
+- Added a standalone verified budget-reduction driver. Only total_steps changes
+  in the child config; new run/config/registry identifiers and lineage are
+  explicit. Full model/optimizer/collector/GRU/RNG state and update prefix are
+  preserved and read back through ordinary load_resume. Frozen L0/L1 provenance
+  is independently checked, including the six ordered mixed identities.
+- Driver/tests/docs only; src and PACE remain byte-identical to d49d6e9.
+  Cloud checkouts stay pinned there and can materialize the hash-pinned driver
+  into outputs without checkout/source edits. Native CPU recovery uses the
+  exact original.venv/runtime/thread settings, with one finite manager/task.
+- Four additional tests verify exact equivalence with uninterrupted smaller-
+  budget training, immutable parent/child handling, active-writer and wrong-
+  hash rejection, and no extra update when the snapshot is already at target.
+  docs/l2_coverage_400u_budget_change_20261117.md records lineage and commands.
