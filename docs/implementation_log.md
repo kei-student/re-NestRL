@@ -504,3 +504,14 @@ Old checkpoints remain usable for inference under their original configs. The ne
   budget training, immutable parent/child handling, active-writer and wrong-
   hash rejection, and no extra update when the snapshot is already at target.
   docs/l2_coverage_400u_budget_change_20261117.md records lineage and commands.
+
+## 2026-11-18: Frozen coverage L2 cross-play with the author's L0
+
+Added an evaluation-only driver for unchanged author RuleBasedPolicy source,
+SHA/AST-pinned to adaptive-RL918d33f and bound to existing PACE world classes.
+The six completed coverage L2s retain re-NestRL environment3 and their400-update
+checkpoints. Primary author factory p0.25 and secondary p0 each use1000episodes
+per recipe; event sampling remains stochastic at p0. See
+docs/l2_author_l0_crossplay_20261118.md and the dedicated evaluation config.
+No src/PACE/training/checkpoint changes. Original checkpoints remain compatible;
+results receive distinct evaluation IDs and full source/input/trace verification.

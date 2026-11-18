@@ -1,0 +1,105 @@
+{
+  "schema": "re-nestrl-author-L0-crossplay-v1",
+  "training_source_commit": "d49d6e91c0acaada11847299569a3efebc1f28ee",
+  "environment_condition": 3,
+  "environment_changed": false,
+  "observation_changed": false,
+  "ego_side": 0,
+  "partner_side": 1,
+  "target_training_updates": 400,
+  "target_training_steps": 28800000,
+  "author": {
+    "repository": "upasana27/adaptive-RL",
+    "commit": "918d33fc831c520545460e7c06d0b6d797ab8be4",
+    "policy_path": "environment/overcooked/policy.py",
+    "policy_sha256": "097d50d5d4e701991dcedaecd34cced473a18809b8ba84f585756eee12c98833",
+    "zoo_path": "environment/overcooked/gym_cooking/environment/cooking_zoo.py",
+    "zoo_sha256": "f652db4032116b6a5d1f1b15a68b4c00d755ed00d39ad4426b3e206d93dbba40",
+    "selected_AST_python312_sha256": "a774a632198a9963ef9197a3982e19bc5c1128caac31219a2182752e6c09d444",
+    "binding": "unmodified author event/RuleBasedPolicy/generate_policy_pool; pinned PACE class identity binding",
+    "env_name": "fc_small_divider_test",
+    "pool_seed": 1,
+    "policy_type": "full",
+    "convention": null,
+    "plate_take_requires_deliver": false,
+    "reset": "original no-op; pool objects persist across episodes and rounds"
+  },
+  "conditions": [
+    {
+      "name": "author_default_p025",
+      "p": 0.25,
+      "primary": true
+    },
+    {
+      "name": "author_no_navigation_noise_p000",
+      "p": 0,
+      "primary": false,
+      "event_selection_still_stochastic": true
+    }
+  ],
+  "L0_order": [
+    "LettuceOnionSalad",
+    "TomatoCarrotSalad",
+    "PotatoBroccoliSalad"
+  ],
+  "evaluation_seed": 6001,
+  "rounds_per_partner": 200,
+  "episodes_per_round": 5,
+  "episodes_per_partner": 1000,
+  "device": "cpu",
+  "threads_per_worker": 1,
+  "deterministic_ego_actions": false,
+  "weight_updates": false,
+  "total_episodes": 36000,
+  "results_storage": "origin VMs and local coordinator; no evaluation GitHub upload",
+  "models": [
+    {
+      "task_id": "p01",
+      "seed": 181,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p01/p01-s181",
+      "run_id": "l2-181-u400-from1000-plan",
+      "config_sha256": "f05c7dc7be82c29d0c9112e5355f85cba519dda2257ec9b7ea8182668194dee3",
+      "final_sha256": "132061f0bcefcbd87dbabb1eaee83ba3a3d32cf40ab4e54772fd8a0bd4af949a"
+    },
+    {
+      "task_id": "p01",
+      "seed": 182,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p01/p01-s182",
+      "run_id": "l2-182-u400-from1000-plan",
+      "config_sha256": "6ce544b931b7cadf533a9a37a5c8461754d25da6cccd42b83850d3c8f19d1bfd",
+      "final_sha256": "4f22a52938cbd12b901364aab7df54a021098924e082b273d3011ed4d44c730a"
+    },
+    {
+      "task_id": "p02",
+      "seed": 183,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p02/p02-s183",
+      "run_id": "l2-183-u400-from1000-plan",
+      "config_sha256": "f7fc9533f3b8b64c2b73a652c3615e5d1a99af7b13d2c448f2255d0a7a8dea5d",
+      "final_sha256": "8acb3b6878a593fb28213522a48f2ce57c173a6e79b113763ee6fde9311d24eb"
+    },
+    {
+      "task_id": "p02",
+      "seed": 184,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p02/p02-s184",
+      "run_id": "l2-184-u400-from1000-plan",
+      "config_sha256": "35dc8fd91e3808488d6e9fd8b6820b24d7174e483f8283a57e733c3cc74c2573",
+      "final_sha256": "350257cda56a2b5f372ff9d0b65e819736ae6ecc63225e885d4dc5604153a9e6"
+    },
+    {
+      "task_id": "p03",
+      "seed": 185,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p03/p03-s185",
+      "run_id": "l2-185-u400-from1000-plan",
+      "config_sha256": "ce0c41d2945b18b65d0a1665871b2545e3edd557b4e017263919b9455192419e",
+      "final_sha256": "06d7554d76e20768fa2b82dbb2350618b64d22f3eabcdc41cb60b8f7ac2569d3"
+    },
+    {
+      "task_id": "p03",
+      "seed": 186,
+      "child_root": "outputs/l2-env3-coverage-400u-6agents-20261117-p03/p03-s186",
+      "run_id": "l2-186-u400-from1000-plan",
+      "config_sha256": "200b402202e4edac31a0c4cb762aacd3a8c91dd4708e718e4aeea76fb5fb7fb2",
+      "final_sha256": "bdb0f1081e4d99d636df21eaae7a49a5951cee8712395e3c407681bdb8317dc1"
+    }
+  ]
+}
