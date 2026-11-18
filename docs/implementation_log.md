@@ -515,3 +515,14 @@ per recipe; event sampling remains stochastic at p0. See
 docs/l2_author_l0_crossplay_20261118.md and the dedicated evaluation config.
 No src/PACE/training/checkpoint changes. Original checkpoints remain compatible;
 results receive distinct evaluation IDs and full source/input/trace verification.
+
+## 2026-11-18: Original L1-only L2,400 vs1000 checkpoints, against author L0
+
+Extended only the external evaluation driver with explicit checkpoint-budget
+authentication. It accepts400/1000 and requires both original config and final
+manifest steps to match; no checkpoint/config mutation or guard bypass.
+The original18 L2s (k03/k05/k15, six each) supply36 frozen checkpoint evaluations.
+Same author factory/p0.25/p0 and re-NestRL environment3 as the coverage cross-play.
+Added a cross-budget rejection and exact-inference equivalence test, dedicated
+evaluation config and docs/l2_l1only_author_l0_400_vs1000_20261118.md.
+No src/PACE/runtime/training changes; all checkpoints remain compatible.

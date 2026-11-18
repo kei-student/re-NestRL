@@ -1,5 +1,5 @@
 """Author source fidelity, lifecycle, action mapping and frozen evaluator integration."""
-from dataclasses import asdict
+from dataclasses import asdict, replace
 import importlib.util
 import json
 import os
@@ -99,6 +99,28 @@ class AuthorIntegrationTests(unittest.TestCase):
             path.write_text("\n".join(lines)+"\n")
             with self.assertRaisesRegex(ValueError,"Trace/episode"):
                 driver.verify_run(root/"first")
+
+    def test_400_and_1000_budget_authentication_and_identical_frozen_inference(self):
+        config=load_config(ROOT/"configs/l2-env3-400u-k03-20261116.json")
+        seed_all(17);model=make_model(config,"cpu").eval()
+        with tempfile.TemporaryDirectory() as td:
+            traces=[]
+            for updates in (400,1000):
+                c=replace(config,total_steps=updates*config.batch_size)
+                root=Path(td)/str(updates)
+                checkpoint=root/"learner/checkpoints/final.pt"
+                checkpoint.parent.mkdir(parents=True);checkpoint.write_bytes(b"same-frozen-weights")
+                (root/"config.json").write_text(json.dumps(asdict(c)))
+                manifest={"ego_side":0,"steps":updates*c.batch_size}
+                with patch.object(driver,"load_policy",return_value=(model,manifest)):
+                    driver.evaluate_author(c,root,checkpoint,self.policy,self.zoo,p=0,
+                        run_id="valid",rounds=1,expected_updates=updates)
+                    with self.assertRaisesRegex(ValueError,"explicit checkpoint budget"):
+                        driver.evaluate_author(c,root,checkpoint,self.policy,self.zoo,p=0,
+                            run_id="wrong",rounds=1,expected_updates=1000 if updates==400 else 400)
+                self.assertFalse((root/"wrong").exists())
+                traces.append((root/"valid/traces.jsonl").read_bytes())
+            self.assertEqual(*traces)
 
 if __name__=="__main__":
     unittest.main()

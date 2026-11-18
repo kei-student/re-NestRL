@@ -1,0 +1,811 @@
+{
+  "schema": "re-nestrl-L1only-L2-author-L0-budget-comparison-v1",
+  "training_source_commit": "24e53e44925e059a3f23ca09ef155f472c330ca6",
+  "environment_condition": 3,
+  "environment_changed": false,
+  "observation_changed": false,
+  "ego_side": 0,
+  "partner_side": 1,
+  "training_conditions": [
+    "k03",
+    "k05",
+    "k15"
+  ],
+  "checkpoint_updates": [
+    400,
+    1000
+  ],
+  "checkpoint_count": 36,
+  "unique_training_runs": 18,
+  "author": {
+    "repository": "upasana27/adaptive-RL",
+    "commit": "918d33fc831c520545460e7c06d0b6d797ab8be4",
+    "policy_path": "environment/overcooked/policy.py",
+    "policy_sha256": "097d50d5d4e701991dcedaecd34cced473a18809b8ba84f585756eee12c98833",
+    "zoo_path": "environment/overcooked/gym_cooking/environment/cooking_zoo.py",
+    "zoo_sha256": "f652db4032116b6a5d1f1b15a68b4c00d755ed00d39ad4426b3e206d93dbba40",
+    "selected_AST_python312_sha256": "a774a632198a9963ef9197a3982e19bc5c1128caac31219a2182752e6c09d444",
+    "binding": "unmodified author event/RuleBasedPolicy/generate_policy_pool; pinned PACE class identity binding",
+    "env_name": "fc_small_divider_test",
+    "pool_seed": 1,
+    "policy_type": "full",
+    "convention": null,
+    "plate_take_requires_deliver": false,
+    "reset": "original no-op; pool objects persist across episodes and rounds"
+  },
+  "conditions": [
+    {
+      "name": "author_default_p025",
+      "p": 0.25,
+      "primary": true
+    },
+    {
+      "name": "author_no_navigation_noise_p000",
+      "p": 0,
+      "primary": false,
+      "event_selection_still_stochastic": true
+    }
+  ],
+  "L0_order": [
+    "LettuceOnionSalad",
+    "TomatoCarrotSalad",
+    "PotatoBroccoliSalad"
+  ],
+  "evaluation_seed": 6001,
+  "rounds_per_partner": 200,
+  "episodes_per_round": 5,
+  "episodes_per_partner": 1000,
+  "device": "cpu",
+  "threads_per_worker": 1,
+  "parallel_workers_per_task": 2,
+  "deterministic_ego_actions": false,
+  "weight_updates": false,
+  "total_episodes": 216000,
+  "results_storage": "origin VMs + local coordinator; no evaluation GitHub upload",
+  "models": [
+    {
+      "task_id": "k03-p01",
+      "condition": "k03",
+      "seed": 181,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p01/k03-p01-s181",
+      "run_id": "l2-181",
+      "config_sha256": "eb593322c78ecd9e3b33b97605dc3044895116cb92ce6a128fc4d45b0f0d5cd4",
+      "final_sha256": "45a4f365dee117db338bf0abdd09df6038693dcc73f65d7a286776b305878bba",
+      "training_l1_seeds": [
+        102,
+        103,
+        168
+      ]
+    },
+    {
+      "task_id": "k03-p01",
+      "condition": "k03",
+      "seed": 181,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p01/k03-p01-s181",
+      "run_id": "l2-181-u1000-from400",
+      "config_sha256": "5cf5808d186fde6f6a6032025e24de40eb7f305a81e810082474a4cf431c980d",
+      "final_sha256": "8a0ca6c22508888bea96ebcc90a46b139be30847cdc802de7b930167510f24c7",
+      "training_l1_seeds": [
+        102,
+        103,
+        168
+      ]
+    },
+    {
+      "task_id": "k03-p01",
+      "condition": "k03",
+      "seed": 182,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p01/k03-p01-s182",
+      "run_id": "l2-182",
+      "config_sha256": "70484d33362b6627bf251fccda9c0d82092431dc1f618195a8ffb19dd04f8237",
+      "final_sha256": "c78c2a08b12fde47cc593bd4a1294d0c2452f58884462fb1b2b28a0acfc40870",
+      "training_l1_seeds": [
+        160,
+        161,
+        165
+      ]
+    },
+    {
+      "task_id": "k03-p01",
+      "condition": "k03",
+      "seed": 182,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p01/k03-p01-s182",
+      "run_id": "l2-182-u1000-from400",
+      "config_sha256": "cd3bbc6bc081cb9414995626c7a3ffcb8a416e141603bf97075fd197f1b50a1d",
+      "final_sha256": "0facc16080852163240d81ecad3d161ece0544519f691959b521981e6453be50",
+      "training_l1_seeds": [
+        160,
+        161,
+        165
+      ]
+    },
+    {
+      "task_id": "k03-p02",
+      "condition": "k03",
+      "seed": 183,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p02/k03-p02-s183",
+      "run_id": "l2-183",
+      "config_sha256": "c0515af5a1dabd8f0d8ea8ecf8c831a29fbbf833817811a2900f9a015675c9f7",
+      "final_sha256": "2c8dc731ee93d26574a87f091bf041af02c37d31dd066f83b76774ba20fd7f79",
+      "training_l1_seeds": [
+        153,
+        165,
+        170
+      ]
+    },
+    {
+      "task_id": "k03-p02",
+      "condition": "k03",
+      "seed": 183,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p02/k03-p02-s183",
+      "run_id": "l2-183-u1000-from400",
+      "config_sha256": "13667a6ecdf6797a8b4a702ace3ce1be4c1058aab6c913f669440b643fd6b495",
+      "final_sha256": "943f62133ce558b56f1775fe5ca209d45675b5b622cbb35a106ff98e83dd69d3",
+      "training_l1_seeds": [
+        153,
+        165,
+        170
+      ]
+    },
+    {
+      "task_id": "k03-p02",
+      "condition": "k03",
+      "seed": 184,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p02/k03-p02-s184",
+      "run_id": "l2-184",
+      "config_sha256": "e82088657caf863ba6ca2d719db552debd857e1eba5100e9c6776c372c1a4828",
+      "final_sha256": "d12b28ba201d811fe8b95ae02856461a2c8fa503676b2bc40480ff4bbfa1d86c",
+      "training_l1_seeds": [
+        103,
+        153,
+        168
+      ]
+    },
+    {
+      "task_id": "k03-p02",
+      "condition": "k03",
+      "seed": 184,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p02/k03-p02-s184",
+      "run_id": "l2-184-u1000-from400",
+      "config_sha256": "160bea6f1e0086a557e5d0836854bca388ccfcfb57bf3a719916456eaf2bbb52",
+      "final_sha256": "d4407d2fe10fbb48a3cdf8cab144a45fdc99de5de0dec3fed80ee70a25d30555",
+      "training_l1_seeds": [
+        103,
+        153,
+        168
+      ]
+    },
+    {
+      "task_id": "k03-p03",
+      "condition": "k03",
+      "seed": 185,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p03/k03-p03-s185",
+      "run_id": "l2-185",
+      "config_sha256": "ed8d2557a15605db8878ab0627a047c73905a552f075a89ce4b0d84eaad8428c",
+      "final_sha256": "6a73302a67907645dbe6a7d32cf7e8327b982768fd021f6aa0d6daca86c18b9f",
+      "training_l1_seeds": [
+        157,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k03-p03",
+      "condition": "k03",
+      "seed": 185,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p03/k03-p03-s185",
+      "run_id": "l2-185-u1000-from400",
+      "config_sha256": "07bb24978b4abeb84b0e9b3c9f80a3fcbc4e9a41423ddb97b6e647c2cf1dac5b",
+      "final_sha256": "68fec17bfbaedf1d20653e5f54a0274d092fbdeca6fcce8cdde3ab8ea497fc63",
+      "training_l1_seeds": [
+        157,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k03-p03",
+      "condition": "k03",
+      "seed": 186,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k03-p03/k03-p03-s186",
+      "run_id": "l2-186",
+      "config_sha256": "40ef2cb30a961e64bad49bc7d12481600385721191c394d4a27a51880b2f3527",
+      "final_sha256": "0ce9d196eaa23c40015e2a132a0bf0512d32c0d41e0fb874b608f1ab86c4bccf",
+      "training_l1_seeds": [
+        102,
+        151,
+        153
+      ]
+    },
+    {
+      "task_id": "k03-p03",
+      "condition": "k03",
+      "seed": 186,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k03-p03/k03-p03-s186",
+      "run_id": "l2-186-u1000-from400",
+      "config_sha256": "cfe7abd1ce22f871431ede7b653af744b96ed90c4c4264ae8924e5588d925bba",
+      "final_sha256": "3577090dfbc9ffe4e22d5f3191a8c86f0789c269c962446f9963310fcc49dda6",
+      "training_l1_seeds": [
+        102,
+        151,
+        153
+      ]
+    },
+    {
+      "task_id": "k05-p01",
+      "condition": "k05",
+      "seed": 181,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p01/k05-p01-s181",
+      "run_id": "l2-181",
+      "config_sha256": "573055546d92c488b0c409295f75bf88d773c683d60d0acdc8b4877a6d2ca329",
+      "final_sha256": "f649f7dd5aa8672a474b35e8e8d586f9332ccace6cfa91882c29b22a177cb5a2",
+      "training_l1_seeds": [
+        102,
+        151,
+        161,
+        165,
+        166
+      ]
+    },
+    {
+      "task_id": "k05-p01",
+      "condition": "k05",
+      "seed": 181,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p01/k05-p01-s181",
+      "run_id": "l2-181-u1000-from400",
+      "config_sha256": "ce6a443737c284ce88470090147d4b621c1b876fbe95fa7f3a3827d1e8cd8660",
+      "final_sha256": "71b4853833b3a4098bcee5a547fd31321d6dd2d3565c02141948ae008c0e1237",
+      "training_l1_seeds": [
+        102,
+        151,
+        161,
+        165,
+        166
+      ]
+    },
+    {
+      "task_id": "k05-p01",
+      "condition": "k05",
+      "seed": 182,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p01/k05-p01-s182",
+      "run_id": "l2-182",
+      "config_sha256": "1b8c18bdef3f3f321b927d889a2298e069809fa91dcc84253ae701cc9e87986f",
+      "final_sha256": "5d2ba431b973c1fa8a0c2504162534a96a98e134b81800eb5bf04571b21a8640",
+      "training_l1_seeds": [
+        102,
+        151,
+        157,
+        162,
+        168
+      ]
+    },
+    {
+      "task_id": "k05-p01",
+      "condition": "k05",
+      "seed": 182,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p01/k05-p01-s182",
+      "run_id": "l2-182-u1000-from400",
+      "config_sha256": "ed0dfff7c1e0fd6444fa8fbf3cf3b885ea1c4e56061b8fec40ee16fa352ca749",
+      "final_sha256": "7ed1277d658bc3cbe50353522166e4f60409f87c2b941aa2e84da470177f264f",
+      "training_l1_seeds": [
+        102,
+        151,
+        157,
+        162,
+        168
+      ]
+    },
+    {
+      "task_id": "k05-p02",
+      "condition": "k05",
+      "seed": 183,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p02/k05-p02-s183",
+      "run_id": "l2-183",
+      "config_sha256": "cbc86e9886e2a5d91a6fd7a98b5d9fe478b1bd620a00e976655dd7f90d8b523a",
+      "final_sha256": "60fef7234b9c2cf896487a4161ffff15731571d0bd3ba01e0962d1e88fba3317",
+      "training_l1_seeds": [
+        103,
+        157,
+        160,
+        165,
+        168
+      ]
+    },
+    {
+      "task_id": "k05-p02",
+      "condition": "k05",
+      "seed": 183,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p02/k05-p02-s183",
+      "run_id": "l2-183-u1000-from400",
+      "config_sha256": "c530803ba1e5f8d39ad2f815c5a57cf901fb125bc744e27bf901f9b824b7f668",
+      "final_sha256": "b84b12e518ff738831be3377fc648544d41aa82dc1d6d78977db1d274e323e88",
+      "training_l1_seeds": [
+        103,
+        157,
+        160,
+        165,
+        168
+      ]
+    },
+    {
+      "task_id": "k05-p02",
+      "condition": "k05",
+      "seed": 184,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p02/k05-p02-s184",
+      "run_id": "l2-184",
+      "config_sha256": "41f3cafae3bad951a6a644002a980550d70499a62f330da12d45dbe3d30ebbe4",
+      "final_sha256": "3602f6a879db75e51ff6101df772f563752f838c3e715a425224dccc681eedb2",
+      "training_l1_seeds": [
+        102,
+        151,
+        153,
+        161,
+        166
+      ]
+    },
+    {
+      "task_id": "k05-p02",
+      "condition": "k05",
+      "seed": 184,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p02/k05-p02-s184",
+      "run_id": "l2-184-u1000-from400",
+      "config_sha256": "067c738f77a197021ae695a3f1f72242474233ae14b2d5f06f747decc54445a7",
+      "final_sha256": "c5255587de1df0ba8c57acfab3f2eeb28239efcf5e8928d71ed53fa5702a7839",
+      "training_l1_seeds": [
+        102,
+        151,
+        153,
+        161,
+        166
+      ]
+    },
+    {
+      "task_id": "k05-p03",
+      "condition": "k05",
+      "seed": 185,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p03/k05-p03-s185",
+      "run_id": "l2-185",
+      "config_sha256": "22f045a849ab1653cb1eab4bb729176d0a9d0767be7b8d6ebfea4c7e4fa88244",
+      "final_sha256": "b793d44c14b63af04328a1552563e9db273bccfead07c7771eee7132cacfbce9",
+      "training_l1_seeds": [
+        102,
+        151,
+        160,
+        164,
+        170
+      ]
+    },
+    {
+      "task_id": "k05-p03",
+      "condition": "k05",
+      "seed": 185,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p03/k05-p03-s185",
+      "run_id": "l2-185-u1000-from400",
+      "config_sha256": "d4f554111358e29aac70b0ef20d1f01812019d03d34cb75d6f2ffc3b665b85e8",
+      "final_sha256": "0020ab2402e2a38cb53977b9d7662d3e7628d621e616092c5425e1074c35ed3a",
+      "training_l1_seeds": [
+        102,
+        151,
+        160,
+        164,
+        170
+      ]
+    },
+    {
+      "task_id": "k05-p03",
+      "condition": "k05",
+      "seed": 186,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k05-p03/k05-p03-s186",
+      "run_id": "l2-186",
+      "config_sha256": "614b2d7210031e37bb6cd5a4974567441bf54316115fa45eacab6f9ca3d7d90a",
+      "final_sha256": "5be31e74511d5fac745d992a647eecab34b8a0f62a7c0acf28668fa9cf9c888c",
+      "training_l1_seeds": [
+        157,
+        161,
+        162,
+        164,
+        166
+      ]
+    },
+    {
+      "task_id": "k05-p03",
+      "condition": "k05",
+      "seed": 186,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k05-p03/k05-p03-s186",
+      "run_id": "l2-186-u1000-from400",
+      "config_sha256": "9e38325393f4878ef7d8da1098afb972291271c48956fd245a5fad241c4fb82e",
+      "final_sha256": "1d5766479205431deefd6b9a3b0a79ad8351ca601511dd7d020f33a4353edc4d",
+      "training_l1_seeds": [
+        157,
+        161,
+        162,
+        164,
+        166
+      ]
+    },
+    {
+      "task_id": "k15-p01",
+      "condition": "k15",
+      "seed": 181,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p01/k15-p01-s181",
+      "run_id": "l2-181",
+      "config_sha256": "b4c0df43d85efd13ef0e7279ad22fc5670c93b67cf9cc2e699615e6cb42f9716",
+      "final_sha256": "54c546f62f5409b689c1bd178f67f38781f334aa77a79406379061fc907993bd",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p01",
+      "condition": "k15",
+      "seed": 181,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p01/k15-p01-s181",
+      "run_id": "l2-181-u1000-from400",
+      "config_sha256": "e84df27ccb5703a787268c0ea98bf0faeebddabd7a9eb6583cbe6d6aa5c4e5b3",
+      "final_sha256": "f976e6bfdc3dc30d0b11c631f9a27d0fb7ce2f2bbafb3e2c288adfce753d6548",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p01",
+      "condition": "k15",
+      "seed": 182,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p01/k15-p01-s182",
+      "run_id": "l2-182",
+      "config_sha256": "a606345f4fa8fdb6dd419d9bfb2758d5ac8c08454dc933a38410c1564bd3cc8b",
+      "final_sha256": "8bce6b024e4b6e1d67c7048befc0559f574887f4d7589bc131127a8368ce8bd4",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p01",
+      "condition": "k15",
+      "seed": 182,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p01/k15-p01-s182",
+      "run_id": "l2-182-u1000-from400",
+      "config_sha256": "7c52ba962935e54ada477cf2434b145b25a34bf9d2d4e1481961c847995e5abe",
+      "final_sha256": "330c6c85fcff6edfc224e5476c7afb4e658c2ab04d3526b7eb09ec8a9da2329b",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p02",
+      "condition": "k15",
+      "seed": 183,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p02/k15-p02-s183",
+      "run_id": "l2-183",
+      "config_sha256": "b1efe941ad1420a929a382cd482989d6dfa7e6b9bc55aabadb6f9bcba7a537e4",
+      "final_sha256": "5dd1c006ff506f0d736b075569b1da5e275288d1383d3587edfbc9607d6f455c",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p02",
+      "condition": "k15",
+      "seed": 183,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p02/k15-p02-s183",
+      "run_id": "l2-183-u1000-from400",
+      "config_sha256": "564e5332fc7a4b9619f359467df4313c0382ff7dba6c7e07d2b1424cdc3d2cca",
+      "final_sha256": "f7628d2f0022337dfeed01307c2c0aaeb786fca696af0dd84b9792fd42ca1740",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p02",
+      "condition": "k15",
+      "seed": 184,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p02/k15-p02-s184",
+      "run_id": "l2-184",
+      "config_sha256": "2193ba06a380c43575c250102a61b92483a056d2a302b6690589b1a68115cddc",
+      "final_sha256": "db6023563c18b734aff86b0d2d3ec7582b9ae186cf4f929c8ff15fe2e2996f1e",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p02",
+      "condition": "k15",
+      "seed": 184,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p02/k15-p02-s184",
+      "run_id": "l2-184-u1000-from400",
+      "config_sha256": "afb9061c46e8048c45bc1ad63836693a4c60894903e67dc80d281f297ac9ff23",
+      "final_sha256": "fb566635cc582fea5c3b7a947f7f6ab1f6f47652f92dad7902f0996fa326e6dd",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p03",
+      "condition": "k15",
+      "seed": 185,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p03/k15-p03-s185",
+      "run_id": "l2-185",
+      "config_sha256": "230e53a5952038b866436033a19fd561b3db030a97fee132faa39f992ac22c11",
+      "final_sha256": "41f74e18cb371ad912344cb5d2f2820b5ecfa64d7f0416b28f5b830b9905ee50",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p03",
+      "condition": "k15",
+      "seed": 185,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p03/k15-p03-s185",
+      "run_id": "l2-185-u1000-from400",
+      "config_sha256": "891d6ebdef403d9eb316de12bdd41c34d2cfcbf73f08f375c9f5576f55ed978b",
+      "final_sha256": "4cfe45076b87e3c46ef041a92d120f31358de581347cf2016c636c5f2bbca1ec",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p03",
+      "condition": "k15",
+      "seed": 186,
+      "updates": 400,
+      "steps": 28800000,
+      "root": "outputs/l2-env3-400u-per-agent-18models-20261116-k15-p03/k15-p03-s186",
+      "run_id": "l2-186",
+      "config_sha256": "3df33dd8fd0472dba0ec1a004b2007686c37ee073f35b272eb961d00a065d31d",
+      "final_sha256": "18455b84ea17661d75477283d917be3d084a3d95c5b85ab92e18ccd0ea82b516",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    },
+    {
+      "task_id": "k15-p03",
+      "condition": "k15",
+      "seed": 186,
+      "updates": 1000,
+      "steps": 72000000,
+      "root": "outputs/l2-env3-1000u-continuation-20261116-k15-p03/k15-p03-s186",
+      "run_id": "l2-186-u1000-from400",
+      "config_sha256": "5a6d21546ec1cab793efce97d23bd55044c15600945e622975a321af2bcc91bf",
+      "final_sha256": "88f09cc4b4441ba25f3ec96818c077848000e377875f2091644a1440b8374e55",
+      "training_l1_seeds": [
+        101,
+        102,
+        103,
+        151,
+        153,
+        157,
+        160,
+        161,
+        162,
+        164,
+        165,
+        166,
+        167,
+        168,
+        170
+      ]
+    }
+  ]
+}

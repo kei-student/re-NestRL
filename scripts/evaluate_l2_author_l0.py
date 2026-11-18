@@ -123,7 +123,10 @@ def verify_run(directory, episodes_per_round=5):
 
 @torch.no_grad()
 def evaluate_author(config, output_root, checkpoint, policy_path, zoo_path, *,
-                    p, run_id, rounds=200, evaluation_seed=6001, pool_seed=1, driver_commit=None):
+                    p, run_id, rounds=200, evaluation_seed=6001, pool_seed=1, driver_commit=None,
+                    expected_updates=400):
+    if type(expected_updates) is not int or expected_updates not in (400, 1000):
+        raise ValueError("Explicit checkpoint budget must be400 or1000 updates")
     if (type(rounds) is not int or rounds<1 or type(evaluation_seed) is not int
             or not 0 <= evaluation_seed < 2**32 or config.episodes_per_round != 5):
         raise ValueError("Invalid five-episode evaluation budget/seed")
@@ -136,8 +139,10 @@ def evaluate_author(config, output_root, checkpoint, policy_path, zoo_path, *,
     ensure_registry(config,output_root)
     source=source_metadata()
     ego,manifest=load_policy(config,checkpoint,"cpu")
-    if manifest["ego_side"] != 0 or manifest["steps"] != 28800000:
-        raise ValueError("This evaluation requires completed left L2 total400")
+    expected_steps = expected_updates * config.batch_size
+    if (manifest["ego_side"] != 0 or manifest["steps"] != expected_steps
+            or config.total_steps != expected_steps):
+        raise ValueError("Completed left L2 manifest/config differ from explicit checkpoint budget")
     ego.requires_grad_(False)
     namespace=load_author(policy_path,zoo_path)
     pool=author_pool(namespace,p,pool_seed)
@@ -159,6 +164,7 @@ def evaluate_author(config, output_root, checkpoint, policy_path, zoo_path, *,
         "author_commit":AUTHOR_COMMIT,"author_policy_sha256":POLICY_SHA,"author_zoo_sha256":ZOO_SHA,
         "author_selected_AST_sha256":AST_SHA,"partner_level":"author_l0","partners":partner_metadata,
         "p":p,"pool_seed":pool_seed,"seed":evaluation_seed,"rounds":rounds,"episodes_per_round":5,
+        "checkpoint_updates":expected_updates,"checkpoint_steps":expected_steps,
         "episode_seed_rule":"seed+100000*canonical_recipe_index+1000*round+position",
         "ego_side":0,"partner_side":1,"deterministic_actions":False,"weight_updates":False,
         "author_reset":"exact original reset() no-op at each episode; same pool instance retained",
@@ -227,6 +233,8 @@ def main():
     parser.add_argument("--rounds",type=int,default=200)
     parser.add_argument("--evaluation-seed",type=int,default=6001)
     parser.add_argument("--pool-seed",type=int,default=1)
+    parser.add_argument("--expected-updates",type=int,choices=(400,1000),default=400,
+                        help="Authenticate the frozen checkpoint budget; never changes training")
     parser.add_argument("--threads",type=int,default=1)
     parser.add_argument("--driver-commit")
     args=parser.parse_args()
@@ -235,7 +243,8 @@ def main():
     torch.set_num_threads(1)
     result=evaluate_author(load_config(args.config),args.output_root,args.checkpoint,
         args.author_policy,args.author_zoo,p=args.p,run_id=args.run_id,rounds=args.rounds,
-        evaluation_seed=args.evaluation_seed,pool_seed=args.pool_seed,driver_commit=args.driver_commit)
+        evaluation_seed=args.evaluation_seed,pool_seed=args.pool_seed,driver_commit=args.driver_commit,
+        expected_updates=args.expected_updates)
     print(json.dumps(result,indent=2))
 if __name__=="__main__":
     main()
